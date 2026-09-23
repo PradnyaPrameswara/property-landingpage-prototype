@@ -1,0 +1,27 @@
+:root {
+  --gray-300: #5c5c5c;
+  --gray-200: #bdbdbd;
+  --gray-100: #dbdbdb;
+  --gray-50: #efefef;
+  --black: #0d0b0b;
+  --white: #ffffff;
+  --accent: #e72323;
+  --dark-red: #b91c1c;
+  --burgundi: #8b1515;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-display: 'Poppins', 'Inter', system-ui, sans-serif;
+  --h1: clamp(3rem, 2.194rem + 4.03vw, 6.88rem);
+  --h2: 2.5rem;
+  --section-py: 5rem;
+  --container-max: 81.25rem;
+  --container-px: 4.375rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+.reveal { opacity: 0; translate: 0 12px; }
+.reveal.is-visible { opacity: 1; translate: none; transition: opacity 0.6s ease, translate 0.6s ease; }
+
+@keyframes marquee { to { transform: translateX(-50%); } }
