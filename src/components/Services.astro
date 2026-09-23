@@ -7,38 +7,45 @@ import { servicesIntro, services } from '../content/landing';
     <div class="autotabs-wrapper">
       <h2 class="reveal">{servicesIntro.title}</h2>
       <div class="autotabs-container" data-autotabs>
-        <div class="services-panel">
+        <div class="services-content">
           {
             services.map((service, i) => (
-              <img
-                class={`servises-image${i === 0 ? ' active' : ''}`}
-                src={service.image}
-                alt={service.alt}
-                loading="lazy"
+              <div
+                class={`service-panel${i === 0 ? ' active' : ''}`}
                 data-panel={service.slug}
                 aria-hidden={i === 0 ? 'false' : 'true'}
-              />
+              >
+                <div class="services-heropage-wrapper">
+                  <img
+                    class="servises-image"
+                    src={service.image}
+                    alt={service.alt}
+                    loading={i === 0 ? 'eager' : 'lazy'}
+                  />
+                </div>
+                <p class="text-s service-desc">{service.excerpt}</p>
+              </div>
             ))
           }
         </div>
-        <div class="autotabs" role="list">
+        <ul class="autotabs">
           {
             services.map((service, i) => (
-              <a
-                class={`autotabs-tab reveal${i === 0 ? ' current' : ''}`}
-                href={service.href}
-                aria-label={service.title}
-                data-tab={service.slug}
-                data-active={i === 0 ? 'true' : 'false'}
-                role="listitem"
-              >
-                <span class="services-heder-wrapper">
-                  <span class="heading-m">{service.title}</span>
-                </span>
-              </a>
+              <li class="autotabs-item">
+                <a
+                  class={`autotabs-tab reveal${i === 0 ? ' current' : ''}`}
+                  href={service.href}
+                  data-tab={service.slug}
+                  data-active={i === 0 ? 'true' : 'false'}
+                >
+                  <span class="services-heder-wrapper">
+                    <span class="heading-m">{service.title}</span>
+                  </span>
+                </a>
+              </li>
             ))
           }
-        </div>
+        </ul>
         <div class="tabs-content-heading-wrapper-visible">
           <div class="services-wrapp">
             <div class="text text-services">{servicesIntro.body}</div>
@@ -69,9 +76,15 @@ import { servicesIntro, services } from '../content/landing';
 
   tabs.forEach((tab) => {
     const slug = tab.getAttribute('data-tab') ?? '';
-    tab.addEventListener('mouseenter', () => activate(slug));
     tab.addEventListener('focus', () => activate(slug));
   });
+
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    tabs.forEach((tab) => {
+      const slug = tab.getAttribute('data-tab') ?? '';
+      tab.addEventListener('mouseenter', () => activate(slug));
+    });
+  }
 </script>
 
 <style>
@@ -88,31 +101,60 @@ import { servicesIntro, services } from '../content/landing';
     align-items: start;
   }
 
-  .services-panel {
-    position: relative;
+  .services-content {
+    display: grid;
+    align-content: start;
+    min-width: 0;
+  }
+
+  .service-panel {
+    grid-area: 1 / 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    min-width: 0;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in;
+  }
+
+  .service-panel.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .services-heropage-wrapper {
     width: 100%;
     height: 22.5rem;
     overflow: hidden;
   }
 
   .servises-image {
-    position: absolute;
-    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: 0% 50%;
-    opacity: 0;
-    transition: opacity 0.3s ease-in;
+    display: block;
   }
 
-  .servises-image.active {
-    opacity: 1;
+  .service-desc {
+    margin: 0;
   }
 
   .autotabs {
     display: flex;
     flex-direction: column;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    min-width: 0;
+  }
+
+  .autotabs-item {
+    margin: 0;
+    padding: 0;
   }
 
   .autotabs-tab {
@@ -120,11 +162,12 @@ import { servicesIntro, services } from '../content/landing';
     text-decoration: none;
     display: flex;
     width: 100%;
+    min-height: 44px;
     padding: 2rem 0;
     border-top: 1px solid var(--gray-100);
   }
 
-  .autotabs-tab:last-child {
+  .autotabs-item:last-child .autotabs-tab {
     border-bottom: 1px solid var(--gray-100);
   }
 
@@ -138,6 +181,10 @@ import { servicesIntro, services } from '../content/landing';
       background-color 0.3s ease-in;
   }
 
+  .autotabs-tab.current:focus-visible {
+    outline-color: #fff;
+  }
+
   .tabs-content-heading-wrapper-visible {
     grid-column: 1 / -1;
   }
@@ -147,9 +194,74 @@ import { servicesIntro, services } from '../content/landing';
     color: var(--gray-300);
   }
 
+  .text-services {
+    font-size: 1rem;
+    line-height: 1.6;
+    letter-spacing: -0.03em;
+  }
+
+  @media (max-width: 991px) {
+    .autotabs-wrapper {
+      gap: 2rem;
+    }
+
+    .autotabs-container {
+      gap: 2rem;
+    }
+
+    .services-heropage-wrapper {
+      height: 20rem;
+    }
+  }
+
   @media (max-width: 767px) {
     .autotabs-container {
       grid-template-columns: 1fr;
+    }
+
+    .services-heropage-wrapper {
+      height: 18rem;
+    }
+
+    .autotabs-tab {
+      padding: 1.5rem 0;
+    }
+
+    .autotabs-tab.current {
+      padding: 2rem 1.5rem;
+    }
+  }
+
+  @media (max-width: 479px) {
+    .autotabs-wrapper {
+      gap: 1.5rem;
+    }
+
+    .autotabs-container {
+      gap: 1.5rem;
+    }
+
+    .services-heropage-wrapper {
+      height: 14rem;
+    }
+
+    .service-panel {
+      gap: 1.25rem;
+    }
+
+    .autotabs-tab {
+      padding: 1.25rem 0;
+    }
+
+    .autotabs-tab.current {
+      padding: 1.5rem 1.25rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .service-panel,
+    .autotabs-tab.current {
+      transition: none;
     }
   }
 </style>
