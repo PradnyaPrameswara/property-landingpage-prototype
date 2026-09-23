@@ -477,6 +477,36 @@ export const blogPosts: BlogPost[] = [
     sizes: BLOG_SIZES,
     href: '/blog/the-future-of-modular-architecture',
   },
+  {
+    slug: 'the-future-of-architecture-trends-to-watch',
+    date: 'October 30, 2024',
+    readTime: ' 5 min to read',
+    title: 'The Future of Architecture: Trends to Watch',
+    image: `${CDN}/6874b1f87d199e1c9937c4d7_0021.webp`,
+    srcset: '',
+    sizes: BLOG_SIZES,
+    href: '/blog/the-future-of-architecture-trends-to-watch',
+  },
+  {
+    slug: '3d-printing-in-architecture',
+    date: 'August 19, 2024',
+    readTime: ' 5 min to read',
+    title: '3D Printing in Architecture',
+    image: `${CDN}/68763f07a8769168f2894756_00111.webp`,
+    srcset: blogSrcset('68763f07a8769168f2894756_00111', 2464),
+    sizes: BLOG_SIZES,
+    href: '/blog/3d-printing-in-architecture',
+  },
+  {
+    slug: 'biophilic-design-in-modern-architecture',
+    date: 'August 30, 2024',
+    readTime: ' 5 min to read',
+    title: 'Biophilic Design in Modern Architecture',
+    image: `${CDN}/6874b32a60dd7413c3d21e87_0061.webp`,
+    srcset: blogSrcset('6874b32a60dd7413c3d21e87_0061', 2464),
+    sizes: BLOG_SIZES,
+    href: '/blog/biophilic-design-in-modern-architecture',
+  },
 ];
 
 export const navLinks: NavLink[] = [
@@ -521,3 +551,55 @@ export const cta = {
   title: 'Got a project? Let’s talk!',
   body: 'We value your privacy and promise to send you only the most important and interesting information.',
 };
+
+export const aboutIntro = {
+  title: 'About us',
+  body: 'We understand that your home is your sanctuary. Our mission is to assist you in creating a space that not only reflects your unique style but also enhances your lifestyle.',
+  ctaLabel: 'Get in touch',
+  ctaHref: '#CTA',
+};
+
+export const aboutHelps: Advantage[] = [
+  {
+    number: '01',
+    title: 'Expert design consultations',
+    body: 'Our experienced team of interior designers is here to guide you through the creative process. From selecting the perfect color palette to optimizing spatial layouts, we offer personalized consultations to ensure your vision comes to life.',
+    headingLevel: 's',
+  },
+  {
+    number: '02',
+    title: 'Customization for uniqueness',
+    body: "Make your home truly yours with our customization options. Whether it's personalized furniture or bespoke decor, we provide opportunities to add unique touches that reflect your personality and lifestyle.",
+    headingLevel: 's',
+  },
+  {
+    number: '03',
+    title: 'Quality assurance',
+    body: 'We take pride in delivering products of the highest quality. Our commitment to craftsmanship ensures that every piece you bring into your home meets our stringent standards, promising longevity and enduring style.',
+    headingLevel: 's',
+  },
+];
+
+export const contactIntro = { title: 'Connect with us' };
+
+export type ContactCard = {
+  title: string;
+  lines: string[];
+  links?: Array<{ label: string; href: string }>;
+};
+
+export const contactCards: ContactCard[] = [
+  {
+    title: 'Address',
+    lines: ['752 New South Headr Rd', 'Triple Bay SWFW 3148,', 'New York'],
+  },
+  {
+    title: 'Contact',
+    lines: ['3853315402', 'contactemail@studios.com'],
+    links: [
+      { label: '3853315402', href: 'tel:3853315402' },
+      { label: 'contactemail@studios.com', href: 'mailto:contactemail@studios.com' },
+    ],
+  },
+  { title: 'Social', lines: ['Instagram', 'Twitter', 'Linkedin'] },
+];

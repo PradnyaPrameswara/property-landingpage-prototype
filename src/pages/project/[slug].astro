@@ -1,0 +1,133 @@
+---
+import Base from '../../layouts/Base.astro';
+import Faq from '../../components/Faq.astro';
+import CTASection from '../../components/CTASection.astro';
+import { projectDetails } from '../../content/generated';
+
+export function getStaticPaths() {
+  return projectDetails.map((project) => ({ params: { slug: project.slug }, props: { project } }));
+}
+
+const { project } = Astro.props;
+const related = projectDetails.filter((p) => p.slug !== project.slug && p.service === project.service);
+const fallback = projectDetails.filter((p) => p.slug !== project.slug && p.service !== project.service);
+const relatedShown = [...related, ...fallback].slice(0, 3);
+const metaRows: Array<[string, string]> = [
+  ['Client', project.client],
+  ['Budget', project.budget],
+  ['Date', project.date],
+  ['Location', project.location],
+  ['Service', project.service],
+];
+---
+
+<Base title={`Projects | ${project.h1} | ProForma`} description={project.description}>
+  <section class="section section-margin" id="hero">
+    <div class="container">
+      <h1 class="reveal">{project.h1}</h1>
+      <div class="text-m reveal">{project.description}</div>
+      <img class="detail-cover reveal" src={project.cover} alt="" loading="eager" />
+      <div class="blog-post-grid">
+        <div class="sticky-content">
+          <div class="meta-grid">
+            {
+              metaRows.map(([label, value]) => (
+                <div>
+                  <div class="label text-s">{label}</div>
+                  <div class="text-m">{value}</div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+        <div class="richtext reveal" set:html={project.body} />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="reveal">Our projects</h2>
+      <div class="related-grid">
+        {
+          relatedShown.map((item) => (
+            <a class="project-card" href={`/project/${item.slug}`} aria-label={item.h1}>
+              <span class="projects-image-wrapper">
+                <img class="image-full-width" src={item.cover} alt="" loading="lazy" />
+              </span>
+              <span class="projects-text-wrapper">
+                <span class="heading-s">{item.h1}</span>
+                <span class="grey-content">
+                  <span class="text-s">{item.service}</span>
+                </span>
+              </span>
+            </a>
+          ))
+        }
+      </div>
+      <div class="button-wrapper-center">
+        <a class="button-white" href="/projects" aria-label="button">
+          <span class="swap">
+            <span>Go to projects</span>
+            <span aria-hidden="true">Go to projects</span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Faq />
+  <CTASection />
+</Base>
+
+<style>
+  .section-margin {
+    padding-top: 9rem;
+  }
+
+  .blog-post-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .project-card {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .image-full-width {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+
+  .projects-text-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .button-wrapper-center {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+
+  @media (max-width: 767px) {
+    .related-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

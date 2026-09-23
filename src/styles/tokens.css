@@ -556,3 +556,92 @@ button:hover .arrow svg {
     font-size: 1.5rem;
   }
 }
+
+/* Rich text bodies from the Webflow export. Scoped, unbranded. */
+.richtext {
+  color: var(--black);
+  overflow-wrap: break-word;
+}
+
+.richtext h2 {
+  margin: 2rem 0 1rem;
+}
+
+.richtext h3,
+.richtext h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  margin: 1.75rem 0 0.75rem;
+}
+
+.richtext p,
+.richtext ul,
+.richtext ol {
+  margin: 0 0 1rem;
+  line-height: 1.6;
+}
+
+.richtext ul,
+.richtext ol {
+  padding-left: 1.5rem;
+}
+
+.richtext figure {
+  margin: 2rem 0;
+}
+
+.richtext figure img {
+  width: 100%;
+}
+
+.richtext a {
+  text-decoration: underline;
+}
+
+/* Detail page heroes. */
+.detail-hero {
+  padding-top: 9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.detail-cover {
+  width: 100%;
+  aspect-ratio: 16 / 8;
+  object-fit: cover;
+}
+
+.meta-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.5rem;
+  padding: 2rem 0;
+  border-top: 1px solid var(--gray-100);
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.meta-grid .label {
+  color: var(--gray-300);
+}
+
+.price-card {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  background: var(--gray-50);
+  padding: 2rem;
+}
+
+.price-card .amount {
+  font-family: var(--font-display);
+  font-size: var(--h2);
+  letter-spacing: -0.06em;
+}
+
+@media (max-width: 767px) {
+  .meta-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}

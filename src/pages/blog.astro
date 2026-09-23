@@ -1,0 +1,115 @@
+---
+import Base from '../layouts/Base.astro';
+import CTASection from '../components/CTASection.astro';
+import { blogPosts } from '../content/landing';
+import { blogDetails } from '../content/generated';
+
+const bySlug = new Map(blogDetails.map((d) => [d.slug, d]));
+---
+
+<Base
+  title="Blog | ProForma"
+  description="Explore ProForma's blog: dive into the world of architecture and interior design with our expert insights, articles, and tips."
+>
+  <section class="section section-margin section-long-bottom" id="hero">
+    <div class="container">
+      <h1 class="reveal">Blog</h1>
+      <div class="blog-collection-list">
+        {
+          blogPosts.map((post) => {
+            const detail = bySlug.get(post.slug);
+            return (
+              <div class="blog-collection-item reveal">
+                <a class="blog-card-wrapper" href={post.href} aria-label={detail?.h1 ?? post.slug}>
+                  <span class="blog-card-image-wrapper">
+                    <img
+                      class="image-full-width"
+                      src={post.image}
+                      srcset={post.srcset || undefined}
+                      sizes={post.sizes}
+                      alt=""
+                      loading="lazy"
+                    />
+                  </span>
+                  <span class="blog-card-content">
+                    <span class="grey-content">
+                      <span class="text-s">{post.date}</span>
+                    </span>
+                    <span class="heading-s">{detail?.h1 ?? post.slug}</span>
+                    <span class="grey-content">
+                      <span class="text-s">{detail?.description ?? ''}</span>
+                    </span>
+                    <span class="blog-card-inner">
+                      <span class="text-s">{post.readTime}</span>
+                      <span class="round-button">
+                        <span class="arrow" aria-hidden="true">
+                          <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                              d="M1.5 11L6.5 6L1.5 1"
+                              stroke="currentColor"
+                              stroke-width="1.5"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                        </span>
+                      </span>
+                    </span>
+                  </span>
+                </a>
+              </div>
+            );
+          })
+        }
+      </div>
+    </div>
+  </section>
+
+  <CTASection />
+</Base>
+
+<style>
+  .section-margin {
+    padding-top: 9rem;
+  }
+
+  .blog-collection-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .blog-card-wrapper {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .image-full-width {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+  }
+
+  .blog-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .blog-card-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  @media (max-width: 767px) {
+    .blog-collection-list {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

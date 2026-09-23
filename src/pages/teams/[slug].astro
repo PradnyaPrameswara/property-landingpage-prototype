@@ -1,0 +1,91 @@
+---
+import Base from '../../layouts/Base.astro';
+import Faq from '../../components/Faq.astro';
+import CTASection from '../../components/CTASection.astro';
+import { teamDetails } from '../../content/generated';
+import { team } from '../../content/landing';
+
+export function getStaticPaths() {
+  return teamDetails.map((member) => ({ params: { slug: member.slug }, props: { member } }));
+}
+
+const { member } = Astro.props;
+const card = team.find((t) => t.slug === member.slug);
+---
+
+<Base title={`Teams | ${member.h1} | ProForma`} description={member.description}>
+  <section class="section section-margin" id="hero">
+    <div class="container">
+      <div class="grey-content">
+        <div class="text-m reveal">{card?.role ?? ''}</div>
+      </div>
+      <h1 class="reveal">{member.h1}</h1>
+      <div class="text-m reveal">{member.description}</div>
+      <img class="detail-cover reveal" src={member.cover} alt={member.h1} loading="eager" />
+      <div class="team-grid">
+        <div class="richtext reveal" set:html={member.body} />
+        <aside class="sticky-team">
+          <div class="heading-m">{member.h1}</div>
+          <div class="grey-content">
+            <div class="text-s">{card?.role ?? ''}</div>
+          </div>
+          <div class="text-s">{member.description}</div>
+          <div class="sticky-team-bottom-content">
+            <a class="text-inner-link" href={`mailto:${member.email}`}>{member.email}</a>
+            <a class="text-inner-link" href={`tel:${member.phone}`}>{member.phone}</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <Faq />
+  <CTASection />
+</Base>
+
+<style>
+  .section-margin {
+    padding-top: 9rem;
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+    margin-top: 2rem;
+    align-items: start;
+  }
+
+  .sticky-team {
+    position: sticky;
+    top: 6rem;
+    background: var(--gray-50);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .sticky-team-bottom-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-top: 1rem;
+  }
+
+  .text-inner-link {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  @media (max-width: 767px) {
+    .team-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .sticky-team {
+      position: static;
+    }
+  }
+</style>

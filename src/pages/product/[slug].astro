@@ -1,0 +1,57 @@
+---
+import Base from '../../layouts/Base.astro';
+import CTASection from '../../components/CTASection.astro';
+import { serviceDetails } from '../../content/generated';
+
+export function getStaticPaths() {
+  return serviceDetails.map((service) => ({ params: { slug: service.slug }, props: { service } }));
+}
+
+const { service } = Astro.props;
+---
+
+<Base title={`Services | ${service.h1} | ProForma`} description={service.description}>
+  <section class="section section-margin" id="hero">
+    <div class="container">
+      <h1 class="reveal">{service.h1}</h1>
+      <div class="text-m reveal">{service.description}</div>
+      <div class="price-card reveal">
+        <div class="grey-content">
+          <div class="text-s">Price</div>
+        </div>
+        <div class="amount">
+          {service.priceSymbol}
+          {service.price}
+        </div>
+      </div>
+      <img class="detail-cover reveal" src={service.cover} alt="" loading="eager" />
+      <div class="richtext reveal" set:html={service.body} />
+      <div class="button-wrapper reveal">
+        <a class="button-white" href="/contact" aria-label="contact">
+          <span class="swap">
+            <span>Order now</span>
+            <span aria-hidden="true">Order now</span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <CTASection />
+</Base>
+
+<style>
+  .section-margin {
+    padding-top: 9rem;
+  }
+
+  .detail-hero-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .button-wrapper {
+    margin-top: 2rem;
+  }
+</style>
