@@ -12,23 +12,22 @@ const tones = ['red', 'dark-red', 'burgundi-red'];
         <div class="gallery-item">
           <div class="gallery-item-sticky">
             <div class={`gallery-item-inner mobile-flex card-slide ${tones[i]}`}>
-              <div class="container gallery-grid">
-                <div class="gallery-copy">
+              <div class="gallery-copy">
+                <div class="container">
                   <div class="heading reveal">{slide.heading}</div>
                   <div class="flex-text-wrapper reveal">
                     <div class="heading-s">{slide.subheading}</div>
                     <div class="text-s">{slide.body}</div>
                   </div>
                 </div>
-                <div class="gallery-media">
-                  <img
-                    class="gallery-item-media-rules"
-                    src={slide.image}
-                    alt={slide.alt}
-                    width="640"
-                    loading="lazy"
-                  />
-                </div>
+              </div>
+              <div class="gallery-media">
+                <img
+                  class="gallery-item-media-rules"
+                  src={slide.image}
+                  alt={slide.alt}
+                  loading="lazy"
+                />
               </div>
             </div>
           </div>
@@ -48,57 +47,80 @@ const tones = ['red', 'dark-red', 'burgundi-red'];
     height: 20vh;
   }
 
-  .gallery-grid {
+  .gallery-item-inner {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    align-items: center;
     width: 100%;
+    min-height: 100svh;
   }
 
   .gallery-copy {
     display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+    align-items: center;
     color: var(--white);
+  }
+
+  .gallery-copy .container {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
   }
 
   .gallery-copy .heading {
     font-family: var(--font-display);
-    font-size: var(--h2);
+    font-size: 4.375rem;
     line-height: 1.1;
     letter-spacing: -0.06em;
   }
 
-  .card-slide {
-    width: 100%;
-    min-height: 100svh;
+  .flex-text-wrapper {
     display: flex;
-    align-items: center;
-    padding: 4rem 0;
+    flex-direction: column;
+    gap: 1rem;
   }
 
-  .card-slide.red {
+  .card-slide.red .gallery-copy {
     background: var(--accent);
   }
 
-  .card-slide.dark-red {
+  .card-slide.dark-red .gallery-copy {
     background: var(--dark-red);
   }
 
-  .card-slide.burgundi-red {
+  .card-slide.burgundi-red .gallery-copy {
     background: var(--burgundi);
+  }
+
+  .gallery-media {
+    min-height: 100svh;
   }
 
   .gallery-item-media-rules {
     width: 100%;
-    max-width: 640px;
+    height: 100%;
+    min-height: 100svh;
     object-fit: cover;
+    display: block;
+  }
+
+  @media (max-width: 991px) {
+    .gallery-copy .heading {
+      font-size: 3.5rem;
+    }
   }
 
   @media (max-width: 767px) {
-    .gallery-grid {
+    .gallery-item-inner.mobile-flex {
       grid-template-columns: 1fr;
+    }
+
+    .gallery-media,
+    .gallery-item-media-rules {
+      min-height: 50svh;
+    }
+
+    .gallery-copy .heading {
+      font-size: 2.5rem;
     }
   }
 </style>

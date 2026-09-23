@@ -74,7 +74,7 @@ export const services: Service[] = [
     slug: 'decoration',
     title: 'Decoration',
     excerpt:
-      'We specialize in creating customized decor that enhances the character and atmosphere of any space. Our team carefully selects materials, colors, and furnishings to craft designs that reflect your personal taste and elevate the spaceâ€™s visual appeal.',
+      'We specialize in creating customized decor that enhances the character and atmosphere of any space. Our team carefully selects materials, colors, and furnishings to craft designs that reflect your personal taste and elevate the space’s visual appeal.',
     image: `${CDN}/686d2c8efa574682f32fb3b7_s002.webp`,
     alt: 'Arhitecture Design',
     href: '/product/decoration',
@@ -227,7 +227,7 @@ export const gallerySlides: GallerySlide[] = [
   {
     heading: 'Convenience meets exceptional service',
     subheading: 'We value your time and convenience.',
-    body: "We value your time and convenience. That's why we offer seamless online shopping experiences, swift delivery services, and flexible payment options. Our commitment to customer satisfaction extends beyond the purchase — we're here to ensure your ongoing delight with our products.",
+    body: "We value your time and convenience. That’s why we offer seamless online shopping experiences, swift delivery services, and flexible payment options. Our commitment to customer satisfaction extends beyond the purchase — we’re here to ensure your ongoing delight with our products.",
     image: `${SLIDES}/686779e608de9968fddd8cae_slide3.webp`,
     alt: 'House',
   },
@@ -298,7 +298,7 @@ export const team: TeamMember[] = [
 
 export const reviewsIntro = {
   title: 'Our commitment: quality and style',
-  body: "Whether you're looking for the perfect sofa to unwind after a long day or unique decor pieces to add a personal touch, our selection is designed to meet the highest standards of style and durability.",
+  body: "Whether you’re looking for the perfect sofa to unwind after a long day or unique decor pieces to add a personal touch, our selection is designed to meet the highest standards of style and durability.",
 };
 
 export const reviewStars =
@@ -313,7 +313,7 @@ export const reviewsListA: Review[] = [
   },
   {
     quote:
-      "The office they designed for us has significantly boosted employee morale and productivity. It's a joy to work there.",
+      "The office they designed for us has significantly boosted employee morale and productivity. It’s a joy to work there.",
     author: 'Daniel R.',
     href: '/reviews/vonami',
   },
@@ -331,7 +331,7 @@ export const reviewsListA: Review[] = [
   },
   {
     quote:
-      "They truly redefined what's possible in modern living. Every aspect of our home feels intentionally crafted and incredibly functional.",
+      "They truly redefined what’s possible in modern living. Every aspect of our home feels intentionally crafted and incredibly functional.",
     author: 'John, 28 years',
     href: '/reviews/luxury-stake',
   },
@@ -343,7 +343,7 @@ export const reviewsListA: Review[] = [
   },
   {
     quote:
-      "The team delivered a breathtaking commercial building that perfectly encapsulates our brand's forward-thinking ethos.",
+      "The team delivered a breathtaking commercial building that perfectly encapsulates our brand’s forward-thinking ethos.",
     author: 'M. White',
     href: '/reviews/live-music-avenue',
   },
@@ -380,25 +380,25 @@ export const reviewsListB: Review[] = [
   },
   {
     quote:
-      "I never thought our historic property could be so beautifully modernized while retaining its charm. They're geniuses.",
+      "I never thought our historic property could be so beautifully modernized while retaining its charm. They’re geniuses.",
     author: 'Chris Taylor',
     href: '/reviews/art-gallery-exhibition',
   },
   {
     quote:
-      "The hiking trail offers breathtaking views and a chance to connect with nature. The path is well-marked and suitable for all skill levels. Along the way, we encountered beautiful wildflowers and even spotted some wildlife. It was a refreshing escape from the city, and I can't wait to return.",
+      "The hiking trail offers breathtaking views and a chance to connect with nature. The path is well-marked and suitable for all skill levels. Along the way, we encountered beautiful wildflowers and even spotted some wildlife. It was a refreshing escape from the city, and I can’t wait to return.",
     author: 'Laura Martinez',
     href: '/reviews/scenic-hiking-trail',
   },
   {
     quote:
-      "We are thrilled with the result and sincerely appreciate the entire team. If you're looking for a reliable partner to create coziness in your home, I unequivocally recommend turning to this company.",
+      "We are thrilled with the result and sincerely appreciate the entire team. If you’re looking for a reliable partner to create coziness in your home, I unequivocally recommend turning to this company.",
     author: 'David Lee, 36 years',
     href: '/reviews/cozy-bookstore-cafe',
   },
   {
     quote:
-      "We are thrilled with the result and sincerely appreciate the entire team. If you're looking for a reliable partner to create coziness in your home",
+      "We are thrilled with the result and sincerely appreciate the entire team. If you’re looking for a reliable partner to create coziness in your home",
     author: 'Sarah Wilson, 41 years',
     href: '/reviews/family-friendly-amusement-park',
   },
@@ -471,7 +471,7 @@ export const blogPosts: BlogPost[] = [
     date: 'July 30, 2024',
     readTime: ' 5 min to read',
     title:
-      "Explore how pre-fabricated units are revolutionizing construction speed and sustainability. This article examines the transformative potential of modular architecture in the building industry's future.",
+      "Explore how pre-fabricated units are revolutionizing construction speed and sustainability. This article examines the transformative potential of modular architecture in the building industry’s future.",
     image: `${CDN}/6874b2745001139fbf8e5b4b_0031.webp`,
     srcset: blogSrcset('6874b2745001139fbf8e5b4b_0031', 2496),
     sizes: BLOG_SIZES,
@@ -548,7 +548,7 @@ export const footerSocials: NavLink[] = [
 ];
 
 export const cta = {
-  title: 'Got a project? Letâ€™s talk!',
+  title: 'Got a project? Let’s talk!',
   body: 'We value your privacy and promise to send you only the most important and interesting information.',
 };
 
@@ -569,7 +569,7 @@ export const aboutHelps: Advantage[] = [
   {
     number: '02',
     title: 'Customization for uniqueness',
-    body: "Make your home truly yours with our customization options. Whether it's personalized furniture or bespoke decor, we provide opportunities to add unique touches that reflect your personality and lifestyle.",
+    body: "Make your home truly yours with our customization options. Whether it’s personalized furniture or bespoke decor, we provide opportunities to add unique touches that reflect your personality and lifestyle.",
     headingLevel: 's',
   },
   {
@@ -603,6 +603,10 @@ export const contactCards: ContactCard[] = [
   },
   { title: 'Social', lines: ['Instagram', 'Twitter', 'Linkedin'] },
 ];
+
+
+
+
 
 
 
