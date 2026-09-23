@@ -1,0 +1,35 @@
+---
+import '../styles/tokens.css';
+import { services, projects, team, blog } from '../content/landing';
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Property Landingpage Prototype</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <main>
+      <section id="hero"><h1>Elevate your living</h1></section>
+      <section id="services"><h2>Our services</h2></section>
+      <section><h2>Our projects</h2></section>
+      <section><h2>Our team of specialist</h2></section>
+      <section><h2>ProForma blog insights</h2></section>
+      <section id="CTA"><h2>Got a project? Let's talk!</h2></section>
+    </main>
+    <script>
+      const items = document.querySelectorAll('.reveal');
+      const io = new IntersectionObserver((entries) => {
+        for (const e of entries) if (e.isIntersecting) e.target.classList.add('is-visible');
+      });
+      items.forEach((el) => io.observe(el));
+    </script>
+  </body>
+</html>
