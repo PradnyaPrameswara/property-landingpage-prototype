@@ -44,7 +44,8 @@ const contactClass = variant === 'light' ? 'button-white desktop-only' : 'button
       </button>
     </div>
   </div>
-  <div class="header-blur-background hidden" data-menu-blur aria-hidden="true"></div>
+</div>
+<div class="header-blur-background hidden" data-menu-blur aria-hidden="true"></div>
   <div class="mobile-menu" data-mobile-menu role="dialog" aria-modal="true" aria-label="Menu">
     <button class="burger" type="button" aria-label="Close menu" data-menu-close>
       <span class="burger-lines" aria-hidden="true">
@@ -76,7 +77,6 @@ const contactClass = variant === 'light' ? 'button-white desktop-only' : 'button
       </span>
     </a>
   </div>
-</div>
 
 <style>
   .logo {
@@ -137,6 +137,14 @@ const contactClass = variant === 'light' ? 'button-white desktop-only' : 'button
   .mobile-menu a {
     text-decoration: none;
     color: inherit;
+  }
+
+  .mobile-menu .button-white {
+    color: var(--black);
+  }
+
+  .mobile-menu .button-white:hover {
+    color: var(--white);
   }
 
   @media (max-width: 991px) {
