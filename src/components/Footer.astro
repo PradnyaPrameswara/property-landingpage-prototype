@@ -94,9 +94,10 @@ import { footerPages, footerCms, footerUtility, footerSocials } from '../content
 
 <style>
   .footer-dark {
-    background: var(--black);
+    background: var(--accent);
     color: var(--white);
-    padding: var(--section-py) 0 2rem;
+    padding: 5rem 0 1.875rem;
+    overflow: hidden;
   }
 
   .footer-wrapper {
@@ -125,10 +126,16 @@ import { footerPages, footerCms, footerUtility, footerSocials } from '../content
 
   .footer-link {
     text-decoration: none;
-    color: var(--white);
+    color: #fff;
+    opacity: 0.7;
     min-height: 44px;
     display: inline-flex;
     align-items: center;
+    transition: opacity 0.3s linear;
+  }
+
+  .footer-link:hover {
+    opacity: 1;
   }
 
   .footer-social-block {
@@ -157,14 +164,20 @@ import { footerPages, footerCms, footerUtility, footerSocials } from '../content
   }
 
   .footer-logo-wrapper {
-    padding: 2rem 0;
+    padding: 0;
   }
 
   .footer-logo {
-    font-family: var(--font-display);
-    font-size: clamp(3rem, 8vw, 6rem);
-    letter-spacing: -0.06em;
-    line-height: 1;
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 17vw;
+    line-height: 0.9;
+    letter-spacing: -0.08em;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10rem 0 10rem -1rem;
   }
 
   .footer-divider {

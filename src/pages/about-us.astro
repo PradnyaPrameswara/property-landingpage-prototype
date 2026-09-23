@@ -11,6 +11,7 @@ import { aboutIntro, aboutHelps } from '../content/landing';
   description="Explore ProForma's About Us page: discover our company philosophy, benefits of expert consultations, customization, and quality assurance."
 >
   <section class="section hero-section" id="hero">
+    <div class="bg-about" aria-hidden="true"></div>
     <div class="container">
       <div class="hero-wrapper">
         <div class="hero-left-content">
@@ -61,12 +62,26 @@ import { aboutIntro, aboutHelps } from '../content/landing';
 
 <style>
   .hero-section {
-    background: var(--black);
     color: var(--white);
-    padding-top: 9rem;
-    min-height: 70svh;
+    padding-top: 6.1rem;
+    min-height: 100svh;
     display: flex;
     align-items: center;
+  }
+
+  .bg-about {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-image: url('/images/6870b759eca23be9cef0f716_about.webp');
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .hero-section .container {
+    position: relative;
+    z-index: 1;
   }
 
   .hero-wrapper {

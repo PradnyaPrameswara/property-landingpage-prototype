@@ -27,7 +27,7 @@ export function NewsletterForm() {
 
   return (
     <div className="form-block">
-      <form className="form" id="email-form" name="email-form" onSubmit={onSubmit} noValidate={false}>
+      <form className="form" id="email-form" name="email-form" onSubmit={onSubmit} noValidate>
         <TextField
           id="Email-3"
           name="Email"

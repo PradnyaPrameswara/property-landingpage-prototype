@@ -18,9 +18,23 @@ import { NewsletterForm } from './islands/NewsletterForm';
 </section>
 
 <style>
+  .section.cta {
+    background-image:
+      linear-gradient(to bottom, var(--black-light-50), var(--black-light-50)),
+      url('/images/686fae0a49f3d6062a09c27f_cta.webp');
+    background-position: 0 0, 50% 100%;
+    background-repeat: repeat, no-repeat;
+    background-size: auto, cover;
+    min-height: 50rem;
+    display: flex;
+    align-items: center;
+    color: var(--white);
+  }
+
   .container-flex-center {
     display: flex;
     justify-content: center;
+    width: 100%;
   }
 
   .cta-wrapper {
@@ -29,7 +43,8 @@ import { NewsletterForm } from './islands/NewsletterForm';
     text-align: center;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    align-items: center;
+    gap: 3.75rem;
   }
 
   .cta-wrapper-flex {

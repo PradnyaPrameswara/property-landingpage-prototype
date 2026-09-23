@@ -5,6 +5,7 @@ const words = hero.title.split(' ');
 ---
 
 <section class="section hero-section" id="hero">
+  <div class="bg-about-us" aria-hidden="true"></div>
   <div class="container">
     <div class="hero-wrapper">
       <div class="hero-left-content">
@@ -34,22 +35,48 @@ const words = hero.title.split(' ');
 
 <style>
   .hero-section {
-    background: var(--black);
     color: var(--white);
-    padding-top: 9rem;
+    padding-top: 6.1rem;
     min-height: 100svh;
     display: flex;
-    align-items: center;
+    align-items: stretch;
+  }
+
+  .bg-about-us {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-image: url('/images/687de0372adef1af8e3e9473_main-transform.webp');
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .hero-section .container {
+    position: relative;
+    z-index: 1;
+    display: flex;
   }
 
   .hero-wrapper {
-    max-width: 60rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    width: 100%;
   }
 
   .hero-left-content {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    justify-content: flex-end;
+    gap: 2.5rem;
+    padding-bottom: 4rem;
+  }
+
+  @media (max-width: 767px) {
+    .hero-wrapper {
+      grid-template-columns: 1fr;
+    }
   }
 
   .hero-left-content .text-m {

@@ -8,6 +8,8 @@
   --accent: #e72323;
   --dark-red: #b91c1c;
   --burgundi: #8b1515;
+  --black-light-50: #00000080;
+  --white-20: #fff3;
   --font-body: 'Inter', system-ui, -apple-system, sans-serif;
   --font-display: 'Poppins', 'Inter', system-ui, sans-serif;
   --h1: clamp(3rem, 2.194rem + 4.03vw, 6.88rem);
@@ -178,7 +180,7 @@ a:focus-visible .swap > span:last-child {
   color: var(--black);
   border: 1px solid var(--black);
   border-radius: 6.25rem;
-  padding: 1rem 2rem;
+  padding: 1rem 1.75rem;
   font-size: 1rem;
   line-height: 1.6;
   letter-spacing: -0.03em;
@@ -208,7 +210,7 @@ a:focus-visible .swap > span:last-child {
   height: 3.88rem;
   min-width: 44px;
   min-height: 44px;
-  border-radius: 999px;
+  border-radius: 3.13rem;
   background: var(--gray-50);
   color: var(--black);
   display: grid;
@@ -396,13 +398,19 @@ button:hover .arrow svg {
   align-items: center;
 }
 
-/* Header. */
+/* Header. Fixed with backdrop blur over the hero. */
 .site-header {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 50;
+  height: 6.1rem;
+  background: var(--black-light-50);
+  -webkit-backdrop-filter: blur(50px);
+  backdrop-filter: blur(50px);
+  border-bottom: 1px solid var(--white-20);
+  color: var(--white);
 }
 
 .header-inner {
@@ -458,11 +466,16 @@ button:hover .arrow svg {
   display: none;
 }
 
+.hidden {
+  display: none !important;
+}
+
 /* Newsletter form. */
 .text-field {
   width: 100%;
   background: transparent;
-  border: 1px solid var(--black);
+  /* Source declares `border: 1px #000` (no style keyword): computed result is borderless. */
+  border: 0;
   border-radius: 6.25rem;
   padding: 1rem 1.5rem;
   font-size: 1rem;
@@ -480,7 +493,7 @@ button:hover .arrow svg {
   width: 3.875rem;
   height: 3.875rem;
   border-radius: 100px;
-  border: 1px solid var(--black);
+  border: 0;
   background: var(--gray-50);
   color: var(--black);
   display: grid;
@@ -501,6 +514,9 @@ button:hover .arrow svg {
   display: flex;
   gap: 1rem;
   align-items: center;
+  background: var(--white);
+  border-radius: 50px;
+  padding: 4px 4px 4px 1.5rem;
 }
 
 .success-message {
@@ -628,9 +644,15 @@ button:hover .arrow svg {
 
 .price-card {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
   gap: 2rem;
-  background: var(--gray-50);
+  background: var(--white);
+  width: 22.25rem;
+  max-width: 100%;
+  min-width: 17rem;
+  aspect-ratio: 1 / 1;
   padding: 2rem;
 }
 
