@@ -199,7 +199,7 @@ src/components/{Hero,Services,LogosMarquee,Projects,Advantages,AboutGallery,Faq,
   TeamGrid,Reviews,BlogPreview,CTASection,Header,Footer}.astro
 src/components/islands/NewsletterForm.tsx
 src/components/ui/{button,input,card,accordion}.tsx
-src/styles/tokens.css (+ tokens.tailwind.js)
+src/styles/global.css (token digabung ke tailwind.config.mjs)
 public/images/ (66)
 ```
 
