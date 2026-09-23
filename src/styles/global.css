@@ -154,16 +154,36 @@ h2,
   transform: translateY(24px);
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .js .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .marquee-track {
+    animation: none;
+  }
+
+  .swap > span {
+    transition: none;
+  }
+
+  .cursor-view {
+    display: none !important;
+  }
+}
+
 .js .reveal.is-visible {
   opacity: 1;
   transform: none;
   transition:
     opacity 0.7s ease,
     transform 0.7s ease;
-}
-
-.hero-word {
-  display: inline-block;
 }
 
 /* Text swap on hover (nav links, buttons, footer links). */
@@ -192,7 +212,8 @@ a:focus-visible .swap > span:last-child {
 }
 
 /* Pill buttons. Radius doubles as hierarchy marker: pills are actions, cards stay rectangular. */
-.button-white {
+.button-white,
+.button-white-grey-hover {
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
@@ -211,7 +232,8 @@ a:focus-visible .swap > span:last-child {
     color 0.3s ease;
 }
 
-.button-white:hover {
+.button-white:hover,
+.button-white-grey-hover:hover {
   background: var(--black);
   color: var(--white);
 }
