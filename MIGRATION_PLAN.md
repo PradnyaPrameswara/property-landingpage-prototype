@@ -1,101 +1,104 @@
 # Migration Plan — ProForma Webflow → Astro (Landing-only, Pixel-Identical)
 
-> Hasil skill `wayfinder` (map) + `grill-me` (penajaman). Inti pekerjaan: **hanya migrasi landing page**, tanpa integrasi backend.
-> Sumber mentah read-only: **folder ini** (`index.html` + `style-guide.html`).
-> Target stack: **Astro + TypeScript + React + shadcn-style custom + Tailwind**. Larangan keras: **no legacy, no radix, no useEffect**.
+> Peta `wayfinder` + tajaman `grill-me`. Inti: **hanya migrasi landing page** (`index.html`), tanpa backend.
+> Sumber mentah read-only: **folder ini** (`index.html` 103.214 char/137 baris, `style-guide.html`).
+> Target: **Astro + TypeScript strict + React islands + shadcn-style custom + Tailwind**.
+> Larangan keras: **no legacy** (`jquery`, `webflow.js`, class `w-*`, `data-w-id`, `data-wf-*`, CSS shared CDN), **no `@radix-ui/*`**, **no `useEffect`** (termasuk `useLayoutEffect`).
 
-## 1. Destination (Wayfinder)
+---
 
-Landing `index.html` termigrasi 1:1 tampilan, animasi, dan aset ke stack baru. 12 section tag (11 logis — `logos-wrapper` nested dalam `no-bottom-mobile-padding` kosong) dengan copy, urutan, link, dan visual yang sama persis. Semua `w-dyn-list` distatiskan jadi data lokal. Form newsletter jadi static-success tanpa backend. Cart/checkout Webflow dibuang.
+## 1. Wayfinder Map
 
-## 2. Inventory section (urutan wajib, jangan diubah)
+### Destination
 
-| # | Section `class#id` | H1/H2 exact | Subcopy / isi | CTA / link | Dinamis → statis | Aset |
-|---|---|---|---|---|---|---|
-| 1 | `hero-section#hero` | H1 `Elevate your living` | `.text-m`: tim expert bantu pilih solusi sesuai selera | `Get in touch → #CTA` (`button-white-grey-hover`) | statis, 0 list | 0 `<img>`, bg `.bg-about-us` CSS only → replika gradient/bg di Tailwind |
-| 2 | `section-long-bottom-pading#services` | H2 `Our services` | footer statis `.text-services`: spaces stunning + fungsional | 5 cards → `product/decoration.html`, `product/exterior-design.html`, `product/space-planning.html`, `product/architecture-design.html`, `product/interior-design.html` | `autotabs` 1 list / 5 item | card1 `686d2c8efa574682f32fb3b7_s002.webp` (`Decoration`), tanpa srcset |
-| 3 | `logos-wrapper` (nested) | — | — | — | 4 lists / 32 item = 8 unik ×4 loop marquee | `687de82a3f56baf1deef079f_acme.webp` + focalpoint, nietzsche, global bank, catalog, capsule, sisyphus, layers; `loading=eager`, tanpa srcset |
-| 4 | `section-long-padding` (`Our projects`, tanpa id — `id=services` milik No.2) | H2 `Our projects` | excerpt card `.text-s` per project | 6 cards → `project/the-garden-initiative.html`, `project/the-eco-haven.html`, `project/the-urban-oasis.html`, `project/the-art-district.html`, `project/the-digital-library.html`, `project/the-smart-city-hub.html` + `Go to project → projects.html` | `progects-list-wrapper` 1 list / 6 item | `686ce805ecfafe3123fe5efc_011%20(1).webp` (`The Garden Initiative`) |
-| 5 | `advantages` | H2 `Elevate your living start decorating!` | `.text-s`: inspirasi tiap sudut rumah | — (4 statis) | statis | 0 `<img>`: `01 Expert guidance, 02 Contemporary style, 03 Unmatched customer service, 04 Strategic Innovation` |
-| 6 | `about` slide 2 | H2 `Personalized solutions for every home` | `.heading-s` + `.text-s`: tiap rumah unik, solusi personal | — | bagian sticky gallery | `686779bd54c1bb3b8dafa9d1_slide2.webp` (Red and White house, 640, duplikat mobile/desktop) |
-| 7 | `about` 3 slides | H2-1 `Our rule: quality and style` / H2-3 `Convenience meets exceptional service` | S1 curated sofa/decor; S3 seamless online shopping | — | 3× `.gallery-item` sticky | S1 `68677980c047367187d9033e_slide1.webp`, S3 `686779e608de9968fddd8cae_slide3.webp` |
-| 8 | `section-long-top-padding` FAQ | H2 `Frequently asked questions` | — | 5× `.w-dropdown` toggle only | statis | 0 `<img>`. Q: cancel, prepayment, contact, steps, feedback. A semua dummy `Nulla Lorem mollit…` → migrasi struktur, tandai `TODO content` |
-| 9 | `section-long-bottom-pading.no-top-mobile-padding` team | H2 `Our team of specialist` | role `.text-s` per card | 5 cards → `teams/interior-director.html`, `teams/furniture-specialist.html`, `teams/customer-manager.html`, `teams/marketing-brand-strategist.html`, `teams/product-sourcing-coordinator.html` | `teams-grid-collection` 1 list / 5 item | card1 `686cba759671962810e71156_t001.webp` (Alexandra Turner / Interior design director); card2+ srcset `t002-p-500 500w, p-800 800w, t002 840w, sizes 100vw` |
-| 10 | `reviews` | H2 `Our commitment: quality and style` | `.text-s`: sofa/decor standar style+durability | 20 cards → `reviews/california-coffee.html`, `reviews/vonami.html`, `reviews/arhimarket.html`, … (`delicious-food-truck` ×2) | 2 lists / 20 item | semua `676433a45b6dfabc13bb625d_stars.png`; card1 `Highly recommend… / Brendan` |
-| 11 | `section-long-padding` blog | H2 `ProForma blog insights` | meta `.text-s`: `November 20, 2024 / 5 min to read` | 3 cards → `blog/innovative-materials-in-architecture.html`, `blog/urban-gardens-a-green-future.html`, `blog/the-future-of-modular-architecture.html` + `Go to blog → blog.html` | 1 list / 3 item | `6874b21e2f8c8e53bbed046c_0011.webp` srcset `p-500/800/1080/1600/2000 + 2464w, sizes (max-width:1919px)100vw,2496px` |
-| 12 | `cta#CTA` | H2 `Got a project? Let's talk!` (U+2019) | `.text-s`: privacy, hanya info penting | `form#email-form` submit (tanpa `<a>`) | statis | 0 `<img>` |
+`src/pages/index.astro` me-render 12 section berurutan dengan copy, urutan, link, visual, animasi, dan aset yang sama persis dengan `index.html`; lolos acceptance §12; bundle bersih dari legacy/radix/`useEffect`.
 
-Catatan encoding: H1/H2 mengandung `U+2028 LINE SEPARATOR` dan `’` — normalisasi ke spasi/apostrof standar di data, bukan di layout.
+### Notes
 
-## 3. Global (header / footer / form)
+Skill tiap sesi: `antislop*`, `caveman`, `lsp-ai`, `ponytail`, `playwright-mcp`, `addyosmani/agent-skills`, `mattpocock/{wayfinder,show-me,grill-me}` (global, dilarang install ulang). MCP `codedb` (pencarian arsitektur) + `lexa` (referensi API); bila tak terekspos, catat fallback `read/grep`. Aturan perilaku di `AGENTS.md`.
 
-- Header `nav.header-navigation ul.header-list-black`: `About → about-us.html`, `Services → index.html#services` (anchor ke section No.2), `Projects → projects.html`, `Blog → blog.html`, `Contact → contact.html` (2 varian: `button-white desktop-hidden` + `button-transparent mobile-hidden`), burger `tablet-visible`. **Drop**: `cart-flex-wrapper`, `services-cart`, `Checkout now → checkout.html`.
-- Footer `footer.footer-dark`: brand `Curated living experiences`, logo `pro forma`, `link-to-top → #hero` ×2; `Pages`: Home, About, Projects, Blog, Contact (**drop Checkout**); `CMS Pages`: blog post `blog/the-future-of-architecture-trends-to-watch.html`, member `teams/customer-manager.html`, service `product/space-planning.html`, project `project/the-garden-initiative.html`; `Utility`: `404.html`, `licenses.html`, `style-guide.html`, `changelog.html`, `privacy-policy.html`, `instructions.html`; `Contact`: `752 New South Headr Rd Triple Bay SWFW 3148, New York` + LinkedIn/Twitter/Facebook Digital Butlers; `Copyright © 2025 ProForma / Designed by Digital Butlers`. **Drop** `Powered by Webflow`.
-- Form `form#email-form[name=email-form][method=get]`: `input#Email-3[name=Email][type=email][placeholder=Email][required][maxlength=256]` + `button.cta-round-btn > input.cta-btn[type=submit][value=""][data-wait=Please wait...]` + arrow svg. `w-form-done`: `Thank you! Your submission has been received!`; `w-form-fail`: `Oops! Something went wrong…`. Migrasi: `preventDefault` + static success, tanpa backend.
+### Decisions so far
 
-## 4. Tampilan identik — token (dari style-guide.html)
+- Scope = landing `index.html` saja; routes lain hanya jadi target `href` statis (§4).
+- `w-dyn-list` → array statis di `src/content/landing.ts` (keputusan §5).
+- Token dikunci §6 (`Black #0D0B0B`, bukan `#0D0D0E`).
+- Satu pola reveal untuk 24 titik `opacity:0` (§7.1); FAQ = `<details>` (§7.6); marquee = 2 salinan CSS (§7.4); sticky = CSS (§7.5); kursor View = rAF di `<script>` Astro (§7.7); tanpa lightbox di home (§7.8).
+- Form newsletter = static success tanpa backend (§9).
+- Cart/checkout/ecommerce = drop (§10).
 
-- Warna (kunci `Black #0D0B0B`, bukan `#0D0D0E` card): Gray300 `#5C5C5C`, Gray200 `#BDBDBD`, Gray100 `#DBDBDB`, Gray50 `#EFEFEF`, Black `#0D0B0B`, White `#FFFFFF`, Accent Red `#E72323`; tambahan `grey-transparent #efefef80`, `dark-red #b91c1c`, `burgundi #8b1515`, `black-light-50/20/30`, `white-20/40/50/70/80`. Implementasi: `src/styles/tokens.css` CSS vars + Tailwind theme extend.
-- Tipografi: Inter 300–700 body (`text-m 1.13rem/160%/-.03em`, `text-s 1rem/160%/-.03em`); Poppins 300–700 headings (H1 `clamp(3rem,2.194rem+4.03vw,6.88rem)/95%/-.08em`, H2 `2.5rem → 3.5/4.375rem breakpoint/110%/-.06em`, `heading-m 1.75→2.25rem/110%/-.04em`, `heading-s 1.5rem/120%/-.04em`). Load via Google Fonts `<link>`, **bukan** `WebFont.load`.
-- Buttons: `button-white` pill `6.25rem` + `btn-text upper/lower` swap; `round-button-grey` lingkaran `3.88rem → 3.13rem radius` (team/blog cards, 8×); `cta-round-btn` `3.875rem` radius `100px`. Inputs: `text-field` transparan, border 1px black, `pl-1.5rem`, placeholder `text-s`.
-- Layout: `.container max 81.25rem px-4.375rem`; `.section py 5rem` + varian ejaan asli (`section-long-bottom-pading` typo dipertahankan sebagai nama mapping saja, class baru bersih).
+### Not yet specified (fog)
 
-## 5. Animasi identik — mapping tanpa useEffect
+- Vendor gambar ke `public/images/` (tahap 2) vs hotlink CDN tahap 1 — diputuskan per §8: tahap 1 hotlink, tahap 2 vendor.
+- Copy jawaban FAQ masih dummy `Nulla Lorem…` — butuh copy asli dari manusia (ditandai `TODO content`).
 
-| Webflow asli | Replika stack baru |
-|---|---|
-| `data-w-id` fade `opacity:0 → 1` di hampir semua H2/card (116× di index) + `visibility:hidden` anti-FOUC | CSS `@keyframes fade-up` + class `.reveal` di-observe satu `IntersectionObserver` dalam `<script>` Astro layout (bukan React). Initial state via CSS, bukan inline `opacity:0` |
-| `btn-text upper/lower` swap saat hover (nav, button-white, footer) | CSS murni: wrapper `overflow:hidden`, `translateY` on `:hover`, durasi `.3s` |
-| `round-button-grey`, `cta-round-btn` hover bg/color `.3s linear` | Tailwind `transition-colors duration-300` |
-| Logos marquee (4 lists × 8 unik) | CSS `@keyframes marquee` + duplikasi array di render (aria-hidden untuk salinan), `prefers-reduced-motion` matikan animasi |
-| About sticky gallery 3 slides | CSS `position: sticky` per slide, tanpa JS; gambar ganda mobile/desktop digabung satu `<img>` responsif |
-| FAQ `w-dropdown` (5 item) | `<details>/<summary>` + CSS plus-icon (`line-static`/`line-vertical` → rotasi), tanpa JS; island React hanya jika butuh single-open → pakai `useState` + handler, tanpa `useEffect` |
-| Custom cursor `View` di blog/projects + lightbox `w-lightbox`/`w-json` | Tahap landing: **drop custom cursor**; lightbox hanya untuk routes detail (di luar scope file ini) |
-| `link-to-top → #hero` | anchor native + `scroll-behavior: smooth` + `scroll-margin` |
+### Out of scope
 
-React islands yang diizinkan: `NewsletterForm` (state `idle|done|error` + `onSubmit`), `Faq` (opsional single-open), `LogosMarquee` (statis, tanpa state). Hanya `useState/useMemo/useRef` + event handler + callback ref. **Tidak ada `useEffect`, tidak ada `@radix-ui/*`.**
+- `/checkout`, `w-commerce cart`, Stripe Webflow, `database.commerceOrder`, backend form, halaman `instructions/changelog/licenses/privacy-policy` (kecuali link footer), custom cursor di luar area projects, lightbox (0 hit di home).
 
-## 6. Aset identik — strategi
+### Tickets (1 sesi = 1 tiket; research boleh paralel)
 
-- Tahap 1 (kontrak ini): hotlink CDN `https://cdn.prod.website-files.com/...` dengan `src/srcset/sizes` exact per tabel section 2. Hero/advantages/FAQ/CTA tanpa gambar (CSS only) — jangan tambah gambar stok.
-- Tahap 2: vendor ke `public/images/{services,logos,projects,team,reviews,blog}/` + `astro:image` (`widths [500,800,1080,1600,2000]`, `sizes` sesuai asli). Logo SVG footer (`pro forma` paths) di-inline bersih tanpa `w-embed`. Favicon/webclip + `og:image Home.png` dipertahankan path-nya.
-- Dilarang menambah/mengganti foto. `stars.png` dipakai ulang apa adanya (tandai dummy).
+| # | Tipe | Nama tiket | Blokir oleh |
+|---|---|---|---|
+| T1 | task | Statiskan 39 card + 8 logo → `landing.ts` | — (frontier) |
+| T2 | task | `tokens.css` + Tailwind theme | — (frontier) |
+| T3 | task | `Base.astro` + Header/Footer/CTA + reveal script | T1, T2 |
+| T4 | task | Hero + Services + Logos | T3 |
+| T5 | task | Projects + Advantages + About gallery | T3 |
+| T6 | task | FAQ + Team + Reviews | T3 |
+| T7 | task | Blog + CTA + footer polish | T3 |
+| T8 | task | QA Playwright + bundle guard + serah terima | T4–T7 |
 
-## 7. Pemetaan komponen → file (dibuat di folder ini)
+---
 
-```
-src/layouts/Base.astro          Header + Footer + CTA + fonts + tokens + reveal script
-src/pages/index.astro           12 section berurutan, data dari src/content/landing.ts
-src/content/landing.ts          services[5], logos[8], projects[6], advantages[4], gallery[3], faq[5], team[5], reviews[20], blog[3]
-src/components/ Hero, Services, LogosMarquee, Projects, Advantages, AboutGallery,
-  Faq, TeamGrid, Reviews, BlogPreview, CTASection, NewsletterForm,
-  ProjectCard, BlogCard, TeamCard, ReviewCard, ServiceCard
-src/components/ui/ button.tsx, input.tsx, card.tsx, accordion.tsx (API gaya shadcn, headless custom, tanpa radix)
-src/styles/tokens.css + tailwind.config.mjs theme extend
-```
+## 2. Struktur `index.html` (12 section, urutan wajib)
 
-File mentah `*.html` di folder ini adalah referensi read-only — jangan edit, jangan port class `w-*` mentah.
+1. `section.section.hero-section#hero > div.container > div.hero-wrapper > div.hero-left-content` — 1 kolom: `h1` + `div.text-m` + `div.button-wrapper > a.button-white-grey-hover[href=#CTA]` + `div.bg-about-us` (bg CSS only).
+2. `section.section.no-bottom-mobile-padding > section.logos-wrapper > div.logos-relative-wrapper > div.logos-wrapper-three` — marquee: **4× identik** `div.logos-list-wrapper.w-dyn-list > div.logos-list > 8x div.logo-item` = 32 node.
+3. `section.section.section-long-bottom-pading#services > div.container > div.autotabs-wrapper > div.autotabs-container` — `div.autotabs.w-dyn-list > div.collection-list > 5x div.collection-item > a.autotabs-tab` (img + `services-heder-wrapper > div.heading-m`) + `div.tabs-content-heading-wrapper-visible > div.services-wrapp` (teks 1 kolom).
+4. `section.section.advantages > div.container > div.content-grid.mobile-flex` — 2 kolom: `div.column-sticky > div.column-left.gap-40` (h2 + text) + `div.column-right.column-right-flex` = 4× `div.column-card-advant.column-card-advant-white` (01–04).
+5. `section.section.section-long-padding` (projects) `> div.container > div.projects-content > div.projects-content-cards` — `div.cursor` (View) + `div.progects-list-wrapper > div.projects-list` = 6× `div.projects-item > a.project-card` + tombol `Go to project → /projects`.
+6. `section.section.about` — `div.gallery-scroll-distance` + 3× `div.gallery-item > div.gallery-item-sticky > div.gallery-item-inner.mobile-flex` (kartu `red/dark-red/burgundi-red` + img desktop + img `desktop-hidden` mobile).
+7. `section.section.section-long-top-padding` (FAQ) `> div.container-vertical-flex` — `h2.heading` + `div.faq-wrapper` = 5× `div.dropdown[.top-line].w-dropdown`.
+8. `section.section.section-long-bottom-pading.no-top-mobile-padding > div.container-inner > div.content-vertical-align-center` — `div.teams-content > h2` + `div.teams-grid-collection > div.teams-rail` = 5× `div.teams-item > a.teams-card`.
+9. `section.section.reviews > div.container.container-relative > div.content-grid.mobile-flex` — 2 kolom: `div.div-block-10 > div.column-left` (h2 + text) + `div.column-right > div.reviews-list-wrapper.right-mobile-hidden > div.reviews-list` = 10× `div.collection-item-2 > a.column-grid > div.review-card` (+ list kedua 10 item di DOM, satu disembunyikan di mobile).
+10. `section.section.section-long-padding` (blog) `> div.container > div.blog-content > div.blog-content-card > div.blog-posts-list-wrapper > div.blog-posts-list` = 3× `div.blog-posts-item > a.blog-post-card` + tombol `Go to blog → /blog`.
+11. `section.section.cta#CTA > div.container.container-flex-center > div.cta-wrapper` — `div.cta-wrapper-flex` (h2 + text) + `div.form-block.w-form > form#email-form` + done/fail.
+12. `footer.footer-dark > div.container` — `div.footer-wrapper` (brand + 4 kolom) + 2× `a.link-to-top[href=#hero]` + `div.footer-logo-wrapper` + `div.footer-divider` + `div.footer-wrapper.mobile-copiwrite` (3 kolom copyright).
 
-## 8. Blacklist legacy (dilarang masuk bundle)
+---
 
-Scripts: `jquery-3.5.1`, `webflow.schunk.*` ×3, `webfont.js` loader, `w-mod-js/touch` snippet, `__WEBFLOW_CURRENCY_SETTINGS`, `.w-webflow-badge` style, `gsap/ScrollTrigger/SplitText` CDN.
-Atribut: `data-w-id`, `data-wf-*`, `data-node-type`, `data-wf-bindings`, `w-node-* ids`, `data-w-cloak`, `data-nav-menu-open`, `data-delay/data-hover`.
-Kelas `w-*`: `w-inline-block`, `w-embed`, `w-form/w-input/w-button/w-form-done/w-form-fail`, `w-list-unstyled`, `w-dyn-list/w-dyn-items/w-dyn-item`, `w-commerce-*` (32×), `w-node-*`, `w--current`, `w-mod-*`, `w-dropdown/w-dropdown-toggle/w-dropdown-list`, `w-container/w-row/w-col`, `w-slider/w-nav/w-tabs/w-lightbox`, `w-icon-*`, `w-select/w-radio/w-widget/w-richtext/w-background-video/w-file-upload`.
-Komponen: cart/ecommerce, badge `Designed by/Powered by Webflow` (kecuali atribusi teks footer yang dikontrak).
+## 3. Copy exact per section
 
-## 9. Acceptance criteria
+- Hero: H1 `Elevate␣your living` (␣ = U+2028, normalisasi ke spasi di data) + `.text-m` tim expert + `Get in touch → #CTA`.
+- Services: H2 `Our services` + footer teks statis `.text-services` (spaces stunning + fungsional).
+- Projects: H2 `Our projects` (section ini **tanpa id**; `id=services` milik section services).
+- Advantages: H2 `Elevate your living start decorating!` + `.text-s` inspirasi tiap sudut + `01 Expert guidance / 02 Contemporary style / 03 Unmatched customer service (heading-m) / 04 Strategic Innovation`.
+- About: H2-1 `Our rule: quality and style`, H2-2 `Personalized solutions for every home` (+ `heading-s` tiap rumah unik), H2-3 `Convenience meets exceptional service` (S1 sofa/decor, S3 online shopping).
+- FAQ: H2 `Frequently asked questions`; 5 Q exact: `Can you cancel a project at any time?` / `How often do we work without prepayment?` / `How to contact technical support?` / `What steps should you take if you encounter technical problems?` / `Where can I leave feedback about your services?`; 5 A identik dummy `Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco cillum dolor. Voluptate exercitation incididunt aliquip deserunt reprehenderit elit` → `TODO content`.
+- Team: H2 `Our team of specialist`.
+- Reviews: H2 `Our commitment: quality and style` + `.text-s` sofa/decor.
+- Blog: H2 `ProForma blog insights` (heading blog, bukan h1).
+- CTA: H2 `Got a project? Let's talk!` (’ = U+2019) + `.text-s` privacy.
 
-- [ ] 12 section urutan + copy exact, 5+8+6+5+20+3 item, 39 card links valid tanpa 404 internal
-- [ ] Visual: warna/tipografi/spasi/button/input/container sesuai token §4 (uji Playwright screenshot vs referensi)
-- [ ] Animasi §5 bekerja tanpa `useEffect`, hormati `prefers-reduced-motion`
-- [ ] Bundle: tidak ada `jquery`, `webflow.js`, `@radix-ui`, `useEffect` (`rg` check di CI)
-- [ ] Form newsletter static success/fail, tidak ada request backend
-- [ ] `astro check` + `tsc --noEmit` hijau
+---
 
-## 10. Wayfinder tickets berikutnya
+## 4. Header, footer, meta (exact)
 
-1. `task: statiskan dyn-list` → `src/content/landing.ts` (bisa 1 sesi)
-2. `task: tokens.css + tailwind theme` (1 sesi)
-3. `task: Base layout + Header/Footer/CTA` (1 sesi)
-4. `task × N: 12 section` bertahap (hero+services+logos → projects+advantages+about → faq+team+reviews → blog+cta)
-5. `task: QA Playwright + bundle guard` lalu serah terima
+### Header
+
+`div.header > div.container.container-header-inner > div.content-horizontal-flex-left.header-content`:
+- `a.header-logo-black.w--current[href=/][aria-current=page][aria-label=logo-link] > div.logo-white > svg[140x22][viewBox 0 0 140 22]` 8× `path[fill=white]` tulisan PROFORMA → inline bersih tanpa `w-embed`.
+- `nav.header-navigation > ul.header-list-black[role=list]`: 4× `li.header-item-black > a.nav-link[aria-label][data-w-id] > div.navigation-link > div.nav-link-text.mobile-menu-size + div.upper + div.lower` = `About → /about-us`, `Services → /#services`, `Projects → /projects`, `Blog → /blog`; + `li.header-button-wrapper.desktop-hidden > a.button-white.button-white-with-top-margin[href=/contact]` (Contact khusus menu mobile).
+- `div.burger-wrapper.tablet-visible`: `button.burger[type=button][aria-label=open menu] > 3× span.burger-line(-top/-middle/-bottom)` + `button.burger-close[aria-label=close menu]` + `div.header-blur-background.hidden`. Perilaku (re-plika §7.9): ≤991px nav off-canvas; klik burger → nav tampil + blur tampil; klik close/blur/Esc → tutup. Implementasi: island React `useState open` + handler (tanpa `useEffect`), atau `<script>` Astro toggle class.
+- `a.button-transparent.mobile-hidden[href=/contact]` (Contact desktop).
+- **Drop**: `div.cart-flex-wrapper` (cart `rightSidebar`, count, dialog) + `Checkout now`.
+
+### Footer
+
+`footer.footer-dark`: brand `Curated living experiences`; kolom **Pages** (`Home /`, `About /about-us`, `Projects /projects`, `Blog /blog`, `Contact /contact`, ~~Checkout~~ — drop); kolom **CMS Pages** (`Blog post → /blog/the-future-of-architecture-trends-to-watch`, `Member page → /teams/customer-manager`, `Service page → /product/space-planning`, `Project page → /project/the-garden-initiative`); kolom **Utility** (`404 /404`, `Licenses /licenses`, `Style guide /style-guide`, `Changelog /changelog`, `Privacy Policy /privacy-policy`, `Instructions /instructions`); kolom **Contact** (`752 New South Headr Rd<br/>Triple Bay SWFW 3148, —<br/>New York` — mojibake em-dash dipertahankan sebagai `—`) + socials `LinkedIn https://www.linkedin.com/company/digitalbutlers/`, `Twitter https://twitter.com/Digital_Butlers`, `Facebook https://www.facebook.com/people/Digital-Butlers-Studio/100090264223869/` (target `_blank`, inline SVG); 2× `a.link-to-top[href=#hero]` (desktop + mobile, arrow `M11 6.5L6 1.5L1 6.5` 12×8); logo `pro` (`em.italic-text`) + `forma`; divider; copyright `Copyright © 2025 ProForma` + `Designed by Digital Butlers (https://digitalbutlers.team/?utm_source=proforma&utm_medium=template_footer&utm_campaign=webflow_template&utm_content=made_by_link)`; **drop** `Powered by Webflow`.
+- Pola hover footer: `div.nav-link-text.upper.mobile-visible + div.lower` (18× `mobile-visible`) → replika CSS §7.3.
+
+### Meta/head baru
+
+`title`: samakan `ProForma DB - Webflow Ecommerce website template`? Tidak — tulis `ProForma — Curated living experiences`. `description/og:description`: `ProForma offers comprehensive solutions in architectural design, interior design, and space planning. Discover our stunning projects, client testimonials, an
+...[truncated 17904 chars]
