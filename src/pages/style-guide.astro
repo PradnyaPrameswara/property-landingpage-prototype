@@ -1,0 +1,154 @@
+---
+import Base from '../layouts/Base.astro';
+import CTASection from '../components/CTASection.astro';
+
+const colors = [
+  { name: 'Gray 300', hex: '#5C5C5C', text: 'light' },
+  { name: 'Gray 200', hex: '#BDBDBD', text: 'dark' },
+  { name: 'Gray 100', hex: '#DBDBDB', text: 'dark' },
+  { name: 'Gray 50', hex: '#EFEFEF', text: 'dark' },
+  { name: 'Black', hex: '#0D0B0B', text: 'light' },
+  { name: 'White', hex: '#FFFFFF', text: 'dark' },
+  { name: 'Accent Red', hex: '#E72323', text: 'light' },
+];
+---
+
+<Base
+  title="Style Guide | ProForma"
+  description="Need to customize ProForma efficiently? Use this central style guide for quick reference on all utility classes, buttons, and responsive styles."
+>
+  <section class="section section-margin" id="hero">
+    <div class="container guide">
+      <h1 class="reveal">Style guide</h1>
+
+      <h2 class="heading-m reveal">Colors</h2>
+      <div class="swatches">
+        {
+          colors.map((color) => (
+            <div class="color-card reveal">
+              <div
+                class="color"
+                style={`background:${color.hex};color:${color.text === 'light' ? '#fff' : '#0d0b0b'}`}
+              >
+                <span class="text-s">{color.hex}</span>
+              </div>
+              <div class="color-info-card">
+                <div class="heading-s">{color.name}</div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+
+      <h2 class="heading-m reveal">Typography</h2>
+      <div class="specimens">
+        <h1 class="reveal">Heading XL</h1>
+        <h2 class="reveal">Heading L</h2>
+        <p class="heading-m reveal">Heading M</p>
+        <p class="heading-s reveal">Heading S</p>
+        <div class="text-m reveal">Text M — Inter, 1.13rem, 160 percent line height.</div>
+        <div class="text-s reveal">Text S — Inter, 1rem, 160 percent line height.</div>
+      </div>
+
+      <h2 class="heading-m reveal">Buttons</h2>
+      <div class="buttons-style-wrapper">
+        <a class="button-white" href="#hero" aria-label="Example button">
+          <span class="swap">
+            <span>Example</span>
+            <span aria-hidden="true">Example</span>
+          </span>
+        </a>
+        <span class="round-button">
+          <span class="arrow" aria-hidden="true">
+            <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M1.5 11L6.5 6L1.5 1"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </span>
+        </span>
+      </div>
+
+      <h2 class="heading-m reveal">Inputs</h2>
+      <div class="guide-row">
+        <input class="text-field" type="email" placeholder="Email" aria-label="Example email input" />
+      </div>
+
+      <h2 class="heading-m reveal">Layout</h2>
+      <div class="text-s reveal">
+        Container max 81.25rem with 4.375rem side padding. Sections carry 5rem vertical padding, 2.5rem on
+        mobile. Breakpoints mirror Webflow: tablet 991px, mobile 767px.
+      </div>
+    </div>
+  </section>
+
+  <CTASection />
+</Base>
+
+<style>
+  .section-margin {
+    padding-top: 9rem;
+  }
+
+  .guide {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .swatches {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+
+  .color-card {
+    border: 1px solid var(--gray-100);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .color {
+    min-height: 8rem;
+    display: flex;
+    align-items: flex-end;
+    padding: 1rem;
+  }
+
+  .color-info-card {
+    padding: 1rem;
+  }
+
+  .specimens {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .specimens h1,
+  .specimens h2,
+  .specimens p {
+    margin: 0;
+  }
+
+  .buttons-style-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .guide-row {
+    max-width: 32rem;
+  }
+
+  @media (max-width: 767px) {
+    .swatches {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>
