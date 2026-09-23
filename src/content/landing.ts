@@ -59,9 +59,8 @@ export type NavLink = { label: string; href: string };
 const CDN = '/images';
 
 export const hero = {
-  title: 'Elevate your living',
-  // R-37: em dash kept verbatim from source copy per locked contract.
-  body: 'We understand that every home is unique. Our team of experts is ready to help you choose the perfect solutions — to suit your taste and needs.',
+  title: 'Elevate your living',
+  body: 'We understand that every home is unique. Our team of experts is ready to help you choose the perfect solutions  to suit your taste and needs.',
   ctaLabel: 'Get in touch',
   ctaHref: '#CTA',
 };
