@@ -6,9 +6,10 @@ import Footer from '../components/Footer.astro';
 type Props = {
   title: string;
   description: string;
+  header?: 'dark' | 'light';
 };
 
-const { title, description } = Astro.props;
+const { title, description, header = 'dark' } = Astro.props;
 ---
 
 <!doctype html>
@@ -56,7 +57,7 @@ const { title, description } = Astro.props;
     </noscript>
   </head>
   <body>
-    <Header />
+    <Header variant={header} />
     <main>
       <slot />
     </main>

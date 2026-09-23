@@ -20,7 +20,7 @@ const { review } = Astro.props;
 const title = review.href.replace('/reviews/', '').replace(/-/g, ' ');
 ---
 
-<Base title={`${title} | ProForma`} description={review.quote}>
+<Base title={`${title} | ProForma`} description={review.quote} header="light">
   <section class="section section-margin">
     <div class="container content-vertical">
       <h1 class="reveal">{title}</h1>

@@ -2,7 +2,7 @@
     {
         "slug":  "interior-director",
         "h1":  "Alexandra Turner",
-        "cover":  "",
+        "cover":  "/images/686d1e89c19f40df9fbc8137_teams.webp",
         "description":  "Interior design team with expertise in various aspects of design, customer experience, marketing, and product sourcing.",
         "email":  "alexandraturner@example.com",
         "phone":  "+1-555-012-3456",
@@ -11,7 +11,7 @@
     {
         "slug":  "furniture-specialist",
         "h1":  "Jonathan Harris",
-        "cover":  "",
+        "cover":  "/images/686d1e89c19f40df9fbc8137_teams.webp",
         "description":  "Jonathan expertly selects and sources furniture that complements the design vision, ensuring that each piece is durable, functional, and visually appealing.",
         "email":  "jonathanharris@example.com",
         "phone":  "+1-555-567-8901",
@@ -20,7 +20,7 @@
     {
         "slug":  "customer-manager",
         "h1":  "Emil Rodriguez",
-        "cover":  "",
+        "cover":  "/images/686d1e89c19f40df9fbc8137_teams.webp",
         "description":  "Emil ensures that every customer has an exceptional experience, from the initial consultation to final installation, with a focus on managing client relationships and expectations.",
         "email":  "emilrodriguez@example.com",
         "phone":  "+1-555-456-7890",
@@ -29,7 +29,7 @@
     {
         "slug":  "marketing-brand-strategist",
         "h1":  "Olivia Foster",
-        "cover":  "",
+        "cover":  "/images/686d1e89c19f40df9fbc8137_teams.webp",
         "description":  "Olivia helps businesses build strong brand identities and develop effective marketing strategies that connect with the right audience and drive growth.",
         "email":  "emma.brown@example.com",
         "phone":  "+1-555-345-6789",
@@ -38,12 +38,11 @@
     {
         "slug":  "product-sourcing-coordinator",
         "h1":  "Daniel Carter",
-        "cover":  "",
+        "cover":  "/images/686d1e89c19f40df9fbc8137_teams.webp",
         "description":  "Daniel manages the sourcing and procurement of products, ensuring that all items meet quality standards and are delivered on time, within budget.",
         "email":  "danielcarter@example.com",
         "phone":  "+1-555-234-5678",
         "body":  "\u003ch2\u003eAbout Daniel\u003c/h2\u003e\u003cp\u003eDaniel Carter is a Product Sourcing Coordinator with a keen eye for identifying high-quality products that align with the design vision. He brings 7 years of experience in sourcing, procurement, and logistics, ensuring timely and cost-effective product delivery for design projects.\u003c/p\u003e\u003ch4\u003eOverview\u003c/h4\u003e\u003cp\u003eI manage the sourcing of products from suppliers, ensuring that everything from furniture to decor meets the highest standards of quality and is delivered on time and within budget.\u003c/p\u003e\u003ch4\u003eBiography\u003c/h4\u003e\u003cp\u003eHaving worked in product sourcing for various industries, I bring a wealth of experience in negotiating with suppliers and managing product timelines, ensuring that each project stays on track and within the client’s specifications.\u003c/p\u003e\u003ch4\u003eSkills\u003c/h4\u003e\u003cp\u003e• Product sourcing\u003c/p\u003e\u003cp\u003e• Supplier negotiation\u003c/p\u003e\u003cp\u003e• Inventory management\u003c/p\u003e\u003cp\u003e• Logistics coordination\u003c/p\u003e\u003cp\u003e• Budget management\u003c/p\u003e\u003cp\u003e• Procurement strategy\u003c/p\u003e\u003c/div\u003e"
     }
 ]
-
 

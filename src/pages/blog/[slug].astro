@@ -13,7 +13,7 @@ const meta = blogPosts.find((p) => p.slug === post.slug);
 const related = blogDetails.filter((p) => p.slug !== post.slug).slice(0, 3);
 ---
 
-<Base title={`Blogs | ${post.h1} | ProForma`} description={post.description}>
+<Base title={`Blogs | ${post.h1} | ProForma`} description={post.description} header="light">
   <section class="section section-margin" id="hero">
     <div class="container">
       <nav class="breadcrumb text-s" aria-label="Breadcrumb">
@@ -35,7 +35,7 @@ const related = blogDetails.filter((p) => p.slug !== post.slug).slice(0, 3);
           <div class="text-s">{meta?.date ?? ''}</div>
         </div>
       </div>
-      <img class="detail-cover reveal" src={post.cover} alt="" loading="eager" />
+      <img class="detail-cover reveal" src={meta?.image ?? post.cover} alt="" loading="eager" />
       <div class="richtext reveal" set:html={post.body} />
       <div class="author-box">
         <div class="text-m">{post.author}</div>

@@ -9,6 +9,7 @@
   --dark-red: #b91c1c;
   --burgundi: #8b1515;
   --black-light-50: #00000080;
+  --grey-transparent: #efefef80;
   --white-20: #fff3;
   --font-body: 'Inter', system-ui, -apple-system, sans-serif;
   --font-display: 'Poppins', 'Inter', system-ui, sans-serif;
@@ -445,6 +446,11 @@ button:hover .arrow svg {
   backdrop-filter: blur(50px);
   border-bottom: 1px solid var(--white-20);
   color: var(--white);
+}
+
+.site-header.header-light {
+  background: var(--grey-transparent);
+  border-bottom: 0;
 }
 
 .header-inner {

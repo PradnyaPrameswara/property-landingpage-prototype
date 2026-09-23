@@ -2,7 +2,7 @@
     {
         "slug":  "ecosphere-pavilion",
         "h1":  "EcoSphere Pavilion",
-        "cover":  "",
+        "cover":  "/images/686d0f1810002415ab7e4839_007.webp",
         "description":  "An exhibition space focused on sustainability and environmental education.",
         "client":  "Green Future Foundation",
         "budget":  "$5 million",
@@ -14,7 +14,7 @@
     {
         "slug":  "line-living",
         "h1":  "Line Living",
-        "cover":  "",
+        "cover":  "/images/686cee92aad5f0a28c94e493_008.webp",
         "description":  "A modern skyscraper designed for urban living with sustainability in mind.",
         "client":  "Line Developments Inc.",
         "budget":  "$50 millions",
@@ -26,7 +26,7 @@
     {
         "slug":  "line-tower",
         "h1":  "Line Tower",
-        "cover":  "",
+        "cover":  "/images/683cb4d5774ed8e13438a827_aboodi-vesakaran-3dF76L9xH1g-unsplash.webp",
         "description":  "A modern skyscraper designed for urban living with sustainability in mind.",
         "client":  "U Developments Inc.",
         "budget":  "$100 million",
@@ -38,7 +38,7 @@
     {
         "slug":  "skyline-tower",
         "h1":  "Skyline Tower",
-        "cover":  "",
+        "cover":  "/images/686ceb0a230cd9cdedb4ef11_012.webp",
         "description":  "A modern skyscraper designed for urban living with sustainability in mind.",
         "client":  "Urban Developments Inc.",
         "budget":  "$150 million",
@@ -50,7 +50,7 @@
     {
         "slug":  "the-art-district",
         "h1":  "The Art District",
-        "cover":  "",
+        "cover":  "/images/686d080c519d958c9e1bca58_cozy-lively-home-interior-design.webp",
         "description":  "A community designed to support artists and cultural exchange.",
         "client":  "Cultural Development Agency",
         "budget":  "$40 million",
@@ -62,7 +62,7 @@
     {
         "slug":  "the-digital-library",
         "h1":  "The Digital Library",
-        "cover":  "",
+        "cover":  "/images/686ce3c8a66667e392904a0b_011.webp",
         "description":  "A modern library focused on technology and community engagement.",
         "client":  "Public Library Association",
         "budget":  "$15 million",
@@ -74,7 +74,7 @@
     {
         "slug":  "the-eco-haven",
         "h1":  "The Eco Haven",
-        "cover":  "",
+        "cover":  "/images/686d05d7398c40912fc0ac49_102.webp",
         "description":  "A sustainable park promoting environmental education and community involvement.",
         "client":  "Green City Initiative",
         "budget":  "$3 million",
@@ -86,7 +86,7 @@
     {
         "slug":  "the-floating-city",
         "h1":  "The Floating City",
-        "cover":  "",
+        "cover":  "/images/67ff7d7bf93f876174eb16a0_lucas-gallone-fibY3tKjC3Y-unsplash.webp",
         "description":  "A sustainable community built on floating platforms to combat rising sea levels.",
         "client":  "Oceanic Solutions",
         "budget":  "$500 million",
@@ -98,7 +98,7 @@
     {
         "slug":  "the-garden-initiative",
         "h1":  "The Garden Initiative",
-        "cover":  "",
+        "cover":  "/images/686d032021c8b0d9e641aee4_008%20(1).webp",
         "description":  "Transforming vacant lots into community gardens to promote local food production.",
         "client":  "Local Community Association",
         "budget":  "$1 million",
@@ -110,7 +110,7 @@
     {
         "slug":  "the-green-bridge-urban",
         "h1":  "The Green Bridge Urban",
-        "cover":  "",
+        "cover":  "/images/686ce3c8a66667e392904a0b_011.webp",
         "description":  "An eco-friendly pedestrian bridge enhancing urban connectivity.",
         "client":  "City of Seattle",
         "budget":  "$2 million",
@@ -122,7 +122,7 @@
     {
         "slug":  "the-green-bridge",
         "h1":  "The Green Bridge",
-        "cover":  "",
+        "cover":  "/images/67ff7b9067e64b645b64846d_rowan-heuvel--SSYzZ8OMxo-unsplash.jpg",
         "description":  "An eco-friendly pedestrian bridge enhancing urban connectivity.",
         "client":  "City of Seattle",
         "budget":  "$2 million",
@@ -134,7 +134,7 @@
     {
         "slug":  "the-smart-city-hub",
         "h1":  "The Smart City Hub",
-        "cover":  "",
+        "cover":  "/images/67ff7d7bf93f876174eb16a0_lucas-gallone-fibY3tKjC3Y-unsplash.webp",
         "description":  "A facility designed to support innovation and entrepreneurship.",
         "client":  "Innovation District",
         "budget":  "$30 million",
@@ -146,7 +146,7 @@
     {
         "slug":  "the-urban-oasis",
         "h1":  "The Urban Oasis",
-        "cover":  "",
+        "cover":  "/images/686d06aa8af4c55a4a1ca6db_006%20(1).webp",
         "description":  "A revitalized green space promoting relaxation and community engagement.",
         "client":  "City of Chicago",
         "budget":  "$5 million",
@@ -158,7 +158,7 @@
     {
         "slug":  "the-vertical-forest",
         "h1":  "The Vertical Forest",
-        "cover":  "",
+        "cover":  "/images/67ff7d52916e908e90356412_victor-QHjBLCHYfRQ-unsplash.jpg",
         "description":  "A residential building that incorporates greenery into its design.",
         "client":  "Eco Living Corp.",
         "budget":  "$75 million",
@@ -170,7 +170,7 @@
     {
         "slug":  "the-wave-residence",
         "h1":  "The Wave Residence",
-        "cover":  "",
+        "cover":  "/images/686cee5b9e30c17c287f3780_014.webp",
         "description":  "A luxurious residence designed with organic shapes and smart technology.",
         "client":  "Private Client",
         "budget":  "$10 million",
@@ -182,7 +182,7 @@
     {
         "slug":  "urban-oasis",
         "h1":  "Urban Oasis",
-        "cover":  "",
+        "cover":  "/images/686d05d7398c40912fc0ac49_102.webp",
         "description":  "A mixed-use development promoting sustainability and community interaction.",
         "client":  "City Development Group",
         "budget":  "$200 million",
@@ -192,5 +192,4 @@
         "body":  "\u003ch2\u003eUrban Oasis\u003c/h2\u003e\u003cp\u003eUrban Oasis is a mixed-use development that combines residential, commercial, and recreational spaces. The design incorporates green spaces and water features, creating a tranquil environment in the heart of the city. The project aims to promote community interaction and sustainable living.\u003c/p\u003e\u003ch3\u003eClient Background\u003c/h3\u003e\u003cp\u003eA major real estate investment trust (REIT) was looking for a signature project to anchor their new urban development fund. They required a concept that would offer a strong return on investment, be highly marketable, and embody the future of urban residential design.\u003c/p\u003e\u003ch3\u003eResults\u003c/h3\u003e\u003cp\u003eThe proposed concept provided a compelling investment case, highlighting its innovative features and market appeal. It presented a clear path to both financial viability and architectural significance, positioning it as a prime asset for their portfolio.\u003c/p\u003e\u003cfigure class=\"w-richtext-align-fullwidth w-richtext-figure-type-image\" style=\"max-width:1920pxpx\"\u003e\u003cdiv\u003e\u003cimg alt=\"\" loading=\"lazy\" src=\"/images/6846c0d0f7d13efe853398cb_rowan-heuvel--SSYzZ8OMxo-unsplash.webp\"/\u003e\u003c/div\u003e\u003c/figure\u003e\u003ch3\u003eComponents\u003c/h3\u003e\u003cp\u003e• Residential Units\u003c/p\u003e\u003cp\u003e• Retail Spaces\u003c/p\u003e\u003cp\u003e• Parks and Recreation Areas\u003c/p\u003e\u003c/div\u003e\u003c/div\u003e\u003c/div\u003e"
     }
 ]
-
 

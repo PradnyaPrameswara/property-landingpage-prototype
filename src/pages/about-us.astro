@@ -73,10 +73,12 @@ import { aboutIntro, aboutHelps } from '../content/landing';
     position: absolute;
     inset: 0;
     z-index: 0;
-    background-image: url('/images/6870b759eca23be9cef0f716_about.webp');
-    background-position: 50%;
-    background-repeat: no-repeat;
-    background-size: cover;
+    background-image:
+      linear-gradient(to bottom, var(--black-light-50), var(--black-light-50)),
+      url('/images/6870b759eca23be9cef0f716_about.webp');
+    background-position: 0 0, 50%;
+    background-repeat: repeat, no-repeat;
+    background-size: auto, cover;
   }
 
   .hero-section .container {

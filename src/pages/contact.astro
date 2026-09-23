@@ -1,12 +1,13 @@
 ﻿---
 import Base from '../layouts/Base.astro';
 import CTASection from '../components/CTASection.astro';
-import { contactIntro, contactCards, footerSocials } from '../content/landing';
+import { contactIntro, contactCards } from '../content/landing';
 ---
 
 <Base
   title="Contact | ProForma"
   description="Need an architectural or design project? Contact ProForma by phone, email, or social media."
+  header="light"
 >
   <section class="section section-margin section-long-bottom" id="hero">
     <div class="container">
@@ -25,8 +26,8 @@ import { contactIntro, contactCards, footerSocials } from '../content/landing';
                   ))}
                 </div>
               ) : card.title === 'Social' ? (
-                <div class="contact-links">
-                  {footerSocials.map((link) => (
+                <div class="contact-social-card">
+                  {(card.links ?? []).map((link) => (
                     <a class="text-inner-link" href={link.href} target="_blank" rel="noreferrer">
                       {link.label}
                     </a>
@@ -75,6 +76,13 @@ import { contactIntro, contactCards, footerSocials } from '../content/landing';
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+  }
+
+  .contact-social-card {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
   }
 
   .text-inner-link {

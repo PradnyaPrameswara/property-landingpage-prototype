@@ -1,8 +1,15 @@
 ---
 import { navLinks } from '../content/landing';
+
+type Props = {
+  variant?: 'dark' | 'light';
+};
+
+const { variant = 'dark' } = Astro.props;
+const contactClass = variant === 'light' ? 'button-white desktop-only' : 'button-transparent desktop-only';
 ---
 
-<div class="site-header">
+<div class={`site-header header-${variant}`}>
   <div class="container header-inner">
     <a href="/" aria-current="page" aria-label="ProForma home" class="logo">PROFORMA</a>
     <nav class="header-nav" aria-label="Primary">
@@ -21,7 +28,7 @@ import { navLinks } from '../content/landing';
         }
       </ul>
     </nav>
-    <a href="/contact" aria-label="contact" class="button-transparent desktop-only">
+    <a href="/contact" aria-label="contact" class={contactClass}>
       <span class="swap">
         <span>Contact</span>
         <span aria-hidden="true">Contact</span>
@@ -79,6 +86,12 @@ import { navLinks } from '../content/landing';
     letter-spacing: 0.08em;
     text-decoration: none;
     color: var(--white);
+  }
+
+  .header-light .logo,
+  .header-light .header-nav a,
+  .header-light .burger {
+    color: var(--black);
   }
 
   .desktop-only {

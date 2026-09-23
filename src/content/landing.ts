@@ -591,17 +591,25 @@ export type ContactCard = {
 export const contactCards: ContactCard[] = [
   {
     title: 'Address',
-    lines: ['752 New South Headr Rd', 'Triple Bay SWFW 3148,', 'New York'],
+    lines: ['752 New South Headr Rd', 'Triple Bay SWFW 3148, New York'],
   },
   {
     title: 'Contact',
-    lines: ['3853315402', 'contactemail@studios.com'],
+    lines: ['3853 315 402', 'contactemail@studios.com'],
     links: [
-      { label: '3853315402', href: 'tel:3853315402' },
+      { label: '3853 315 402', href: 'tel:3853315402' },
       { label: 'contactemail@studios.com', href: 'mailto:contactemail@studios.com' },
     ],
   },
-  { title: 'Social', lines: ['Instagram', 'Twitter', 'Linkedin'] },
+  {
+    title: 'Social',
+    lines: ['Instagram', 'Twitter', 'Linkedin'],
+    links: [
+      { label: 'Instagram', href: 'https://instagram.com/digital_butlers' },
+      { label: 'Twitter', href: 'https://twitter.com/Digital_Butlers' },
+      { label: 'Linkedin', href: 'https://www.linkedin.com/company/digitalbutlers/' },
+    ],
+  },
 ];
 
 

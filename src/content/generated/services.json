@@ -2,7 +2,7 @@
     {
         "slug":  "architecture-design",
         "h1":  "Architecture design",
-        "cover":  "",
+        "cover":  "/images/686d2d50c769c3204481eb6d_s005.webp",
         "description":  "We focus on understanding client needs and translating them into aesthetically pleasing and practical building designs. Our expertise covers a wide range of architectural styles and project scales. We are dedicated to delivering high-quality designs that meet both your vision and the demands of modern living.",
         "priceSymbol":  "$",
         "price":  "2000",
@@ -11,7 +11,7 @@
     {
         "slug":  "decoration",
         "h1":  "Decoration",
-        "cover":  "",
+        "cover":  "/images/686d2c8efa574682f32fb3b7_s002.webp",
         "description":  "We specialize in creating customized decor that enhances the character and atmosphere of any space. Our team carefully selects materials, colors, and furnishings to craft designs that reflect your personal taste and elevate the space’s visual appeal.",
         "priceSymbol":  "$",
         "price":  "300",
@@ -20,7 +20,7 @@
     {
         "slug":  "exterior-design",
         "h1":  "Exterior design",
-        "cover":  "",
+        "cover":  "/images/686fa9f9101af483ddc5a31d_serv.webp",
         "description":  "Specializing in creating visually captivating and functional outdoor spaces, our exterior design service focuses on transforming your outdoor areas into beautiful extensions of your home or business. From landscaping to architectural features, our designs prioritize harmony with the surrounding environment while ensuring durability and sustainability.",
         "priceSymbol":  "$",
         "price":  "900",
@@ -29,7 +29,7 @@
     {
         "slug":  "interior-design",
         "h1":  "Interior design",
-        "cover":  "",
+        "cover":  "/images/6876331b304d792127198c62_s001.webp",
         "description":  "Our Interior Design service transforms your space by combining creativity with functionality. We work with you to understand your vision, preferences, and lifestyle to create an interior that is both beautiful and practical, reflecting your personal style.",
         "priceSymbol":  "$",
         "price":  "400",
@@ -38,12 +38,11 @@
     {
         "slug":  "space-planning",
         "h1":  "Space planning",
-        "cover":  "",
+        "cover":  "/images/686d2d0ac763b9a66974b84a_s003.webp",
         "description":  "We specialize in optimizing interior layouts to maximize functionality and flow, ensuring that every room serves its purpose and works seamlessly with the others. Our Space Planning service focuses on creating spaces that are both practical and comfortable, enhancing your daily living experience.",
         "priceSymbol":  "$",
         "price":  "500",
         "body":  "\u003ch2\u003eAbout the service\u003c/h2\u003e\u003cp\u003eOur Space Planning service is essential for making the most out of your available space. Whether you’re designing a home, office, or commercial property, we ensure that every area is utilized efficiently, optimizing both form and function.\u003c/p\u003e\u003cp\u003eWe start by conducting a detailed assessment of your space, considering your specific needs and the way you use each room. Our goal is to ensure that the layout enhances the flow and accessibility of the space, while also creating zones that are perfect for their intended use.\u003c/p\u003e\u003cp\u003eFrom open-plan living to small apartment designs, we know how to create layouts that work, helping you make the most of every corner. Our team incorporates practical solutions such as built-in furniture, multifunctional areas, and clever storage to maximize space usage and improve the overall functionality of the property.\u003c/p\u003e\u003cp\u003eWe also focus on aesthetic balance, making sure that the space feels comfortable, inviting, and visually appealing. Through careful space planning, we create environments that support your lifestyle, whether it’s a productive workspace, a relaxing home, or a welcoming commercial environment.\u003c/p\u003e\u003cp\u003eUltimately, the result of our Space Planning service is a space that not only looks beautiful but is optimized for the way you live, work, and interact with your surroundings.\u003c/p\u003e\u003ch3\u003eWhat\u0027s included in this service?\u003c/h3\u003e\u003cp\u003eOur process is simple yet effective. We begin by understanding your needs and preferences, followed by a detailed analysis of your space. From initial concept sketches to the final implementation, we ensure that every phase is aligned with your vision and goals. Our approach is collaborative, transparent, and focused on achieving the best possible outcome.\u003c/p\u003e\u003ch3\u003eOur advantges\u003c/h3\u003e\u003cul role=\"list\"\u003e\u003cli\u003eOptimal Space Utilization: We make the most of every square inch to enhance functionality and flow.\u003c/li\u003e\u003cli\u003eTailored Designs: Each layout is customized to your unique lifestyle or business needs.\u003c/li\u003e\u003cli\u003eImproved Functionality: We create spaces that are not only beautiful but work efficiently.\u003c/li\u003e\u003cli\u003eMaximized Potential: Our designs ensure that every part of your space is used to its full potential.\u003c/li\u003e\u003cli\u003ePractical Solutions: From storage to layout, we focus on solutions that make your space work harder.\u003c/li\u003e\u003cli\u003eSimplicity: We ensure a smooth and intuitive flow between spaces, improving user experience.\u003c/li\u003e\u003c/ul\u003e"
     }
 ]
-
 
