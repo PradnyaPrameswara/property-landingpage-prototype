@@ -51,6 +51,12 @@ import { advantagesIntro, advantages } from '../content/landing';
     color: var(--white);
   }
 
+  @media (hover: hover) and (pointer: fine) {
+    .section.advantages {
+      background-attachment: scroll, fixed;
+    }
+  }
+
   .content-grid {
     display: grid;
     grid-template-columns: 1fr 1.2fr;

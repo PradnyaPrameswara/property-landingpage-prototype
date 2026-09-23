@@ -73,6 +73,12 @@ import { reviewsIntro, reviewsListA, reviewsListB, reviewStars } from '../conten
     color: var(--white);
   }
 
+  @media (hover: hover) and (pointer: fine) {
+    .section.reviews {
+      background-attachment: scroll, fixed;
+    }
+  }
+
   .content-grid {
     display: grid;
     grid-template-columns: 1fr 2fr;
