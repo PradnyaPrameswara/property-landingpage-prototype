@@ -1,4 +1,4 @@
-export type Service = {
+﻿export type Service = {
   slug: string;
   title: string;
   excerpt: string;
@@ -54,12 +54,12 @@ export type BlogPost = {
 
 export type NavLink = { label: string; href: string };
 
-const CDN = 'https://cdn.prod.website-files.com/676011e38753f7d22eefbfdf';
+const CDN = '/images';
 
 export const hero = {
   title: 'Elevate your living',
   // R-37: em dash kept verbatim from source copy per locked contract.
-  body: 'We understand that every home is unique. Our team of experts is ready to help you choose the perfect solutions — to suit your taste and needs.',
+  body: 'We understand that every home is unique. Our team of experts is ready to help you choose the perfect solutions â€” to suit your taste and needs.',
   ctaLabel: 'Get in touch',
   ctaHref: '#CTA',
 };
@@ -74,7 +74,7 @@ export const services: Service[] = [
     slug: 'decoration',
     title: 'Decoration',
     excerpt:
-      'We specialize in creating customized decor that enhances the character and atmosphere of any space. Our team carefully selects materials, colors, and furnishings to craft designs that reflect your personal taste and elevate the space’s visual appeal.',
+      'We specialize in creating customized decor that enhances the character and atmosphere of any space. Our team carefully selects materials, colors, and furnishings to craft designs that reflect your personal taste and elevate the spaceâ€™s visual appeal.',
     image: `${CDN}/686d2c8efa574682f32fb3b7_s002.webp`,
     alt: 'Arhitecture Design',
     href: '/product/decoration',
@@ -207,7 +207,7 @@ export const advantages: Advantage[] = [
   },
 ];
 
-const SLIDES = 'https://cdn.prod.website-files.com/67409478e7d06cee556594cb';
+const SLIDES = '/images';
 
 export const gallerySlides: GallerySlide[] = [
   {
@@ -227,7 +227,7 @@ export const gallerySlides: GallerySlide[] = [
   {
     heading: 'Convenience meets exceptional service',
     subheading: 'We value your time and convenience.',
-    body: "We value your time and convenience. That's why we offer seamless online shopping experiences, swift delivery services, and flexible payment options. Our commitment to customer satisfaction extends beyond the purchase — we're here to ensure your ongoing delight with our products.",
+    body: "We value your time and convenience. That's why we offer seamless online shopping experiences, swift delivery services, and flexible payment options. Our commitment to customer satisfaction extends beyond the purchase â€” we're here to ensure your ongoing delight with our products.",
     image: `${SLIDES}/686779e608de9968fddd8cae_slide3.webp`,
     alt: 'House',
   },
@@ -302,7 +302,7 @@ export const reviewsIntro = {
 };
 
 export const reviewStars =
-  'https://cdn.prod.website-files.com/67409478e7d06cee556594cb/676433a45b6dfabc13bb625d_stars.png';
+  '/images/676433a45b6dfabc13bb625d_stars.png';
 
 export const reviewsListA: Review[] = [
   {
@@ -548,7 +548,7 @@ export const footerSocials: NavLink[] = [
 ];
 
 export const cta = {
-  title: 'Got a project? Let’s talk!',
+  title: 'Got a project? Letâ€™s talk!',
   body: 'We value your privacy and promise to send you only the most important and interesting information.',
 };
 
@@ -603,3 +603,4 @@ export const contactCards: ContactCard[] = [
   },
   { title: 'Social', lines: ['Instagram', 'Twitter', 'Linkedin'] },
 ];
+

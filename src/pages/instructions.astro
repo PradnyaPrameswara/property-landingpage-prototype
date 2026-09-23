@@ -1,0 +1,58 @@
+---
+import Base from '../layouts/Base.astro';
+import CTASection from '../components/CTASection.astro';
+import utility from '../content/generated/utility.json';
+
+function clean(html: string): string {
+  return html.replace(/ data-w-id="[^"]*"/g, '').replace(/ style="opacity:0"/g, '');
+}
+---
+
+<Base title="Instructions | ProForma" description="Instructions for customizing the ProForma template.">
+  <section class="section section-margin" id="hero">
+    <div class="container">
+      <h1 class="reveal">Instructions</h1>
+      <div class="content-vertical-left-licenses reveal" set:html={clean(utility.instructionsBlocks)} />
+    </div>
+  </section>
+
+  <CTASection />
+</Base>
+
+<style>
+  .section-margin {
+    padding-top: 9rem;
+  }
+
+  .content-vertical-left-licenses {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .content-vertical-left-licenses :global(.content-horizontal-left) {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 2rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--gray-100);
+  }
+
+  .content-vertical-left-licenses :global(.licenses-text-flex) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .content-vertical-left-licenses :global(a) {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  @media (max-width: 767px) {
+    .content-vertical-left-licenses :global(.content-horizontal-left) {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,56 @@
+---
+import Base from '../layouts/Base.astro';
+import CTASection from '../components/CTASection.astro';
+import utility from '../content/generated/utility.json';
+
+function clean(html: string): string {
+  return html.replace(/ data-w-id="[^"]*"/g, '').replace(/ style="opacity:0"/g, '');
+}
+---
+
+<Base
+  title="Privacy Policy | ProForma"
+  description="Your privacy is our priority. A transparent statement on data collection and processing."
+>
+  <section class="section section-margin" id="hero">
+    <div class="container">
+      <h1 class="reveal">Privacy Policy</h1>
+      <div class="content-center reveal" set:html={clean(utility.privacyBody)} />
+    </div>
+  </section>
+
+  <CTASection />
+</Base>
+
+<style>
+  .section-margin {
+    padding-top: 9rem;
+  }
+
+  .content-center {
+    max-width: 56rem;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .content-center :global(.flex-content) {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .content-center :global(.content-flex-with-gap) {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .content-center :global(ul) {
+    padding-left: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+</style>

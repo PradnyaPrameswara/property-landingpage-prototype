@@ -1,0 +1,52 @@
+---
+import Base from '../layouts/Base.astro';
+import CTASection from '../components/CTASection.astro';
+
+const entries = [{ date: 'October, 2025', text: 'The template has been released.' }];
+---
+
+<Base
+  title="Changelog | ProForma"
+  description="What is new in the ProForma template? Check our change history for all recent updates and fixes."
+>
+  <section class="section section-margin" id="hero">
+    <div class="container">
+      <h1 class="reveal">Changelog</h1>
+      <div class="changelog-wrapper">
+        {
+          entries.map((entry) => (
+            <div class="changelog-entry reveal">
+              <div class="heading-m">{entry.date}</div>
+              <div class="changelog-text-wrapper">
+                <div class="text-s">{entry.text}</div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CTASection />
+</Base>
+
+<style>
+  .section-margin {
+    padding-top: 9rem;
+  }
+
+  .changelog-wrapper {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .changelog-entry {
+    border-bottom: 1px solid var(--gray-100);
+    padding-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+</style>
