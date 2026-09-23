@@ -59,7 +59,7 @@ const CDN = '/images';
 export const hero = {
   title: 'Elevate your living',
   // R-37: em dash kept verbatim from source copy per locked contract.
-  body: 'We understand that every home is unique. Our team of experts is ready to help you choose the perfect solutions â€” to suit your taste and needs.',
+  body: 'We understand that every home is unique. Our team of experts is ready to help you choose the perfect solutions — to suit your taste and needs.',
   ctaLabel: 'Get in touch',
   ctaHref: '#CTA',
 };
@@ -227,7 +227,7 @@ export const gallerySlides: GallerySlide[] = [
   {
     heading: 'Convenience meets exceptional service',
     subheading: 'We value your time and convenience.',
-    body: "We value your time and convenience. That's why we offer seamless online shopping experiences, swift delivery services, and flexible payment options. Our commitment to customer satisfaction extends beyond the purchase â€” we're here to ensure your ongoing delight with our products.",
+    body: "We value your time and convenience. That's why we offer seamless online shopping experiences, swift delivery services, and flexible payment options. Our commitment to customer satisfaction extends beyond the purchase — we're here to ensure your ongoing delight with our products.",
     image: `${SLIDES}/686779e608de9968fddd8cae_slide3.webp`,
     alt: 'House',
   },
@@ -603,4 +603,7 @@ export const contactCards: ContactCard[] = [
   },
   { title: 'Social', lines: ['Instagram', 'Twitter', 'Linkedin'] },
 ];
+
+
+
 

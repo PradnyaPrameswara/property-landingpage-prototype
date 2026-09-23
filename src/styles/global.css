@@ -199,9 +199,24 @@ a:focus-visible .swap > span:last-child {
 .button-transparent {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   color: var(--white);
   text-decoration: none;
   min-height: 44px;
+  border: 1px solid var(--white-20);
+  background: transparent;
+  -webkit-backdrop-filter: blur(44px);
+  backdrop-filter: blur(44px);
+  border-radius: 6.25rem;
+  padding: 0.9rem 1.75rem 1rem;
+  transition:
+    color 0.3s linear,
+    background-color 0.3s linear;
+}
+
+.button-transparent:hover {
+  background: var(--white);
+  color: var(--black);
 }
 
 /* Round arrow buttons on cards. */

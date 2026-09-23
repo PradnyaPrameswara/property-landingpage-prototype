@@ -1,5 +1,5 @@
 ---
-import { footerPages, footerCms, footerUtility, footerSocials } from '../content/landing';
+import { footerPages, footerCms, footerUtility } from '../content/landing';
 ---
 
 <footer class="footer-dark">
@@ -52,13 +52,48 @@ import { footerPages, footerCms, footerUtility, footerSocials } from '../content
             752 New South Headr Rd<br />Triple Bay SWFW 3148, <br />New York<br />
           </div>
           <div class="footer-social-block">
-            {
-              footerSocials.map((link) => (
-                <a class="footer-social-link" href={link.href} target="_blank" rel="noreferrer" aria-label={link.label}>
-                  {link.label}
-                </a>
-              ))
-            }
+            <a
+              class="footer-social-link"
+              href="https://www.linkedin.com/company/digitalbutlers/"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="LinkedIn"
+            >
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path
+                  d="M5.80527 17H2.2808V5.64997H5.80527V17ZM4.04114 4.10172C2.91413 4.10172 2 3.16822 2 2.04118C2 1.49983 2.21505 0.980645 2.59784 0.597849C2.98062 0.215053 3.49979 0 4.04114 0C4.58248 0 5.10165 0.215053 5.48444 0.597849C5.86723 0.980645 6.08228 1.49983 6.08228 2.04118C6.08228 3.16822 5.16777 4.10172 4.04114 4.10172ZM18.9962 17H15.4793V11.4749C15.4793 10.1581 15.4528 8.46945 13.6469 8.46945C11.8145 8.46945 11.5337 9.90006 11.5337 11.38V17H8.01299V5.64997H11.3933V7.19822H11.4426C11.9131 6.30646 13.0625 5.36537 14.7773 5.36537C18.3443 5.36537 19 7.7143 19 10.7653V17H18.9962Z"
+                  fill="currentColor"
+                />
+              </svg>
+            </a>
+            <a
+              class="footer-social-link"
+              href="https://twitter.com/Digital_Butlers"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Twitter"
+            >
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path
+                  d="M17.9441 5.92613C17.9568 6.10379 17.9568 6.28148 17.9568 6.45914C17.9568 11.8779 13.8325 18.1216 6.29441 18.1216C3.97207 18.1216 1.81473 17.4489 0 16.2815C0.329961 16.3195 0.647187 16.3322 0.989844 16.3322C2.90605 16.3322 4.67004 15.685 6.07867 14.581C4.27664 14.5429 2.76648 13.3627 2.24617 11.7383C2.5 11.7764 2.75379 11.8018 3.02031 11.8018C3.38832 11.8018 3.75637 11.751 4.09898 11.6622C2.22082 11.2814 0.812148 9.63172 0.812148 7.63934V7.58859C1.35781 7.89316 1.99238 8.08352 2.66492 8.10887C1.56086 7.37281 0.837539 6.11648 0.837539 4.69516C0.837539 3.93375 1.04055 3.23578 1.3959 2.62664C3.41367 5.11395 6.44668 6.73828 9.84766 6.91598C9.78422 6.61141 9.74613 6.29418 9.74613 5.97691C9.74613 3.71801 11.5736 1.87793 13.8451 1.87793C15.0253 1.87793 16.0913 2.37285 16.84 3.17234C17.7664 2.99469 18.6547 2.65203 19.4416 2.1825C19.137 3.1343 18.4898 3.93379 17.6395 4.44137C18.4644 4.35258 19.2639 4.1241 19.9999 3.80687C19.4416 4.61902 18.7436 5.34234 17.9441 5.92613Z"
+                  fill="currentColor"
+                />
+              </svg>
+            </a>
+            <a
+              class="footer-social-link"
+              href="https://www.facebook.com/people/Digital-Butlers-Studio/100090264223869/"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Facebook"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path
+                  d="M15.1194 5.32003H16.9994V2.14003C16.0891 2.04538 15.1745 1.99865 14.2594 2.00003C11.5394 2.00003 9.67938 3.66003 9.67938 6.70003V9.32003H6.60938V12.88H9.67938V22H13.3594V12.88H16.4194L16.8794 9.32003H13.3594V7.05003C13.3594 6.00003 13.6394 5.32003 15.1194 5.32003Z"
+                  fill="currentColor"
+                />
+              </svg>
+            </a>
           </div>
         </div>
       </div>
@@ -144,19 +179,42 @@ import { footerPages, footerCms, footerUtility, footerSocials } from '../content
   }
 
   .footer-social-link {
-    min-width: 44px;
-    min-height: 44px;
-    display: inline-flex;
+    width: 3.88rem;
+    height: 3.88rem;
+    border-radius: 50%;
+    background: var(--white-20);
+    color: var(--white);
+    display: flex;
+    justify-content: center;
     align-items: center;
+    text-decoration: none;
+    transition:
+      color 0.3s linear,
+      background-color 0.3s linear;
+  }
+
+  .footer-social-link:hover {
+    background: var(--white);
+    color: var(--accent);
   }
 
   .link-to-top {
+    width: 3.88rem;
+    height: 3.88rem;
+    border-radius: 50%;
+    background: var(--white);
+    color: var(--accent);
     display: inline-flex;
-    min-width: 44px;
-    min-height: 44px;
     align-items: center;
     justify-content: center;
-    color: inherit;
+    transition:
+      color 0.3s linear,
+      background-color 0.3s linear;
+  }
+
+  .link-to-top:hover {
+    background: var(--white-20);
+    color: var(--white);
   }
 
   .mobile-only {

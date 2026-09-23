@@ -53,13 +53,13 @@ Skill tiap sesi: `antislop*`, `caveman`, `lsp-ai`, `ponytail`, `playwright-mcp`,
 
 1. `section.section.hero-section#hero` — 1 kolom: `h1` + `div.text-m` + `a.button-white-grey-hover[href=#CTA]` + `div.bg-about-us` (bg CSS only).
 2. `section.section.no-bottom-mobile-padding > section.logos-wrapper` — marquee: **4× identik** `div.logos-list-wrapper.w-dyn-list > div.logos-list > 8x div.logo-item` = 32 node.
-3. `section.section.section-long-bottom-pading#services` — `div.autotabs.w-dyn-list > 5x a.autotabs-tab[href=/product/*]` (img + `heading-m`) + teks statis `services-wrapp`.
+3. `section.section.section-long-bottom-pading#services` — H2 + grid 2 kolom: panel gambar kiri (5 stacked, aktif visible, 22.5rem) + list 5 tab-link kanan (`heading-m`, divider, aktif = blok merah teks putih padding 2.81rem 2rem); hover/focus ganti gambar via skrip Astro; klik navigasi ke `/product/*`.
 4. `section.section.advantages > div.content-grid.mobile-flex` — 2 kolom: `div.column-sticky` (h2 + text) + 4× `div.column-card-advant-white` (01–04).
 5. `section.section.section-long-padding` (projects, tanpa id) — `div.cursor` (View) + 6× `a.project-card[href=/project/*]` + `Go to project → /projects`.
 6. `section.section.about` — 3× `div.gallery-item > div.gallery-item-sticky` (kartu `red/dark-red/burgundi-red` + img desktop + img `desktop-hidden`).
 7. `section.section.section-long-top-padding` (FAQ) — `h2` + 5× `div.dropdown[.top-line].w-dropdown`.
 8. `section.section.section-long-bottom-pading.no-top-mobile-padding` — `h2` + 5× `a.teams-card[href=/teams/*]`.
-9. `section.section.reviews` — 2 kolom: h2 + text kiri; kanan 2 lists × 10 `a.column-grid > div.review-card` (satu list `right-mobile-hidden`).
+9. `section.section.reviews` — bg foto `6876462e38be354c9648481c_0001111.webp` + overlay, py 7.5rem, teks kiri putih; kanan 2 lists × 10 kartu putih.
 10. `section.section.section-long-padding` (blog) — 3× `a.blog-post-card[href=/blog/*]` + `Go to blog → /blog`.
 11. `section.section.cta#CTA` — h2 + `form#email-form` + done/fail.
 12. `footer.footer-dark` — brand + 4 kolom + 2× `link-to-top[href=#hero]` + logo + divider + copyright 3 kolom.

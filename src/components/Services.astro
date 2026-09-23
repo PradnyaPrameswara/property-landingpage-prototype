@@ -6,14 +6,32 @@ import { servicesIntro, services } from '../content/landing';
   <div class="container">
     <div class="autotabs-wrapper">
       <h2 class="reveal">{servicesIntro.title}</h2>
-      <div class="autotabs-container">
-        <div class="autotabs">
+      <div class="autotabs-container" data-autotabs>
+        <div class="services-panel">
           {
-            services.map((service) => (
-              <a class="autotabs-tab reveal" href={service.href} aria-label={service.title}>
-                <span class="services-heropage-wrapper">
-                  <img class="servises-image" src={service.image} alt={service.alt} loading="lazy" />
-                </span>
+            services.map((service, i) => (
+              <img
+                class={`servises-image${i === 0 ? ' active' : ''}`}
+                src={service.image}
+                alt={service.alt}
+                loading="lazy"
+                data-panel={service.slug}
+                aria-hidden={i === 0 ? 'false' : 'true'}
+              />
+            ))
+          }
+        </div>
+        <div class="autotabs" role="list">
+          {
+            services.map((service, i) => (
+              <a
+                class={`autotabs-tab reveal${i === 0 ? ' current' : ''}`}
+                href={service.href}
+                aria-label={service.title}
+                data-tab={service.slug}
+                data-active={i === 0 ? 'true' : 'false'}
+                role="listitem"
+              >
                 <span class="services-heder-wrapper">
                   <span class="heading-m">{service.title}</span>
                 </span>
@@ -31,6 +49,31 @@ import { servicesIntro, services } from '../content/landing';
   </div>
 </section>
 
+<script>
+  const root = document.querySelector('[data-autotabs]');
+  const tabs = Array.from(root?.querySelectorAll('[data-tab]') ?? []);
+  const panels = Array.from(root?.querySelectorAll('[data-panel]') ?? []);
+
+  function activate(slug: string) {
+    tabs.forEach((tab) => {
+      const on = tab.getAttribute('data-tab') === slug;
+      tab.classList.toggle('current', on);
+      tab.setAttribute('data-active', String(on));
+    });
+    panels.forEach((panel) => {
+      const on = panel.getAttribute('data-panel') === slug;
+      panel.classList.toggle('active', on);
+      panel.setAttribute('aria-hidden', String(!on));
+    });
+  }
+
+  tabs.forEach((tab) => {
+    const slug = tab.getAttribute('data-tab') ?? '';
+    tab.addEventListener('mouseenter', () => activate(slug));
+    tab.addEventListener('focus', () => activate(slug));
+  });
+</script>
+
 <style>
   .autotabs-wrapper {
     display: flex;
@@ -38,24 +81,65 @@ import { servicesIntro, services } from '../content/landing';
     gap: 2.5rem;
   }
 
-  .autotabs {
+  .autotabs-container {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 1.5rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
   }
 
-  .autotabs-tab {
-    text-decoration: none;
-    color: inherit;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+  .services-panel {
+    position: relative;
+    width: 100%;
+    height: 22.5rem;
+    overflow: hidden;
   }
 
   .servises-image {
+    position: absolute;
+    inset: 0;
     width: 100%;
-    aspect-ratio: 4 / 3;
+    height: 100%;
     object-fit: cover;
+    object-position: 0% 50%;
+    opacity: 0;
+    transition: opacity 0.3s ease-in;
+  }
+
+  .servises-image.active {
+    opacity: 1;
+  }
+
+  .autotabs {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .autotabs-tab {
+    color: #0d0b0b;
+    text-decoration: none;
+    display: flex;
+    width: 100%;
+    padding: 2rem 0;
+    border-top: 1px solid var(--gray-100);
+  }
+
+  .autotabs-tab:last-child {
+    border-bottom: 1px solid var(--gray-100);
+  }
+
+  .autotabs-tab.current {
+    color: #fff;
+    background: var(--accent);
+    padding: 2.81rem 2rem;
+    border-top: 0;
+    transition:
+      color 0.2s ease-in,
+      background-color 0.3s ease-in;
+  }
+
+  .tabs-content-heading-wrapper-visible {
+    grid-column: 1 / -1;
   }
 
   .services-wrapp {
@@ -63,14 +147,8 @@ import { servicesIntro, services } from '../content/landing';
     color: var(--gray-300);
   }
 
-  @media (max-width: 991px) {
-    .autotabs {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
   @media (max-width: 767px) {
-    .autotabs {
+    .autotabs-container {
       grid-template-columns: 1fr;
     }
   }
