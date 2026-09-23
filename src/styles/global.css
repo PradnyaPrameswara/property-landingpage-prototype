@@ -74,6 +74,25 @@ a {
   padding-bottom: var(--section-py);
 }
 
+.section-margin {
+  padding-top: 16.88rem;
+  padding-bottom: var(--section-py);
+  overflow: visible;
+}
+
+.section.section-long-bottom-pading {
+  padding-bottom: 10rem;
+}
+
+.section.section-long-top-padding {
+  padding-top: 10rem;
+}
+
+.section.section-long-padding {
+  padding-top: 10rem;
+  padding-bottom: 10rem;
+}
+
 h1,
 .h1 {
   font-family: var(--font-display);
@@ -88,7 +107,7 @@ h2,
 .h2 {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: var(--h2);
+  font-size: 4.375rem;
   line-height: 1.1;
   letter-spacing: -0.06em;
   margin: 0;
@@ -97,7 +116,7 @@ h2,
 .heading-m {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: 1.75rem;
+  font-size: 2.25rem;
   line-height: 1.1;
   letter-spacing: -0.04em;
   margin: 0;
@@ -546,16 +565,32 @@ button:hover .arrow svg {
   margin-top: 0.75rem;
 }
 
-/* Responsive. Breakpoints mirror Webflow: tablet 991px, mobile 767px. */
+/* Responsive. Breakpoints mirror Webflow: tablet 991px, mobile 767px, tiny 479px. */
 @media (max-width: 991px) {
-  .container {
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
-
   h2,
   .h2 {
-    font-size: var(--h2-lg);
+    font-size: 3.5rem;
+  }
+
+  .section.section-long-bottom-pading {
+    padding-bottom: 5rem;
+  }
+
+  .section.section-long-bottom-pading.no-top-mobile-padding {
+    padding-top: 0;
+  }
+
+  .section.section-long-top-padding {
+    padding-top: 5rem;
+  }
+
+  .section.section-long-padding {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  .section.no-bottom-mobile-padding {
+    padding-bottom: 0;
   }
 }
 
@@ -565,26 +600,24 @@ button:hover .arrow svg {
     padding-bottom: var(--section-py-mobile);
   }
 
-  .no-bottom-mobile-padding {
-    padding-bottom: 0;
-  }
-
-  .no-top-mobile-padding {
-    padding-top: 0;
-  }
-
   .container {
     padding-left: var(--container-px-mobile);
     padding-right: var(--container-px-mobile);
   }
 
+  .heading-m {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 479px) {
   h2,
   .h2 {
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
 
   .heading-m {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
   }
 }
 
