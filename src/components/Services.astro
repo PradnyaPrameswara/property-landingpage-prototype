@@ -1,0 +1,77 @@
+---
+import { servicesIntro, services } from '../content/landing';
+---
+
+<section class="section section-long-bottom-pading" id="services">
+  <div class="container">
+    <div class="autotabs-wrapper">
+      <h2 class="reveal">{servicesIntro.title}</h2>
+      <div class="autotabs-container">
+        <div class="autotabs">
+          {
+            services.map((service) => (
+              <a class="autotabs-tab reveal" href={service.href} aria-label={service.title}>
+                <span class="services-heropage-wrapper">
+                  <img class="servises-image" src={service.image} alt={service.alt} loading="lazy" />
+                </span>
+                <span class="services-heder-wrapper">
+                  <span class="heading-m">{service.title}</span>
+                </span>
+              </a>
+            ))
+          }
+        </div>
+        <div class="tabs-content-heading-wrapper-visible">
+          <div class="services-wrapp">
+            <div class="text text-services">{servicesIntro.body}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .autotabs-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .autotabs {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.5rem;
+  }
+
+  .autotabs-tab {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .servises-image {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+
+  .services-wrapp {
+    max-width: 48rem;
+    color: var(--gray-300);
+  }
+
+  @media (max-width: 991px) {
+    .autotabs {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .autotabs {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

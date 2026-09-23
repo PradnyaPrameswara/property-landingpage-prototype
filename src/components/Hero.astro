@@ -1,0 +1,59 @@
+---
+import { hero } from '../content/landing';
+
+const words = hero.title.split(' ');
+---
+
+<section class="section hero-section" id="hero">
+  <div class="container">
+    <div class="hero-wrapper">
+      <div class="hero-left-content">
+        <h1 aria-label={hero.title}>
+          {
+            words.map((word, i) => (
+              <span class="hero-word reveal" style={`transition-delay:${i * 120}ms`} aria-hidden="true">
+                {word}
+                {i < words.length - 1 ? ' ' : ''}
+              </span>
+            ))
+          }
+        </h1>
+        <div class="text-m reveal" style="transition-delay:240ms">{hero.body}</div>
+        <div class="button-wrapper reveal" style="transition-delay:360ms">
+          <a class="button-white button-white-grey-hover" href={hero.ctaHref} aria-label="contact">
+            <span class="swap">
+              <span>{hero.ctaLabel}</span>
+              <span aria-hidden="true">{hero.ctaLabel}</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-section {
+    background: var(--black);
+    color: var(--white);
+    padding-top: 9rem;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+  }
+
+  .hero-wrapper {
+    max-width: 60rem;
+  }
+
+  .hero-left-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .hero-left-content .text-m {
+    max-width: 36rem;
+    color: var(--gray-100);
+  }
+</style>

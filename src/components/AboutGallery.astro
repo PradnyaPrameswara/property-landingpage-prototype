@@ -1,0 +1,104 @@
+---
+import { gallerySlides } from '../content/landing';
+
+const tones = ['red', 'dark-red', 'burgundi-red'];
+---
+
+<section class="section about" aria-label="About ProForma">
+  {
+    gallerySlides.map((slide, i) => (
+      <>
+        <div class="gallery-scroll-distance" aria-hidden="true"></div>
+        <div class="gallery-item">
+          <div class="gallery-item-sticky">
+            <div class={`gallery-item-inner mobile-flex card-slide ${tones[i]}`}>
+              <div class="container gallery-grid">
+                <div class="gallery-copy">
+                  <div class="heading reveal">{slide.heading}</div>
+                  <div class="flex-text-wrapper reveal">
+                    <div class="heading-s">{slide.subheading}</div>
+                    <div class="text-s">{slide.body}</div>
+                  </div>
+                </div>
+                <div class="gallery-media">
+                  <img
+                    class="gallery-item-media-rules"
+                    src={slide.image}
+                    alt={slide.alt}
+                    width="640"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </>
+    ))
+  }
+</section>
+
+<style>
+  .about {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .gallery-scroll-distance {
+    height: 20vh;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    width: 100%;
+  }
+
+  .gallery-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    color: var(--white);
+  }
+
+  .gallery-copy .heading {
+    font-family: var(--font-display);
+    font-size: var(--h2);
+    line-height: 1.1;
+    letter-spacing: -0.06em;
+  }
+
+  .card-slide {
+    width: 100%;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    padding: 4rem 0;
+  }
+
+  .card-slide.red {
+    background: var(--accent);
+  }
+
+  .card-slide.dark-red {
+    background: var(--dark-red);
+  }
+
+  .card-slide.burgundi-red {
+    background: var(--burgundi);
+  }
+
+  .gallery-item-media-rules {
+    width: 100%;
+    max-width: 640px;
+    object-fit: cover;
+  }
+
+  @media (max-width: 767px) {
+    .gallery-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

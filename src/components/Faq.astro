@@ -1,0 +1,40 @@
+---
+import { faq } from '../content/landing';
+---
+
+<section class="section section-long-top-padding">
+  <div class="container-vertical-flex">
+    <div class="container">
+      <h2 class="heading reveal">Frequently asked questions</h2>
+    </div>
+    <div class="faq-wrapper container">
+      {
+        faq.map((item, i) => (
+          <details class={`faq${i === 0 ? ' top-line' : ''}`} name="proforma-faq">
+            <summary>
+              <span class="heading-s">{item.question}</span>
+              <span class="plus" aria-hidden="true"></span>
+            </summary>
+            <div class="faq-body">
+              <div>
+                <p>{item.answer}</p>
+              </div>
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .container-vertical-flex {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .faq-wrapper {
+    width: 100%;
+  }
+</style>

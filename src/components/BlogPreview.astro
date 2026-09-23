@@ -1,0 +1,127 @@
+---
+import { blogIntro, blogPosts } from '../content/landing';
+---
+
+<section class="section section-long-padding">
+  <div class="container">
+    <div class="blog-content">
+      <h2 class="reveal">{blogIntro.title}</h2>
+      <div class="blog-content-card">
+        <div class="blog-posts-list-wrapper">
+          <div class="blog-posts-list">
+            {
+              blogPosts.map((post) => (
+                <div class="blog-posts-item reveal">
+                  <a class="blog-post-card" href={post.href} aria-label="blog posts">
+                    <span class="blog-post-image-wrapper">
+                      <img
+                        class="image-full-width"
+                        src={post.image}
+                        srcset={post.srcset}
+                        sizes={post.sizes}
+                        alt=""
+                        loading="lazy"
+                      />
+                    </span>
+                    <span class="blog-posts-text-wrapper">
+                      <span class="grey-content">
+                        <span class="text-s">{post.date}</span>
+                      </span>
+                      <span class="text-wrapper-min-with">
+                        <span class="heading-s">{post.title}</span>
+                      </span>
+                      <span class="blog-flex-horizontal-layout">
+                        <span class="grey-content">
+                          <span class="text-s">{post.readTime}</span>
+                        </span>
+                        <span class="round-button">
+                          <span class="arrow" aria-hidden="true">
+                            <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                d="M1.5 11L6.5 6L1.5 1"
+                                stroke="currentColor"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                            </svg>
+                          </span>
+                        </span>
+                      </span>
+                    </span>
+                  </a>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+        <div class="button-wrapper-center reveal">
+          <a class="button-white" href={blogIntro.ctaHref} aria-label="button">
+            <span class="swap">
+              <span>{blogIntro.ctaLabel}</span>
+              <span aria-hidden="true">{blogIntro.ctaLabel}</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .blog-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .blog-content-card {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .blog-posts-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .blog-post-card {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .image-full-width {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+  }
+
+  .blog-posts-text-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .blog-flex-horizontal-layout {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .button-wrapper-center {
+    display: flex;
+    justify-content: center;
+  }
+
+  @media (max-width: 991px) {
+    .blog-posts-list {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

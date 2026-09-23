@@ -1,0 +1,197 @@
+---
+import { footerPages, footerCms, footerUtility, footerSocials } from '../content/landing';
+---
+
+<footer class="footer-dark">
+  <div class="container">
+    <div class="footer-wrapper">
+      <div class="footer-brand">Curated living experiences</div>
+      <div class="footer-content">
+        <div class="footer-block">
+          <div class="text-white"><div class="text-m">Pages</div></div>
+          {
+            footerPages.map((link) => (
+              <a class="footer-link" href={link.href}>
+                <span class="swap">
+                  <span>{link.label}</span>
+                  <span aria-hidden="true">{link.label}</span>
+                </span>
+              </a>
+            ))
+          }
+        </div>
+        <div class="footer-block">
+          <div class="text-white"><div class="text-m">CMS Pages</div></div>
+          {
+            footerCms.map((link) => (
+              <a class="footer-link" href={link.href}>
+                <span class="swap">
+                  <span>{link.label}</span>
+                  <span aria-hidden="true">{link.label}</span>
+                </span>
+              </a>
+            ))
+          }
+        </div>
+        <div class="footer-block">
+          <div class="text-white"><div class="text-m">Utility pages</div></div>
+          {
+            footerUtility.map((link) => (
+              <a class="footer-link" href={link.href}>
+                <span class="swap">
+                  <span>{link.label}</span>
+                  <span aria-hidden="true">{link.label}</span>
+                </span>
+              </a>
+            ))
+          }
+        </div>
+        <div class="footer-block">
+          <div class="text-white"><div class="text-m">Contact</div></div>
+          <div class="footer-link">
+            752 New South Headr Rd<br />Triple Bay SWFW 3148, <br />New York<br />
+          </div>
+          <div class="footer-social-block">
+            {
+              footerSocials.map((link) => (
+                <a class="footer-social-link" href={link.href} target="_blank" rel="noreferrer" aria-label={link.label}>
+                  {link.label}
+                </a>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+    <a class="link-to-top mobile-only" href="#hero" aria-label="Back to top">
+      <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M11 6.5L6 1.5L1 6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </a>
+    <a class="link-to-top desktop-only-link" href="#hero" aria-label="Back to top">
+      <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M11 6.5L6 1.5L1 6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </a>
+    <div class="footer-logo-wrapper">
+      <div class="footer-logo"><em class="italic-text">pro</em>forma</div>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-wrapper mobile-copy">
+      <div class="footer-copyright-center">Copyright © 2025 ProForma</div>
+      <div class="copyright-wrapper-left">
+        <span class="footer-copyright-center">Designed by </span>
+        <a
+          class="footer-link copyright"
+          href="https://digitalbutlers.team/?utm_source=proforma&utm_medium=template_footer&utm_campaign=webflow_template&utm_content=made_by_link"
+        >
+          Digital Butlers
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer-dark {
+    background: var(--black);
+    color: var(--white);
+    padding: var(--section-py) 0 2rem;
+  }
+
+  .footer-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .footer-brand {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    letter-spacing: -0.04em;
+  }
+
+  .footer-content {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+
+  .footer-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .footer-link {
+    text-decoration: none;
+    color: var(--white);
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .footer-social-block {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .footer-social-link {
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .link-to-top {
+    display: inline-flex;
+    min-width: 44px;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    color: inherit;
+  }
+
+  .mobile-only {
+    display: none;
+  }
+
+  .footer-logo-wrapper {
+    padding: 2rem 0;
+  }
+
+  .footer-logo {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 8vw, 6rem);
+    letter-spacing: -0.06em;
+    line-height: 1;
+  }
+
+  .footer-divider {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .mobile-copy {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding-top: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 767px) {
+    .footer-content {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .mobile-only {
+      display: inline-flex;
+    }
+
+    .desktop-only-link {
+      display: none;
+    }
+  }
+</style>

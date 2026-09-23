@@ -1,0 +1,138 @@
+---
+import { navLinks } from '../content/landing';
+---
+
+<div class="site-header">
+  <div class="container header-inner">
+    <a href="/" aria-current="page" aria-label="ProForma home" class="logo">PROFORMA</a>
+    <nav class="header-nav" aria-label="Primary">
+      <ul>
+        {
+          navLinks.slice(0, 4).map((link) => (
+            <li>
+              <a href={link.href} aria-label={link.label.toLowerCase().replace(' ', '-')}>
+                <span class="swap">
+                  <span>{link.label}</span>
+                  <span aria-hidden="true">{link.label}</span>
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <a href="/contact" aria-label="contact" class="button-transparent desktop-only">
+      <span class="swap">
+        <span>Contact</span>
+        <span aria-hidden="true">Contact</span>
+      </span>
+    </a>
+    <div class="burger tablet-only">
+      <button class="burger" type="button" aria-label="Open menu" aria-expanded="false" data-burger>
+        <span class="burger-lines" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+    </div>
+  </div>
+  <div class="header-blur-background hidden" data-menu-blur aria-hidden="true"></div>
+  <div class="mobile-menu" data-mobile-menu role="dialog" aria-modal="true" aria-label="Menu">
+    <button class="burger" type="button" aria-label="Close menu" data-menu-close>
+      <span class="burger-lines" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+    </button>
+    <nav aria-label="Mobile">
+      <ul>
+        {
+          navLinks.map((link) => (
+            <li>
+              <a href={link.href}>
+                <span class="swap">
+                  <span>{link.label}</span>
+                  <span aria-hidden="true">{link.label}</span>
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <a href="/contact" aria-label="contact" class="button-white">
+      <span class="swap">
+        <span>Contact</span>
+        <span aria-hidden="true">Contact</span>
+      </span>
+    </a>
+  </div>
+</div>
+
+<style>
+  .logo {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    color: var(--white);
+  }
+
+  .desktop-only {
+    display: inline-flex;
+  }
+
+  .tablet-only {
+    display: none;
+  }
+
+  .header-blur-background {
+    position: fixed;
+    inset: 0;
+    background: rgba(13, 11, 11, 0.5);
+    z-index: 40;
+  }
+
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    background: var(--black);
+    color: var(--white);
+    padding: 1.25rem var(--container-px-mobile);
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .mobile-menu.open {
+    display: flex;
+  }
+
+  .mobile-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    font-size: 1.5rem;
+  }
+
+  .mobile-menu a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  @media (max-width: 991px) {
+    .header-nav,
+    .desktop-only {
+      display: none;
+    }
+
+    .tablet-only {
+      display: block;
+    }
+  }
+</style>

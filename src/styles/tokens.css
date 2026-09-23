@@ -8,20 +8,551 @@
   --accent: #e72323;
   --dark-red: #b91c1c;
   --burgundi: #8b1515;
-  --font-body: 'Inter', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
   --font-display: 'Poppins', 'Inter', system-ui, sans-serif;
   --h1: clamp(3rem, 2.194rem + 4.03vw, 6.88rem);
   --h2: 2.5rem;
+  --h2-lg: 3.5rem;
+  --h2-xl: 4.375rem;
   --section-py: 5rem;
+  --section-py-mobile: 2.5rem;
   --container-max: 81.25rem;
   --container-px: 4.375rem;
+  --container-px-mobile: 1.25rem;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation: none !important; transition: none !important; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-.reveal { opacity: 0; translate: 0 12px; }
-.reveal.is-visible { opacity: 1; translate: none; transition: opacity 0.6s ease, translate 0.6s ease; }
+html {
+  scroll-behavior: smooth;
+}
 
-@keyframes marquee { to { transform: translateX(-50%); } }
+body {
+  margin: 0;
+  background: var(--white);
+  color: var(--black);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-px);
+  padding-right: var(--container-px);
+}
+
+.section {
+  position: relative;
+  overflow: hidden;
+  padding-top: var(--section-py);
+  padding-bottom: var(--section-py);
+}
+
+h1,
+.h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--h1);
+  line-height: 0.95;
+  letter-spacing: -0.08em;
+  margin: 0;
+}
+
+h2,
+.h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--h2);
+  line-height: 1.1;
+  letter-spacing: -0.06em;
+  margin: 0;
+}
+
+.heading-m {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.75rem;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  margin: 0;
+}
+
+.heading-s {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+  margin: 0;
+}
+
+.text-m {
+  font-size: 1.13rem;
+  line-height: 1.6;
+  letter-spacing: -0.03em;
+}
+
+.text-s {
+  font-size: 1rem;
+  line-height: 1.6;
+  letter-spacing: -0.03em;
+}
+
+.grey-content {
+  color: var(--gray-300);
+}
+
+/* Reveal on scroll. Content stays visible when JS is off (progressive enhancement). */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+}
+
+.hero-word {
+  display: inline-block;
+}
+
+/* Text swap on hover (nav links, buttons, footer links). */
+.swap {
+  display: grid;
+  overflow: hidden;
+}
+
+.swap > span {
+  grid-area: 1 / 1;
+  transition: transform 0.35s ease;
+}
+
+.swap > span:last-child {
+  transform: translateY(100%);
+}
+
+a:hover .swap > span:first-child,
+a:focus-visible .swap > span:first-child {
+  transform: translateY(-100%);
+}
+
+a:hover .swap > span:last-child,
+a:focus-visible .swap > span:last-child {
+  transform: translateY(0);
+}
+
+/* Pill buttons. Radius doubles as hierarchy marker: pills are actions, cards stay rectangular. */
+.button-white {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--white);
+  color: var(--black);
+  border: 1px solid var(--black);
+  border-radius: 6.25rem;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  letter-spacing: -0.03em;
+  text-decoration: none;
+  min-height: 44px;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.button-white:hover {
+  background: var(--black);
+  color: var(--white);
+}
+
+.button-transparent {
+  display: inline-flex;
+  align-items: center;
+  color: var(--white);
+  text-decoration: none;
+  min-height: 44px;
+}
+
+/* Round arrow buttons on cards. */
+.round-button {
+  width: 3.88rem;
+  height: 3.88rem;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 999px;
+  background: var(--gray-50);
+  color: var(--black);
+  display: grid;
+  place-items: center;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+a:hover .round-button,
+a:focus-visible .round-button {
+  background: var(--black);
+  color: var(--white);
+}
+
+.arrow svg {
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+a:hover .arrow svg,
+a:focus-visible .arrow svg,
+button:hover .arrow svg {
+  transform: translateX(4px);
+}
+
+/* Logo marquee. Two identical tracks (second aria-hidden) loop seamlessly. */
+.marquee {
+  overflow: hidden;
+}
+
+.marquee-track {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* FAQ accordion. Native details keeps keyboard and screen reader behavior free. */
+.faq {
+  border-top: 1px solid var(--gray-100);
+}
+
+.faq:last-child {
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.faq summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.5rem 0;
+  min-height: 44px;
+}
+
+.faq summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq .plus {
+  position: relative;
+  flex: none;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.faq .plus::before,
+.faq .plus::after {
+  content: '';
+  position: absolute;
+  background: currentColor;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  translate: 0 -50%;
+}
+
+.faq .plus::after {
+  rotate: 90deg;
+  transition: rotate 0.3s ease;
+}
+
+.faq[open] .plus::after {
+  rotate: 0deg;
+}
+
+.faq-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s ease;
+}
+
+.faq[open] .faq-body {
+  grid-template-rows: 1fr;
+}
+
+.faq-body > div {
+  overflow: hidden;
+}
+
+.faq-body p {
+  margin: 0;
+  padding-bottom: 1.5rem;
+  color: var(--gray-300);
+}
+
+/* React accordion variant (headless ui/accordion). Same motion, button-driven. */
+.faq-toggle {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  padding: 1.5rem 0;
+  min-height: 44px;
+}
+
+.faq-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.faq .plus[data-open='true']::after {
+  rotate: 0deg;
+}
+
+.faq-body[data-open='true'] {
+  grid-template-rows: 1fr;
+}
+
+/* Custom View cursor over project cards. Fine pointers only, never on touch. */
+.cursor-view {
+  display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cursor-view {
+    display: grid;
+    place-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 60;
+    width: 5.5rem;
+    height: 5.5rem;
+    margin: -2.75rem 0 0 -2.75rem;
+    border-radius: 999px;
+    background: var(--white);
+    color: var(--black);
+    font-size: 1rem;
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  .cursor-view.on {
+    opacity: 1;
+  }
+}
+
+/* Sticky gallery panels. */
+.gallery-sticky {
+  position: sticky;
+  top: 0;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+}
+
+/* Header. */
+.site-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
+.header-nav ul {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.header-nav a {
+  text-decoration: none;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.burger {
+  display: none;
+  background: none;
+  border: 0;
+  padding: 0.5rem;
+  min-width: 44px;
+  min-height: 44px;
+  cursor: pointer;
+  color: inherit;
+}
+
+.burger-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.burger-lines span {
+  display: block;
+  width: 28px;
+  height: 2px;
+  background: currentColor;
+}
+
+.mobile-menu {
+  display: none;
+}
+
+/* Newsletter form. */
+.text-field {
+  width: 100%;
+  background: transparent;
+  border: 1px solid var(--black);
+  border-radius: 6.25rem;
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--black);
+  min-height: 44px;
+}
+
+.text-field::placeholder {
+  color: var(--gray-300);
+}
+
+.cta-round-btn {
+  flex: none;
+  width: 3.875rem;
+  height: 3.875rem;
+  border-radius: 100px;
+  border: 1px solid var(--black);
+  background: var(--gray-50);
+  color: var(--black);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.cta-round-btn:hover {
+  background: var(--black);
+  color: var(--white);
+}
+
+/* Newsletter form messages. */
+.form-block .form {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.success-message {
+  background: var(--gray-50);
+  padding: 1.25rem;
+  text-align: center;
+}
+
+.error-message {
+  background: #ffdede;
+  padding: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+/* Responsive. Breakpoints mirror Webflow: tablet 991px, mobile 767px. */
+@media (max-width: 991px) {
+  .container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  h2,
+  .h2 {
+    font-size: var(--h2-lg);
+  }
+}
+
+@media (max-width: 767px) {
+  .section {
+    padding-top: var(--section-py-mobile);
+    padding-bottom: var(--section-py-mobile);
+  }
+
+  .no-bottom-mobile-padding {
+    padding-bottom: 0;
+  }
+
+  .no-top-mobile-padding {
+    padding-top: 0;
+  }
+
+  .container {
+    padding-left: var(--container-px-mobile);
+    padding-right: var(--container-px-mobile);
+  }
+
+  h2,
+  .h2 {
+    font-size: 2rem;
+  }
+
+  .heading-m {
+    font-size: 1.5rem;
+  }
+}

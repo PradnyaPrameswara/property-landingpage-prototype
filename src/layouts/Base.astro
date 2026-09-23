@@ -1,0 +1,127 @@
+---
+import '../styles/tokens.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+type Props = {
+  title: string;
+  description: string;
+};
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta
+      property="og:image"
+      content="https://cdn.prod.website-files.com/67409478e7d06cee556594cb/68d3eb39ac4175d7732cc152_Home.png"
+    />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="https://cdn.prod.website-files.com/67409478e7d06cee556594cb/68d3eb33ae0a31ec18520a85_favicon.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      href="https://cdn.prod.website-files.com/67409478e7d06cee556594cb/68d3eb3468ed83cc11b43537_webclip.png"
+    />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      document.documentElement.classList.add('js');
+    </script>
+    <noscript>
+      <style>
+        .reveal {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+      </style>
+    </noscript>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      // Reveal on scroll, one observer for the whole page.
+      const items = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                io.unobserve(entry.target);
+              }
+            }
+          },
+          { threshold: 0.15 },
+        );
+        items.forEach((el) => io.observe(el));
+      } else {
+        items.forEach((el) => el.classList.add('is-visible'));
+      }
+
+      // Mobile menu toggle. No framework, plain class switch.
+      const burger = document.querySelector('[data-burger]');
+      const menu = document.querySelector('[data-mobile-menu]');
+      const blur = document.querySelector('[data-menu-blur]');
+      const closeBtn = document.querySelector('[data-menu-close]');
+
+      function setMenu(open: boolean) {
+        menu?.classList.toggle('open', open);
+        blur?.classList.toggle('hidden', !open);
+        burger?.setAttribute('aria-expanded', String(open));
+        document.body.style.overflow = open ? 'hidden' : '';
+      }
+
+      burger?.addEventListener('click', () => setMenu(true));
+      closeBtn?.addEventListener('click', () => setMenu(false));
+      blur?.addEventListener('click', () => setMenu(false));
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') setMenu(false);
+      });
+
+      // Custom View cursor over project cards. Fine pointers only.
+      const area = document.querySelector('[data-cursor-area]');
+      const cursor = document.querySelector('[data-cursor]');
+      if (area instanceof HTMLElement && cursor instanceof HTMLElement) {
+        let x = 0;
+        let y = 0;
+        let rx = 0;
+        let ry = 0;
+        area.addEventListener('pointermove', (event) => {
+          x = event.clientX;
+          y = event.clientY;
+          cursor.classList.add('on');
+        });
+        area.addEventListener('pointerleave', () => cursor.classList.remove('on'));
+        (function loop() {
+          rx += (x - rx) * 0.15;
+          ry += (y - ry) * 0.15;
+          cursor.style.transform = `translate(${rx}px, ${ry}px)`;
+          requestAnimationFrame(loop);
+        })();
+      }
+    </script>
+  </body>
+</html>
