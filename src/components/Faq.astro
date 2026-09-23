@@ -7,16 +7,20 @@ import { faq } from '../content/landing';
     <div class="container">
       <h2 class="heading reveal">Frequently asked questions</h2>
     </div>
-    <div class="faq-wrapper container">
+    <div class="faq-wrapper">
       {
         faq.map((item, i) => (
           <details class={`faq${i === 0 ? ' top-line' : ''}`} name="proforma-faq">
             <summary>
-              <span class="heading-s">{item.question}</span>
-              <span class="plus" aria-hidden="true"></span>
+              <div class="container">
+                <span class="dropdown-content-wrapper">
+                  <span class="heading-s">{item.question}</span>
+                  <span class="plus" aria-hidden="true"></span>
+                </span>
+              </div>
             </summary>
             <div class="faq-body">
-              <div>
+              <div class="container">
                 <p>{item.answer}</p>
               </div>
             </div>
@@ -36,5 +40,19 @@ import { faq } from '../content/landing';
 
   .faq-wrapper {
     width: 100%;
+  }
+
+  .faq summary {
+    display: block;
+    padding: 0;
+  }
+
+  .dropdown-content-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.5rem 0;
+    min-height: 44px;
   }
 </style>
