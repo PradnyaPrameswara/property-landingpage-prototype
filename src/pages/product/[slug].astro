@@ -11,28 +11,48 @@ const { service } = Astro.props;
 ---
 
 <Base title={`Services | ${service.h1} | ProForma`} description={service.description}>
-  <section class="section section-margin" id="hero">
+  <section class="section hero-section-product" id="hero">
     <div class="container">
-      <h1 class="reveal">{service.h1}</h1>
-      <div class="text-m reveal">{service.description}</div>
-      <div class="price-card reveal">
-        <div class="grey-content">
-          <div class="text-s">Price</div>
-        </div>
-        <div class="amount">
-          {service.priceSymbol}
-          {service.price}
+      <div class="container-horizontal-flex">
+        <div class="services-hero-text-wrapper">
+          <div class="services-hero-wrapper">
+            <h1 class="reveal">{service.h1}</h1>
+            <div class="max-width-text-wrapper reveal">
+              <div class="text-m">{service.description}</div>
+            </div>
+            <div class="button-wrapper reveal">
+              <a class="button-white-grey-hover" href="/contact" aria-label="contact">
+                <span class="swap">
+                  <span>Order now</span>
+                  <span aria-hidden="true">Order now</span>
+                </span>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
-      <img class="detail-cover reveal" src={service.cover} alt="" loading="eager" />
-      <div class="richtext reveal" set:html={service.body} />
-      <div class="button-wrapper reveal">
-        <a class="button-white" href="/contact" aria-label="contact">
-          <span class="swap">
-            <span>Order now</span>
-            <span aria-hidden="true">Order now</span>
-          </span>
-        </a>
+      <div class="price-card reveal">
+        <div class="price-card-top">
+          <div class="text-s">Price</div>
+          <div class="price-custom">
+            <div class="heading-l">{service.priceSymbol}</div>
+            <div class="heading-l">{service.price}</div>
+          </div>
+        </div>
+        <div class="grey-content">
+          <div class="text-s">{service.description}</div>
+        </div>
+      </div>
+    </div>
+    <div class="bg-project" aria-hidden="true" style={`background-image:url("${service.cover}")`}>
+      <div class="bg-black-light-50" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <section class="section section-long-bottom-pading">
+    <div class="container">
+      <div class="service-page-rich-wrapper">
+        <div class="richtext reveal" set:html={service.body} />
       </div>
     </div>
   </section>
@@ -41,18 +61,88 @@ const { service } = Astro.props;
 </Base>
 
 <style>
-  .section-margin {
+  .hero-section-product {
+    color: var(--white);
     padding-top: 16.88rem;
+    padding-bottom: var(--section-py);
+    min-height: 100svh;
+    display: flex;
+    align-items: stretch;
   }
 
-  .detail-hero-stack {
+  .bg-project {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .bg-black-light-50 {
+    position: absolute;
+    inset: 0;
+    background: var(--black-light-50);
+  }
+
+  .hero-section-product .container {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .services-hero-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 40rem;
+  }
+
+  .hero-section-product .text-m {
+    color: var(--gray-100);
+  }
+
+  .price-card {
+    flex: none;
+    width: 22.25rem;
+    max-width: 100%;
+    background: var(--white);
+    color: var(--black);
+    padding: 2rem;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
   }
 
-  .button-wrapper {
-    margin-top: 2rem;
+  .price-custom {
+    display: flex;
+    align-items: baseline;
+    gap: 0.25rem;
+  }
+
+  .heading-l {
+    font-family: var(--font-display);
+    font-size: var(--h2);
+    letter-spacing: -0.06em;
+    line-height: 1.1;
+    margin: 0;
+  }
+
+  .service-page-rich-wrapper {
+    max-width: 52rem;
+  }
+
+  @media (max-width: 991px) {
+    .hero-section-product .container {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .price-card {
+      width: 100%;
+    }
   }
 </style>
-

@@ -49,10 +49,20 @@ import { projectsIntro, projects } from '../content/landing';
     gap: 2.5rem;
   }
 
+  section[data-cursor-area] {
+    background: var(--gray-50);
+  }
+
   .projects-list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
+  }
+
+  .projects-item {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
   }
 
   .project-card {
@@ -61,12 +71,12 @@ import { projectsIntro, projects } from '../content/landing';
     color: inherit;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    flex: 1;
   }
 
   .image-full-width {
     width: 100%;
-    aspect-ratio: 4 / 5;
+    aspect-ratio: 376 / 448;
     object-fit: cover;
   }
 
@@ -74,6 +84,7 @@ import { projectsIntro, projects } from '../content/landing';
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    margin: 2rem;
   }
 
   .button-wrapper-center {

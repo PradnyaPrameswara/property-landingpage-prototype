@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import TeamGrid from '../components/TeamGrid.astro';
+import AboutGallery from '../components/AboutGallery.astro';
 import Faq from '../components/Faq.astro';
 import CTASection from '../components/CTASection.astro';
 import { aboutIntro, aboutHelps } from '../content/landing';
@@ -55,8 +56,9 @@ import { aboutIntro, aboutHelps } from '../content/landing';
     </div>
   </section>
 
+  <AboutGallery />
   <TeamGrid />
-  <Faq />
+  <Faq sectionClass="section no-top-padding" />
   <CTASection />
 </Base>
 

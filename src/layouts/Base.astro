@@ -102,26 +102,57 @@ const { title, description, header = 'dark' } = Astro.props;
         if (event.key === 'Escape') setMenu(false);
       });
 
-      // Custom View cursor over project cards. Fine pointers only.
+      // Custom View cursor over project card images only. Fine pointers only.
+      // Loop idles when settled: no style writes, no queued frames.
       const area = document.querySelector('[data-cursor-area]');
       const cursor = document.querySelector('[data-cursor]');
-      if (area instanceof HTMLElement && cursor instanceof HTMLElement) {
+      const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      if (area instanceof HTMLElement && cursor instanceof HTMLElement && finePointer) {
+        const targets = Array.from(area.querySelectorAll('.project-card img'));
         let x = 0;
         let y = 0;
         let rx = 0;
         let ry = 0;
-        area.addEventListener('pointermove', (event) => {
-          x = event.clientX;
-          y = event.clientY;
-          cursor.classList.add('on');
-        });
-        area.addEventListener('pointerleave', () => cursor.classList.remove('on'));
-        (function loop() {
+        let raf = 0;
+        const settle = () => {
+          if (Math.abs(x - rx) < 0.1) rx = x;
+          if (Math.abs(y - ry) < 0.1) ry = y;
+        };
+        const loop = () => {
           rx += (x - rx) * 0.15;
           ry += (y - ry) * 0.15;
+          settle();
           cursor.style.transform = `translate(${rx}px, ${ry}px)`;
-          requestAnimationFrame(loop);
-        })();
+          if (rx !== x || ry !== y) {
+            raf = requestAnimationFrame(loop);
+          } else {
+            raf = 0;
+          }
+        };
+        const kick = () => {
+          if (!raf) raf = requestAnimationFrame(loop);
+        };
+        const show = (event: Event) => {
+          const point = event as PointerEvent;
+          x = point.clientX;
+          y = point.clientY;
+          rx = x;
+          ry = y;
+          cursor.style.transform = `translate(${rx}px, ${ry}px)`;
+          cursor.classList.add('on');
+          kick();
+        };
+        const hide = () => cursor.classList.remove('on');
+        targets.forEach((target) => {
+          target.addEventListener('pointerenter', show);
+          target.addEventListener('pointerleave', hide);
+          target.addEventListener('pointermove', (event) => {
+            const point = event as PointerEvent;
+            x = point.clientX;
+            y = point.clientY;
+            kick();
+          });
+        });
       }
     </script>
   </body>

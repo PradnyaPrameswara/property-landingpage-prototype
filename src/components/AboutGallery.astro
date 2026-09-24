@@ -5,22 +5,20 @@ const tones = ['red', 'dark-red', 'burgundi-red'];
 ---
 
 <section class="section about" aria-label="About ProForma">
-  <div class="gallery-scroll-distance" aria-hidden="true"></div>
   {
     gallerySlides.map((slide, i) => (
       <div class="gallery-item">
         <div class="gallery-item-sticky">
-          <div
-            class="gallery-item-inner mobile-flex"
-            style={`--media-max: ${slide.width}px`}
-          >
-            <img
-              class={`gallery-item-media-rules${i === gallerySlides.length - 1 ? ' last-item-media' : ''}`}
-              src={slide.image}
-              alt={slide.alt}
-              width={slide.width}
-              loading="lazy"
-            />
+          <div class="gallery-item-inner mobile-flex">
+            <div class="gallery-media">
+              <img
+                class={`gallery-item-media-rules${i === gallerySlides.length - 1 ? ' last-item-media' : ''}`}
+                src={slide.image}
+                alt={slide.alt}
+                width={slide.width}
+                loading="lazy"
+              />
+            </div>
             <div class="gallery-item-content-wrapper-rules">
               <div class={`card-slide ${tones[i]}`}>
                 <div class="slide-content slide-content-flex-left">
@@ -48,7 +46,11 @@ const tones = ['red', 'dark-red', 'burgundi-red'];
             </div>
           </div>
         </div>
-        <div class="gallery-scroll-distance" aria-hidden="true"></div>
+        {
+          i < gallerySlides.length - 1 && (
+            <div class="gallery-scroll-distance" aria-hidden="true"></div>
+          )
+        }
       </div>
     ))
   }
@@ -58,39 +60,32 @@ const tones = ['red', 'dark-red', 'burgundi-red'];
   .about {
     padding-top: 0;
     padding-bottom: 0;
+    overflow: clip;
   }
 
   .gallery-scroll-distance {
-    height: 20vh;
+    height: 100svh;
+  }
+
+  .gallery-item + .gallery-item {
+    margin-top: -100svh;
   }
 
   .gallery-item-sticky {
     position: sticky;
     top: 0;
-    min-height: 100svh;
-    display: flex;
-    align-items: center;
+    height: 100svh;
+    overflow: hidden;
   }
 
   .gallery-item-inner {
-    display: grid;
-    grid-template-columns: minmax(0, var(--media-max, 40rem)) minmax(0, 1fr);
-    width: 100%;
-    min-height: 100svh;
-  }
-
-  .gallery-item-media-rules {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  .gallery-item-media-rules.desktop-hidden {
-    display: none;
+    display: flex;
+    flex-direction: row-reverse;
+    height: 100svh;
   }
 
   .gallery-item-content-wrapper-rules {
+    flex: 0 0 50%;
     display: flex;
     min-width: 0;
   }
@@ -119,7 +114,7 @@ const tones = ['red', 'dark-red', 'burgundi-red'];
     flex-direction: column;
     justify-content: center;
     gap: 2.5rem;
-    padding: 4rem;
+    padding: 5rem 8.125rem 5rem 4.375rem;
     min-width: 0;
   }
 
@@ -145,28 +140,47 @@ const tones = ['red', 'dark-red', 'burgundi-red'];
     margin: 0;
   }
 
-  @media (max-width: 991px) {
-    .gallery-item-inner {
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .slide-content-flex-left {
-      padding: 3rem;
-      gap: 2rem;
-    }
+  .gallery-media {
+    flex: 0 0 50%;
+    position: relative;
+    min-width: 0;
   }
 
-  @media (max-width: 767px) {
+  .gallery-item-media-rules {
+    object-fit: cover;
+    display: block;
+  }
+
+  .gallery-media .gallery-item-media-rules {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    translate: -50% -50%;
+    width: 55vw;
+    height: 110svh;
+    max-width: none;
+  }
+
+  .gallery-item-media-rules.desktop-hidden {
+    display: none;
+  }
+
+  @media (max-width: 991px) {
     .gallery-item-inner.mobile-flex {
-      grid-template-columns: 1fr;
-      min-height: 0;
+      display: block;
+      height: auto;
     }
 
     .gallery-item-sticky {
-      min-height: 0;
+      height: auto;
+      min-height: 100svh;
     }
 
-    .gallery-item-media-rules:not(.desktop-hidden) {
+    .gallery-item-content-wrapper-rules {
+      display: block;
+    }
+
+    .gallery-media .gallery-item-media-rules:not(.desktop-hidden) {
       display: none;
     }
 
@@ -174,21 +188,35 @@ const tones = ['red', 'dark-red', 'burgundi-red'];
       display: block;
       width: 100%;
       height: auto;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
     }
 
     .slide-content-flex-left {
-      padding: 2.5rem 1.25rem;
-      gap: 1.5rem;
+      padding: 5rem 2rem;
+      gap: 2rem;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .gallery-item-sticky {
+      position: static;
+      min-height: 0;
     }
 
-    .about h2 {
-      font-size: 2.5rem;
+    .gallery-scroll-distance {
+      display: none;
+    }
+
+    .slide-content-flex-left {
+      padding: 6rem 2rem;
+      gap: 1.5rem;
     }
   }
 
   @media (max-width: 479px) {
     .slide-content-flex-left {
-      padding: 2rem 1.25rem;
+      padding: 6rem 1.25rem;
     }
   }
 </style>
