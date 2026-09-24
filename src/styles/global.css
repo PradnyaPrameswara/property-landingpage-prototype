@@ -85,6 +85,14 @@ a {
   padding-bottom: 10rem;
 }
 
+.section.section-long-bottom {
+  padding-bottom: 10rem;
+}
+
+.section.no-top-padding {
+  padding-top: 0;
+}
+
 .section.section-long-top-padding {
   padding-top: 10rem;
 }
@@ -154,16 +162,29 @@ h2,
   transform: translateY(24px);
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .js .reveal,
+  .js .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .cursor-view {
+    display: none !important;
+  }
+}
+
 .js .reveal.is-visible {
   opacity: 1;
   transform: none;
   transition:
     opacity 0.7s ease,
     transform 0.7s ease;
-}
-
-.hero-word {
-  display: inline-block;
 }
 
 /* Text swap on hover (nav links, buttons, footer links). */
@@ -192,7 +213,8 @@ a:focus-visible .swap > span:last-child {
 }
 
 /* Pill buttons. Radius doubles as hierarchy marker: pills are actions, cards stay rectangular. */
-.button-white {
+.button-white,
+.button-white-grey-hover {
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
@@ -211,7 +233,8 @@ a:focus-visible .swap > span:last-child {
     color 0.3s ease;
 }
 
-.button-white:hover {
+.button-white:hover,
+.button-white-grey-hover:hover {
   background: var(--black);
   color: var(--white);
 }
@@ -282,7 +305,7 @@ button:hover .arrow svg {
   align-items: center;
   gap: 3rem;
   width: max-content;
-  animation: marquee 28s linear infinite;
+  animation: marquee 56s linear infinite;
 }
 
 .marquee:hover .marquee-track,
@@ -323,8 +346,8 @@ button:hover .arrow svg {
 .faq .plus {
   position: relative;
   flex: none;
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 3.875rem;
+  height: 3.875rem;
 }
 
 .faq .plus::before,
@@ -333,10 +356,10 @@ button:hover .arrow svg {
   position: absolute;
   background: currentColor;
   top: 50%;
-  left: 0;
-  width: 100%;
+  left: 50%;
+  width: 13px;
   height: 2px;
-  translate: 0 -50%;
+  translate: -50% -50%;
 }
 
 .faq .plus::after {
@@ -364,7 +387,7 @@ button:hover .arrow svg {
 
 .faq-body p {
   margin: 0;
-  padding-bottom: 1.5rem;
+  padding-bottom: 1.75rem;
   color: var(--gray-300);
 }
 
@@ -408,29 +431,28 @@ button:hover .arrow svg {
     top: 0;
     left: 0;
     z-index: 60;
-    width: 5.5rem;
-    height: 5.5rem;
-    margin: -2.75rem 0 0 -2.75rem;
+    width: 0;
+    height: 0;
+    margin: -3.75rem 0 0 -3.75rem;
     border-radius: 999px;
     background: var(--white);
-    color: var(--black);
+    color: #333;
     font-size: 1rem;
+    line-height: 1.6;
     pointer-events: none;
+    overflow: hidden;
     opacity: 0;
+    transition:
+      width 0.2s ease-out,
+      height 0.2s ease-out,
+      opacity 0.2s ease-out;
   }
 
   .cursor-view.on {
+    width: 7.5rem;
+    height: 7.5rem;
     opacity: 1;
   }
-}
-
-/* Sticky gallery panels. */
-.gallery-sticky {
-  position: sticky;
-  top: 0;
-  min-height: 100svh;
-  display: flex;
-  align-items: center;
 }
 
 /* Header. Fixed with backdrop blur over the hero. */
@@ -550,6 +572,11 @@ button:hover .arrow svg {
 }
 
 /* Newsletter form messages. */
+.form-block {
+  width: 26.25rem;
+  max-width: 100%;
+}
+
 .form-block .form {
   display: flex;
   gap: 1rem;
@@ -579,6 +606,10 @@ button:hover .arrow svg {
   }
 
   .section.section-long-bottom-pading {
+    padding-bottom: 5rem;
+  }
+
+  .section.section-long-bottom {
     padding-bottom: 5rem;
   }
 
@@ -719,5 +750,15 @@ button:hover .arrow svg {
 @media (max-width: 767px) {
   .meta-grid {
     grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+
+  .swap > span {
+    transition: none;
   }
 }

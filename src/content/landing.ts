@@ -25,6 +25,8 @@ export type GallerySlide = {
   body: string;
   image: string;
   alt: string;
+  mobileAlt: string;
+  width: number;
 };
 
 export type FaqItem = { question: string; answer: string };
@@ -57,9 +59,8 @@ export type NavLink = { label: string; href: string };
 const CDN = '/images';
 
 export const hero = {
-  title: 'Elevate your living',
-  // R-37: em dash kept verbatim from source copy per locked contract.
-  body: 'We understand that every home is unique. Our team of experts is ready to help you choose the perfect solutions — to suit your taste and needs.',
+  title: 'Elevate your living',
+  body: 'We understand that every home is unique. Our team of experts is ready to help you choose the perfect solutions  to suit your taste and needs.',
   ctaLabel: 'Get in touch',
   ctaHref: '#CTA',
 };
@@ -212,24 +213,31 @@ const SLIDES = '/images';
 export const gallerySlides: GallerySlide[] = [
   {
     heading: 'Our rule: quality and style',
-    subheading: 'We take pride in curating a diverse collection',
-    body: 'We take pride in curating a diverse collection of home furnishings and decor that embody quality aesthetics. Whether you are looking for the perfect sofa to unwind after a long day or unique decor pieces to add a personal touch, our selection is designed to meet the highest standards of style and durability.',
+    subheading:
+      'We take pride in curating a diverse collection of home furnishings and decor that embody quality aesthetics.',
+    body: "Whether you're looking for the perfect sofa to unwind after a long day or unique decor pieces to add a personal touch, our selection is designed to meet the highest standards of style and durability.",
     image: `${SLIDES}/68677980c047367187d9033e_slide1.webp`,
-    alt: 'Red house',
+    alt: 'Red House',
+    mobileAlt: 'Red house',
+    width: 640,
   },
   {
     heading: 'Personalized solutions for every home',
     subheading: 'Understanding that each home is unique',
-    body: 'Understanding that each home is unique, our team of experts is committed to offering personalized solutions tailored to your preferences. From design consultations to product recommendations, we are here to guide you in creating a home that reflects your taste and meets your needs.',
+    body: "Understanding that each home is unique, our team of experts is committed to offering personalized solutions tailored to your preferences. From design consultations to product recommendations, we're here to guide you in creating a home that reflects your taste and meets your needs.",
     image: `${SLIDES}/686779bd54c1bb3b8dafa9d1_slide2.webp`,
     alt: 'Red and White house',
+    mobileAlt: 'red and white house',
+    width: 640,
   },
   {
-    heading: 'Convenience meets exceptional service',
+    heading: 'Convenience meets exceptional service',
     subheading: 'We value your time and convenience.',
-    body: "We value your time and convenience. That’s why we offer seamless online shopping experiences, swift delivery services, and flexible payment options. Our commitment to customer satisfaction extends beyond the purchase — we’re here to ensure your ongoing delight with our products.",
+    body: "We value your time and convenience. That's why we offer seamless online shopping experiences, swift delivery services, and flexible payment options. Our commitment to customer satisfaction extends beyond the purchase — we're here to ensure your ongoing delight with our products.",
     image: `${SLIDES}/686779e608de9968fddd8cae_slide3.webp`,
     alt: 'House',
+    mobileAlt: 'House',
+    width: 556,
   },
 ];
 

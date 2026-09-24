@@ -8,8 +8,8 @@ function clean(html: string): string {
 }
 ---
 
-<Base title="Instructions | ProForma" description="Instructions for customizing the ProForma template.">
-  <section class="section section-margin" id="hero">
+<Base header="light" title="Instructions | ProForma" description="Instructions for customizing the ProForma template.">
+  <section class="section section-margin section-long-bottom" id="hero">
     <div class="container">
       <h1 class="reveal">Instructions</h1>
       <div class="content-vertical-left-licenses reveal" set:html={clean(utility.instructionsBlocks)} />

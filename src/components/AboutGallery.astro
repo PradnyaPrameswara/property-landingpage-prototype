@@ -7,32 +7,51 @@ const tones = ['red', 'dark-red', 'burgundi-red'];
 <section class="section about" aria-label="About ProForma">
   {
     gallerySlides.map((slide, i) => (
-      <>
-        <div class="gallery-scroll-distance" aria-hidden="true"></div>
-        <div class="gallery-item">
-          <div class="gallery-item-sticky">
-            <div class={`gallery-item-inner mobile-flex card-slide ${tones[i]}`}>
-              <div class="gallery-copy">
-                <div class="container">
-                  <div class="heading reveal">{slide.heading}</div>
+      <div class="gallery-item">
+        <div class="gallery-item-sticky">
+          <div class="gallery-item-inner mobile-flex">
+            <div class="gallery-media">
+              <img
+                class={`gallery-item-media-rules${i === gallerySlides.length - 1 ? ' last-item-media' : ''}`}
+                src={slide.image}
+                alt={slide.alt}
+                width={slide.width}
+                loading="lazy"
+              />
+            </div>
+            <div class="gallery-item-content-wrapper-rules">
+              <div class={`card-slide ${tones[i]}`}>
+                <div class="slide-content slide-content-flex-left">
+                  <div class="heading reveal">
+                    <div class="text-white">
+                      <h2>{slide.heading}</h2>
+                    </div>
+                  </div>
+                  <img
+                    class={`gallery-item-media-rules desktop-hidden reveal${i === gallerySlides.length - 1 ? ' last-item-media' : ''}`}
+                    src={slide.image}
+                    alt={slide.mobileAlt}
+                    loading="lazy"
+                  />
                   <div class="flex-text-wrapper reveal">
-                    <div class="heading-s">{slide.subheading}</div>
-                    <div class="text-s">{slide.body}</div>
+                    <div class="text-white">
+                      <p class="heading-s">{slide.subheading}</p>
+                    </div>
+                    <div class="text-white-80">
+                      <p class="text-s">{slide.body}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="gallery-media">
-                <img
-                  class="gallery-item-media-rules"
-                  src={slide.image}
-                  alt={slide.alt}
-                  loading="lazy"
-                />
               </div>
             </div>
           </div>
         </div>
-      </>
+        {
+          i < gallerySlides.length - 1 && (
+            <div class="gallery-scroll-distance" aria-hidden="true"></div>
+          )
+        }
+      </div>
     ))
   }
 </section>
@@ -41,36 +60,74 @@ const tones = ['red', 'dark-red', 'burgundi-red'];
   .about {
     padding-top: 0;
     padding-bottom: 0;
+    overflow: clip;
   }
 
   .gallery-scroll-distance {
-    height: 20vh;
+    height: 100svh;
+  }
+
+  .gallery-item + .gallery-item {
+    margin-top: -100svh;
+  }
+
+  .gallery-item-sticky {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    overflow: hidden;
   }
 
   .gallery-item-inner {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    width: 100%;
-    min-height: 100svh;
+    display: flex;
+    flex-direction: row-reverse;
+    height: 100svh;
   }
 
-  .gallery-copy {
+  .gallery-item-content-wrapper-rules {
+    flex: 0 0 50%;
     display: flex;
-    align-items: center;
+    min-width: 0;
+  }
+
+  .card-slide {
+    display: flex;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .card-slide.red {
+    background: var(--accent);
+  }
+
+  .card-slide.dark-red {
+    background: var(--dark-red);
+  }
+
+  .card-slide.burgundi-red {
+    background: var(--burgundi);
+  }
+
+  .slide-content-flex-left {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2.5rem;
+    padding: 5rem 8.125rem 5rem 4.375rem;
+    min-width: 0;
+  }
+
+  .text-white {
     color: var(--white);
   }
 
-  .gallery-copy .container {
-    display: flex;
-    flex-direction: column;
-    gap: 2.5rem;
+  .text-white-80 {
+    color: rgba(255, 255, 255, 0.8);
   }
 
-  .gallery-copy .heading {
-    font-family: var(--font-display);
-    font-size: 4.375rem;
-    line-height: 1.1;
-    letter-spacing: -0.06em;
+  .heading h2 {
+    margin: 0;
   }
 
   .flex-text-wrapper {
@@ -79,48 +136,87 @@ const tones = ['red', 'dark-red', 'burgundi-red'];
     gap: 1rem;
   }
 
-  .card-slide.red .gallery-copy {
-    background: var(--accent);
-  }
-
-  .card-slide.dark-red .gallery-copy {
-    background: var(--dark-red);
-  }
-
-  .card-slide.burgundi-red .gallery-copy {
-    background: var(--burgundi);
+  .flex-text-wrapper p {
+    margin: 0;
   }
 
   .gallery-media {
-    min-height: 100svh;
+    flex: 0 0 50%;
+    position: relative;
+    min-width: 0;
   }
 
   .gallery-item-media-rules {
-    width: 100%;
-    height: 100%;
-    min-height: 100svh;
     object-fit: cover;
     display: block;
   }
 
+  .gallery-media .gallery-item-media-rules {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    translate: -50% -50%;
+    width: 55vw;
+    height: 110svh;
+    max-width: none;
+  }
+
+  .gallery-item-media-rules.desktop-hidden {
+    display: none;
+  }
+
   @media (max-width: 991px) {
-    .gallery-copy .heading {
-      font-size: 3.5rem;
+    .gallery-item-inner.mobile-flex {
+      display: block;
+      height: auto;
+    }
+
+    .gallery-item-sticky {
+      height: auto;
+      min-height: 100svh;
+    }
+
+    .gallery-item-content-wrapper-rules {
+      display: block;
+    }
+
+    .gallery-media .gallery-item-media-rules:not(.desktop-hidden) {
+      display: none;
+    }
+
+    .gallery-item-media-rules.desktop-hidden {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+    }
+
+    .slide-content-flex-left {
+      padding: 5rem 2rem;
+      gap: 2rem;
     }
   }
 
   @media (max-width: 767px) {
-    .gallery-item-inner.mobile-flex {
-      grid-template-columns: 1fr;
+    .gallery-item-sticky {
+      position: static;
+      min-height: 0;
     }
 
-    .gallery-media,
-    .gallery-item-media-rules {
-      min-height: 50svh;
+    .gallery-scroll-distance {
+      display: none;
     }
 
-    .gallery-copy .heading {
-      font-size: 2.5rem;
+    .slide-content-flex-left {
+      padding: 6rem 2rem;
+      gap: 1.5rem;
+    }
+  }
+
+  @media (max-width: 479px) {
+    .slide-content-flex-left {
+      padding: 6rem 1.25rem;
     }
   }
 </style>

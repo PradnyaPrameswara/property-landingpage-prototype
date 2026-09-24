@@ -8,24 +8,24 @@ import { logos } from '../content/landing';
       <div class="logos-wrapper-three">
         <div class="marquee-track">
           {
-            logos.map((logo) => (
-              <div class="logo-item">
-                <div class="logo-row-wrapper">
-                  <div class="logo-wrapper">
-                    <img class="logo-image" src={logo.image} alt={`${logo.name} logo`} loading="eager" />
-                  </div>
-                </div>
-              </div>
-            ))
-          }
-          {
-            logos.map((logo) => (
-              <div class="logo-item" aria-hidden="true">
-                <div class="logo-row-wrapper">
-                  <div class="logo-wrapper">
-                    <img class="logo-image" src={logo.image} alt="" loading="eager" />
-                  </div>
-                </div>
+            [0, 1, 2, 3].map((copy) => (
+              <div class="logos-list" aria-hidden={copy > 0 ? 'true' : undefined}>
+                {
+                  logos.map((logo) => (
+                    <div class="logo-item">
+                      <div class="logo-row-wrapper">
+                        <div class="logo-wrapper">
+                          <img
+                            class="logo-image"
+                            src={logo.image}
+                            alt={copy === 0 ? `${logo.name} logo` : ''}
+                            loading="eager"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                }
               </div>
             ))
           }
@@ -36,6 +36,18 @@ import { logos } from '../content/landing';
 </section>
 
 <style>
+  .marquee-track {
+    gap: 0;
+  }
+
+  .logos-list {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: 3rem;
+    padding-right: 3rem;
+  }
+
   .logo-item {
     flex: none;
   }

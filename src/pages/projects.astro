@@ -1,9 +1,57 @@
 ﻿---
 import Base from '../layouts/Base.astro';
 import CTASection from '../components/CTASection.astro';
-import { projectDetails } from '../content/generated';
+import { blogIntro, blogPosts } from '../content/landing';
+import { projectDetails, blogDetails } from '../content/generated';
 
-const filters = ['All', ...Array.from(new Set(projectDetails.map((p) => p.service).filter(Boolean)))];
+const bySlug = new Map(projectDetails.map((p) => [p.slug, p]));
+const blogTitleBySlug = new Map(blogDetails.map((d) => [d.slug, d.h1]));
+
+type PaneItem = { slug: string; category: string };
+
+const TABS = ['All', 'Architecture', 'Interior', 'Decoration', 'Exterior'];
+
+const PANES: Record<string, PaneItem[]> = {
+  All: [
+    { slug: 'line-living', category: 'Interior' },
+    { slug: 'line-tower', category: 'Interior' },
+    { slug: 'the-garden-initiative', category: 'Architecture' },
+    { slug: 'the-eco-haven', category: 'Decoration' },
+    { slug: 'the-urban-oasis', category: 'Interior' },
+    { slug: 'the-green-bridge-urban', category: 'Exterior' },
+    { slug: 'the-art-district', category: 'Exterior' },
+  ],
+  Architecture: [
+    { slug: 'the-garden-initiative', category: 'Architecture' },
+    { slug: 'the-wave-residence', category: 'Architecture' },
+    { slug: 'ecosphere-pavilion', category: 'Architecture' },
+    { slug: 'skyline-tower', category: 'Architecture' },
+  ],
+  Interior: [
+    { slug: 'line-living', category: 'Interior' },
+    { slug: 'line-tower', category: 'Interior' },
+    { slug: 'the-urban-oasis', category: 'Interior' },
+    { slug: 'urban-oasis', category: 'Interior' },
+  ],
+  Decoration: [
+    { slug: 'the-eco-haven', category: 'Decoration' },
+    { slug: 'the-smart-city-hub', category: 'Decoration' },
+    { slug: 'the-vertical-forest', category: 'Decoration' },
+    { slug: 'the-floating-city', category: 'Decoration' },
+  ],
+  Exterior: [
+    { slug: 'the-green-bridge-urban', category: 'Exterior' },
+    { slug: 'the-art-district', category: 'Exterior' },
+    { slug: 'the-digital-library', category: 'Exterior' },
+    { slug: 'the-green-bridge', category: 'Exterior' },
+  ],
+};
+
+const previewSlugs = [
+  'the-future-of-architecture-trends-to-watch',
+  'innovative-materials-in-architecture',
+  'urban-gardens-a-green-future',
+];
 ---
 
 <Base
@@ -11,44 +59,122 @@ const filters = ['All', ...Array.from(new Set(projectDetails.map((p) => p.servic
   title="Projects | ProForma"
   description="Discover ProForma's extensive project gallery. Browse our architecture, interior design, renovation, and exterior projects."
 >
-  <section class="section section-margin" id="hero">
+  <section class="section section-margin" id="hero" data-cursor-area>
     <div class="container">
-      <h1 class="reveal">Projects</h1>
+      <div class="project-heading-wrapper">
+        <h1 class="reveal">Projects</h1>
+      </div>
       <div class="tabs" role="group" aria-label="Filter projects by service" data-tabs>
         {
-          filters.map((filter, i) => (
+          TABS.map((tab, i) => (
             <button
               type="button"
               class="tab-button"
-              data-filter={filter}
+              data-tab={tab}
               data-active={i === 0 ? 'true' : 'false'}
               aria-pressed={i === 0 ? 'true' : 'false'}
             >
-              {filter}
+              {tab}
             </button>
           ))
         }
       </div>
-      <div class="projects-list" data-grid>
-        {
-          projectDetails.map((project) => (
-            <div class="projects-item reveal" data-service={project.service}>
-              <a class="project-card" href={`/project/${project.slug}`} aria-label={project.h1}>
-                <span class="projects-image-wrapper">
-                  <img class="image-full-width" src={project.cover} alt="" loading="lazy" />
-                </span>
-                <span class="projects-text-wrapper">
-                  <span class="heading-s">{project.h1}</span>
-                  <span class="grey-content">
-                    <span class="text-s">{project.service}</span>
-                  </span>
-                </span>
-              </a>
-            </div>
-          ))
-        }
+      <div class="cursor-view" data-cursor aria-hidden="true">View</div>
+      {
+        TABS.map((tab, i) => (
+          <div class="projects-list" data-pane={tab} hidden={i !== 0}>
+            {
+              PANES[tab].map((item) => {
+                const project = bySlug.get(item.slug);
+                if (!project) return null;
+                return (
+                  <div class="projects-item reveal">
+                    <a class="project-card" href={`/project/${project.slug}`} aria-label={project.h1}>
+                      <span class="projects-image-wrapper">
+                        <img class="image-full-width" src={project.cover} alt="" loading="lazy" />
+                      </span>
+                      <span class="projects-text-wrapper">
+                        <span class="heading-s">{project.h1}</span>
+                        <span class="grey-content">
+                          <span class="text-s">{item.category}</span>
+                        </span>
+                      </span>
+                    </a>
+                  </div>
+                );
+              })
+            }
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section section-long-bottom-pading no-top-mobile-padding">
+    <div class="container">
+      <div class="heading-wrapper-bottom-padding">
+        <h2 class="reveal">Our blog</h2>
       </div>
-      <p class="empty-note text-s" data-empty hidden>No projects found for this service.</p>
+      <div class="blog-content-card">
+        <div class="blog-posts-list">
+          {
+            previewSlugs.map((slug) => {
+              const post = blogPosts.find((p) => p.slug === slug);
+              if (!post) return null;
+              return (
+                <div class="blog-posts-item reveal">
+                  <a class="blog-post-card" href={post.href} aria-label="blog posts">
+                    <span class="blog-post-image-wrapper">
+                      <img
+                        class="image-full-width"
+                        src={post.image}
+                        srcset={post.srcset || undefined}
+                        sizes={post.sizes}
+                        alt=""
+                        loading="lazy"
+                      />
+                    </span>
+                    <span class="blog-posts-text-wrapper">
+                      <span class="grey-content">
+                        <span class="text-s">{post.date}</span>
+                      </span>
+                      <span class="text-wrapper-min-with">
+                        <span class="heading-s">{blogTitleBySlug.get(slug) ?? post.slug}</span>
+                      </span>
+                      <span class="blog-flex-horizontal-layout">
+                        <span class="grey-content">
+                          <span class="text-s">{post.readTime}</span>
+                        </span>
+                        <span class="round-button">
+                          <span class="arrow" aria-hidden="true">
+                            <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                d="M1.5 11L6.5 6L1.5 1"
+                                stroke="currentColor"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              />
+                            </svg>
+                          </span>
+                        </span>
+                      </span>
+                    </span>
+                  </a>
+                </div>
+              );
+            })
+          }
+        </div>
+        <div class="button-wrapper-center reveal">
+          <a class="button-white" href={blogIntro.ctaHref} aria-label="button">
+            <span class="swap">
+              <span>{blogIntro.ctaLabel}</span>
+              <span aria-hidden="true">{blogIntro.ctaLabel}</span>
+            </span>
+          </a>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -57,31 +183,30 @@ const filters = ['All', ...Array.from(new Set(projectDetails.map((p) => p.servic
 
 <script>
   const tabs = document.querySelector('[data-tabs]');
-  const grid = document.querySelector('[data-grid]');
-  const empty = document.querySelector('[data-empty]');
 
   tabs?.addEventListener('click', (event) => {
-    const button = (event.target as HTMLElement).closest('[data-filter]');
-    if (!(button instanceof HTMLButtonElement) || !grid) return;
-    const filter = button.dataset.filter ?? 'All';
-    tabs.querySelectorAll('[data-filter]').forEach((el) => {
+    const button = (event.target as HTMLElement).closest('[data-tab]');
+    if (!(button instanceof HTMLButtonElement)) return;
+    const tab = button.dataset.tab ?? 'All';
+    tabs.querySelectorAll('[data-tab]').forEach((el) => {
       const active = el === button;
       el.setAttribute('data-active', String(active));
       el.setAttribute('aria-pressed', String(active));
     });
-    let visible = 0;
-    grid.querySelectorAll('[data-service]').forEach((card) => {
-      const show = filter === 'All' || (card as HTMLElement).dataset.service === filter;
-      (card as HTMLElement).hidden = !show;
-      if (show) visible += 1;
+    document.querySelectorAll('[data-pane]').forEach((pane) => {
+      (pane as HTMLElement).hidden = (pane as HTMLElement).dataset.pane !== tab;
     });
-    if (empty instanceof HTMLElement) empty.hidden = visible > 0;
   });
 </script>
 
 <style>
   .section-margin {
     padding-top: 16.88rem;
+  }
+
+  .project-heading-wrapper {
+    display: flex;
+    flex-direction: column;
   }
 
   .tabs {
@@ -112,6 +237,10 @@ const filters = ['All', ...Array.from(new Set(projectDetails.map((p) => p.servic
     gap: 2rem;
   }
 
+  .projects-list[data-pane][hidden] {
+    display: none;
+  }
+
   .project-card {
     text-decoration: none;
     color: inherit;
@@ -126,28 +255,70 @@ const filters = ['All', ...Array.from(new Set(projectDetails.map((p) => p.servic
     object-fit: cover;
   }
 
+  .blog-post-image-wrapper .image-full-width {
+    aspect-ratio: 4 / 3;
+  }
+
   .projects-text-wrapper {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
   }
 
-  .empty-note {
-    color: var(--gray-300);
-    margin-top: 2rem;
+  .heading-wrapper-bottom-padding {
+    padding-bottom: 2.5rem;
+  }
+
+  .blog-content-card {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .blog-posts-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .blog-post-card {
+    background: var(--white);
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .blog-posts-text-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .blog-flex-horizontal-layout {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .button-wrapper-center {
+    display: flex;
+    justify-content: center;
   }
 
   @media (max-width: 991px) {
-    .projects-list {
+    .projects-list,
+    .blog-posts-list {
       grid-template-columns: repeat(2, 1fr);
     }
   }
 
   @media (max-width: 767px) {
-    .projects-list {
+    .projects-list,
+    .blog-posts-list {
       grid-template-columns: 1fr;
     }
   }
 </style>
-
-

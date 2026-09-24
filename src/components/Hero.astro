@@ -1,27 +1,17 @@
 ---
 import { hero } from '../content/landing';
-
-const words = hero.title.split(' ');
 ---
 
 <section class="section hero-section" id="hero">
-  <div class="bg-about-us" aria-hidden="true"></div>
   <div class="container">
     <div class="hero-wrapper">
       <div class="hero-left-content">
-        <h1 aria-label={hero.title}>
-          {
-            words.map((word, i) => (
-              <span class="hero-word reveal" style={`transition-delay:${i * 120}ms`} aria-hidden="true">
-                {word}
-                {i < words.length - 1 ? ' ' : ''}
-              </span>
-            ))
-          }
-        </h1>
-        <div class="text-m reveal" style="transition-delay:240ms">{hero.body}</div>
-        <div class="button-wrapper reveal" style="transition-delay:360ms">
-          <a class="button-white button-white-grey-hover" href={hero.ctaHref} aria-label="contact">
+        <h1 class="reveal">{hero.title}</h1>
+        <div class="max-width-text-wrapper reveal" style="transition-delay:120ms">
+          <div class="text-m">{hero.body}</div>
+        </div>
+        <div class="button-wrapper reveal" style="transition-delay:240ms">
+          <a class="button-white-grey-hover" href={hero.ctaHref} aria-label="contact">
             <span class="swap">
               <span>{hero.ctaLabel}</span>
               <span aria-hidden="true">{hero.ctaLabel}</span>
@@ -31,6 +21,7 @@ const words = hero.title.split(' ');
       </div>
     </div>
   </div>
+  <div class="bg-about-us" aria-hidden="true"></div>
 </section>
 
 <style>

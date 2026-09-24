@@ -7,48 +7,48 @@ import { teamIntro, team } from '../content/landing';
     <div class="content-vertical-align-center">
       <div class="teams-content">
         <h2 class="reveal">{teamIntro.title}</h2>
-        <div class="teams-grid-collection">
-          <div class="teams-rail">
-            {
-              team.map((member) => (
-                <div class="teams-item reveal">
-                  <a class="teams-card" href={member.href} aria-label="teams card">
-                    <span class="teams-image-wrapper">
-                      <img
-                        class="image-inner"
-                        src={member.image}
-                        srcset={member.srcset}
-                        sizes={member.sizes}
-                        alt={member.name}
-                        loading="eager"
-                      />
-                    </span>
-                    <span class="teams-text-button-wrapper">
-                      <span class="teams-text-wrapper">
-                        <span class="heading-s">{member.name}</span>
-                        <span class="grey-content">
-                          <span class="text-s">{member.role}</span>
-                        </span>
-                      </span>
-                      <span class="round-button">
-                        <span class="arrow" aria-hidden="true">
-                          <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                              d="M1.5 11L6.5 6L1.5 1"
-                              stroke="currentColor"
-                              stroke-width="1.5"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                            />
-                          </svg>
-                        </span>
+      </div>
+      <div class="teams-grid-collection">
+        <div class="teams-rail">
+          {
+            team.map((member) => (
+              <div class="teams-item reveal">
+                <a class="teams-card" href={member.href} aria-label="teams card">
+                  <span class="teams-image-wrapper">
+                    <img
+                      class="image-inner"
+                      src={member.image}
+                      srcset={member.srcset}
+                      sizes={member.sizes}
+                      alt={member.name}
+                      loading="eager"
+                    />
+                  </span>
+                  <span class="teams-text-button-wrapper">
+                    <span class="teams-text-wrapper">
+                      <span class="heading-s">{member.name}</span>
+                      <span class="grey-content">
+                        <span class="text-s">{member.role}</span>
                       </span>
                     </span>
-                  </a>
-                </div>
-              ))
-            }
-          </div>
+                    <span class="round-button">
+                      <span class="arrow" aria-hidden="true">
+                        <svg width="8" height="12" viewBox="0 0 8 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M1.5 11L6.5 6L1.5 1"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                  </span>
+                </a>
+              </div>
+            ))
+          }
         </div>
       </div>
     </div>
@@ -63,9 +63,16 @@ import { teamIntro, team } from '../content/landing';
   }
 
   .teams-rail {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 1.5rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+
+  .teams-item {
+    flex: none;
+    width: 23rem;
   }
 
   .teams-card {
@@ -79,7 +86,7 @@ import { teamIntro, team } from '../content/landing';
 
   .image-inner {
     width: 100%;
-    aspect-ratio: 3 / 4;
+    height: 30rem;
     object-fit: cover;
   }
 
@@ -97,14 +104,18 @@ import { teamIntro, team } from '../content/landing';
   }
 
   @media (max-width: 991px) {
-    .teams-rail {
-      grid-template-columns: repeat(2, 1fr);
+    .teams-item {
+      width: 21rem;
+    }
+
+    .image-inner {
+      height: 25rem;
     }
   }
 
-  @media (max-width: 767px) {
-    .teams-rail {
-      grid-template-columns: 1fr;
+  @media (max-width: 479px) {
+    .image-inner {
+      height: 22rem;
     }
   }
 </style>
