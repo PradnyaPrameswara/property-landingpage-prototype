@@ -3,9 +3,6 @@ import Base from '../layouts/Base.astro';
 import CTASection from '../components/CTASection.astro';
 import utility from '../content/generated/utility.json';
 
-function clean(html: string): string {
-  return html.replace(/ data-w-id="[^"]*"/g, '').replace(/ style="opacity:0"/g, '');
-}
 ---
 
 <Base
@@ -19,7 +16,7 @@ function clean(html: string): string {
       <div class="licenses-text-wrapper reveal">
         <div class="text-s">{utility.licensesIntro}</div>
       </div>
-      <div class="content-vertical-left-licenses reveal" set:html={clean(utility.licensesBlocks)} />
+      <div class="content-vertical-left-licenses reveal" set:html={utility.licensesBlocks} />
     </div>
   </section>
 
