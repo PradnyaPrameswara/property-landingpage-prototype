@@ -138,7 +138,7 @@ try {
           const style = heading ? getComputedStyle(heading) : null;
           return {
             index,
-            label: heading?.textContent?.replace(/\\s+/g, ' ').trim().slice(0, 120) ?? '',
+            label: heading?.textContent?.replace(/\s+/g, ' ').trim().slice(0, 120) ?? '',
             className: el.className,
             y: Math.round((rect.top + scrollY) * 10) / 10,
             height: Math.round(rect.height * 10) / 10,
