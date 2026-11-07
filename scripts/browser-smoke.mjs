@@ -72,6 +72,15 @@ try {
       assert.equal(await tab.getAttribute('data-active'), 'true', 'service tab should activate on hover');
     }
 
+    // The viewport capture is the true browser view, including fixed backgrounds.
+    // Full-page captures may reposition viewport-fixed backgrounds during stitching.
+    await page.screenshot({
+      path: `artifacts/screenshots/viewport-home-${width}.png`,
+      fullPage: false,
+      animations: 'disabled',
+      timeout: 90000,
+    });
+
     await page.screenshot({
       path: `artifacts/screenshots/home-${width}.png`,
       fullPage: true,
