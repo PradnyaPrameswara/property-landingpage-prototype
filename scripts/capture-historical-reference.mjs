@@ -74,6 +74,12 @@ try {
       await page.waitForTimeout(4000);
       await page.evaluate(() => document.fonts.ready);
 
+      if (sample.name === 'webflow-reference') {
+        await page.addStyleTag({
+          content: '[style*="opacity:0"],[style*="opacity: 0"] { opacity: 1 !important; }',
+        });
+      }
+
       const details = await page.evaluate(() => {
         function box(selector) {
           const el = document.querySelector(selector);
@@ -164,7 +170,71 @@ try {
           timeout: 60000,
         });
       }
-      results.push({ width, sample: sample.name, ...details, cssFailures, sections });
+      const advantages = await page.evaluate(() => {
+        const section = document.querySelector('section.advantages');
+        if (!section) return null;
+        const selectors = [
+          'section.advantages', 'section.advantages .container',
+          'section.advantages .content-grid',
+          'section.advantages .column-sticky',
+          'section.advantages .column-left',
+          'section.advantages .column-right',
+          'section.advantages .column-card-advant',
+          'section.advantages .column-card-advant-top',
+          'section.advantages .circle-grey',
+        ];
+        return Object.fromEntries(selectors.map((selector) => {
+          const el = document.querySelector(selector);
+          if (!el) return [selector, null];
+          const rect = el.getBoundingClientRect();
+          const style = getComputedStyle(el);
+          return [selector, {
+            width: Number(rect.width.toFixed(2)),
+            height: Number(rect.height.toFixed(2)),
+            x: Number(rect.x.toFixed(2)),
+            top: Number((rect.top + scrollY).toFixed(2)),
+            padding: [style.paddingTop,style.paddingRight,style.paddingBottom,style.paddingLeft],
+            gap: style.gap,
+            display: style.display,
+            position: style.position,
+            gridTemplateColumns: style.gridTemplateColumns,
+            gridTemplateRows: style.gridTemplateRows,
+            alignItems: style.alignItems,
+            justifyContent: style.justifyContent,
+            maxWidth: style.maxWidth,
+            aspectRatio: style.aspectRatio,
+          }];
+        }));
+      });
+      const advantagesText = await page.evaluate(() => {
+        const section = document.querySelector('section.advantages');
+        if (!section) return null;
+        const describe = (el) => {
+          if (!el) return null;
+          const r = el.getBoundingClientRect();
+          const css = getComputedStyle(el);
+          return {
+            width: Number(r.width.toFixed(2)),
+            height: Number(r.height.toFixed(2)),
+            font: css.fontFamily,
+            size: css.fontSize,
+            lineHeight: css.lineHeight,
+            letterSpacing: css.letterSpacing,
+            color: css.color,
+            margin: css.margin,
+          };
+        };
+        return {
+          intro: describe(section.querySelector('.column-left .text-s')),
+          introWrapper: describe(section.querySelector('.max-width-text-wrapper')),
+          cards: Array.from(section.querySelectorAll('.column-card-advant')).map((card) => ({
+            card: describe(card),
+            title: describe(card.querySelector('.column-card-advant-header')),
+            quote: describe(card.querySelector('.column-card-advant-bottom .text-s')),
+          })),
+        };
+      });
+      results.push({ width, sample: sample.name, ...details, cssFailures, sections, advantages, advantagesText });
       console.log(sample.name + ' ' + width + 'px: ' + JSON.stringify({
         title: details.h1, titleBounds: details.heroTitle,
         cssLoaded: details.linkedCssReady, cssFailures,
