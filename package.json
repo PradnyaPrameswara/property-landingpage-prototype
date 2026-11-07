@@ -9,7 +9,8 @@
     "preview": "astro preview",
     "check": "astro check && tsc --noEmit",
     "guard": "node scripts/guard.mjs",
-    "qa:browser": "node scripts/browser-smoke.mjs"
+    "qa:browser": "node scripts/browser-smoke.mjs",
+    "qa:reference": "node scripts/capture-historical-reference.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.0.0",

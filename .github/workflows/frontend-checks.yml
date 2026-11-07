@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -24,9 +26,12 @@ jobs:
       - run: npm run guard -- --dist
       - run: npx playwright-core install --with-deps chromium
       - run: npm run qa:browser
+      - run: npm run qa:reference
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: proforma-responsive-screenshots
-          path: artifacts/screenshots/
+          path: |
+            artifacts/screenshots/
+            artifacts/visual-reference/
           if-no-files-found: ignore
