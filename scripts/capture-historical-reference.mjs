@@ -90,6 +90,16 @@ try {
             lineHeight: style.lineHeight,
             color: style.color,
             backgroundImage: style.backgroundImage.slice(0, 200),
+            backgroundSize: style.backgroundSize,
+            backgroundPosition: style.backgroundPosition,
+            backgroundAttachment: style.backgroundAttachment,
+            transform: style.transform,
+            overflow: style.overflow,
+            paddingTop: style.paddingTop,
+            paddingBottom: style.paddingBottom,
+            border: style.border,
+            letterSpacing: style.letterSpacing,
+            fontWeight: style.fontWeight,
           };
         }
         const originalStylesheet = document.querySelector(
