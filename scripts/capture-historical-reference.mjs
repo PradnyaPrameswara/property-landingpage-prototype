@@ -200,7 +200,40 @@ try {
           }];
         }));
       });
-      results.push({ width, sample: sample.name, ...details, cssFailures, sections, advantages });
+      const advantagesText = await page.evaluate(() => {
+        const section = document.querySelector('section.advantages');
+        if (!section) return null;
+        const describe = (el) => {
+          if (!el) return null;
+          const r = el.getBoundingClientRect();
+          const css = getComputedStyle(el);
+          return {
+            width: Number(r.width.toFixed(2)),
+            height: Number(r.height.toFixed(2)),
+            font: css.fontFamily,
+            size: css.fontSize,
+            lineHeight: css.lineHeight,
+            letterSpacing: css.letterSpacing,
+            color: css.color,
+            margin: css.margin,
+          };
+        };
+        return {
+          intro: describe(section.querySelector('.column-left .text-s')),
+          introWrapper: describe(section.querySelector('.max-width-text-wrapper')),
+          cards: Array.from(section.querySelectorAll('.column-card-advant')).map((card) => ({
+            card: describe(card),
+            title: describe(card.querySelector('.column-card-advant-header')),
+            quote: describe(card.querySelector('.column-card-advant-bottom .text-s')),
+          })),
+        };
+      });
+      if (sample.name === 'webflow-reference') {
+        await page.addStyleTag({
+          content: '[style*="opacity:0"],[style*="opacity: 0"] { opacity: 1 !important; }',
+        });
+      }
+      results.push({ width, sample: sample.name, ...details, cssFailures, sections, advantages, advantagesText });
       console.log(sample.name + ' ' + width + 'px: ' + JSON.stringify({
         title: details.h1, titleBounds: details.heroTitle,
         cssLoaded: details.linkedCssReady, cssFailures,
