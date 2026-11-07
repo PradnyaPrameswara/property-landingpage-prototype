@@ -82,24 +82,63 @@ const { title, description, header = 'dark' } = Astro.props;
         items.forEach((el) => el.classList.add('is-visible'));
       }
 
-      // Mobile menu toggle. No framework, plain class switch.
-      const burger = document.querySelector('[data-burger]');
-      const menu = document.querySelector('[data-mobile-menu]');
-      const blur = document.querySelector('[data-menu-blur]');
-      const closeBtn = document.querySelector('[data-menu-close]');
+      // Accessible menu navigation, no React hydration or effects.
+      const burger = document.querySelector<HTMLButtonElement>('[data-burger]');
+      const menu = document.querySelector<HTMLElement>('[data-mobile-menu]');
+      const blur = document.querySelector<HTMLElement>('[data-menu-blur]');
+      const closeBtn = document.querySelector<HTMLButtonElement>('[data-menu-close]');
+      const desktopMenu = window.matchMedia('(min-width: 992px)');
 
-      function setMenu(open: boolean) {
-        menu?.classList.toggle('open', open);
+      function setMenu(open: boolean, restoreFocus = true) {
+        if (!menu) return;
+        menu.classList.toggle('open', open);
+        menu.setAttribute('aria-hidden', String(!open));
         blur?.classList.toggle('hidden', !open);
         burger?.setAttribute('aria-expanded', String(open));
         document.body.style.overflow = open ? 'hidden' : '';
+        if (open) closeBtn?.focus();
+        else if (restoreFocus) burger?.focus();
       }
 
       burger?.addEventListener('click', () => setMenu(true));
       closeBtn?.addEventListener('click', () => setMenu(false));
       blur?.addEventListener('click', () => setMenu(false));
+      menu?.querySelectorAll('a[href]').forEach((link) => {
+        link.addEventListener('click', () => setMenu(false, false));
+      });
+
       document.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape') setMenu(false);
+        if (!menu?.classList.contains('open')) return;
+        if (event.key === 'Escape') {
+          event.preventDefault();
+          setMenu(false);
+          return;
+        }
+        if (event.key !== 'Tab') return;
+
+        const focusable = Array.from(
+          menu.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'),
+        ).filter((element) => element.getClientRects().length > 0);
+        if (focusable.length === 0) {
+          event.preventDefault();
+          return;
+        }
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        } else if (!menu.contains(document.activeElement)) {
+          event.preventDefault();
+          first.focus();
+        }
+      });
+
+      desktopMenu.addEventListener('change', () => {
+        if (desktopMenu.matches && menu?.classList.contains('open')) setMenu(false, false);
       });
 
       // Custom View cursor over project card images only. Fine pointers only.
