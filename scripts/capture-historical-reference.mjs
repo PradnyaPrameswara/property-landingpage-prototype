@@ -245,6 +245,7 @@ try {
             width: Number(r.width.toFixed(2)),
             height: Number(r.height.toFixed(2)),
             display: css.display, visibility: css.visibility,
+            backgroundColor: css.backgroundColor,
             position: css.position, order: css.order, gap: css.gap,
             padding: [css.paddingTop,css.paddingRight,css.paddingBottom,css.paddingLeft],
             font: css.fontFamily, size: css.fontSize, lineHeight: css.lineHeight,
@@ -309,6 +310,9 @@ try {
           Math.abs(actual - expected) > 1) {
         geometryRegressions.push(label + ' at ' + width + 'px: expected ' + expected + 'px, got ' + actual + 'px');
       }
+    }
+    if (reference.services?.section?.backgroundColor !== rewrite.services?.section?.backgroundColor) {
+      geometryRegressions.push('Services section background mismatch at ' + width + 'px');
     }
     for (const [key, label] of [['firstTab', 'Services first tab'], ['tabs', 'Services list']]) {
       const actual = rewrite.services?.[key]?.height;
