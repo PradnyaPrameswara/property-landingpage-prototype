@@ -1,0 +1,35 @@
+name: Generate official shadcn Base UI components
+
+on:
+  push:
+    branches: [feat/shadcn-all-base-components]
+
+permissions:
+  contents: read
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci
+      - name: Generate all available Base UI shadcn components
+        run: npx --yes shadcn@latest add --all --yes --overwrite
+        env:
+          CI: 'true'
+      - name: Export generated component source and resolved dependencies
+        if: always()
+        run: |
+          mkdir -p artifacts
+          tar -czf artifacts/shadcn-generated.tgz src/components src/lib src/styles package.json package-lock.json components.json
+          printf '%s\n' 'shadcn Base UI generated source archived'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: shadcn-base-all-source
+          path: artifacts/shadcn-generated.tgz
+          if-no-files-found: error
