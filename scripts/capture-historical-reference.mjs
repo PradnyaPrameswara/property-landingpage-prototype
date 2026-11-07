@@ -234,7 +234,38 @@ try {
           })),
         };
       });
-      results.push({ width, sample: sample.name, ...details, cssFailures, sections, advantages, advantagesText });
+      const services = await page.evaluate(() => {
+        const section = document.querySelector('section#services');
+        if (!section) return null;
+        const read = (el) => {
+          if (!el) return null;
+          const r = el.getBoundingClientRect(), css = getComputedStyle(el);
+          return {
+            x: Number(r.x.toFixed(2)), y: Number((r.y + scrollY).toFixed(2)),
+            width: Number(r.width.toFixed(2)),
+            height: Number(r.height.toFixed(2)),
+            display: css.display, visibility: css.visibility,
+            position: css.position, order: css.order, gap: css.gap,
+            padding: [css.paddingTop,css.paddingRight,css.paddingBottom,css.paddingLeft],
+            font: css.fontFamily, size: css.fontSize, lineHeight: css.lineHeight,
+          };
+        };
+        const get = (selector) => read(section.querySelector(selector));
+        return {
+          section: read(section),
+          container: get('.container'),
+          wrapper: get('.autotabs-wrapper'),
+          title: get('h2'),
+          tabsContainer: get('.autotabs-container'),
+          relative: get('.relative'),
+          tabs: get('.autotabs'),
+          firstTab: get('.autotabs-tab'),
+          stage: get('.services-stage, .tabs-content-heading-wrapper-visible'),
+          image: get('.servises-image'),
+          tabsAll: Array.from(section.querySelectorAll('.autotabs-tab')).map(read),
+        };
+      });
+      results.push({ width, sample: sample.name, ...details, cssFailures, sections, advantages, advantagesText, services });
       console.log(sample.name + ' ' + width + 'px: ' + JSON.stringify({
         title: details.h1, titleBounds: details.heroTitle,
         cssLoaded: details.linkedCssReady, cssFailures,
