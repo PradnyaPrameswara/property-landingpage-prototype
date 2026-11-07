@@ -8,7 +8,9 @@ import { advantagesIntro, advantages } from '../content/landing';
       <div class="column-sticky">
         <div class="column-left gap-40">
           <h2 class="reveal">{advantagesIntro.title}</h2>
-          <div class="text-s reveal">{advantagesIntro.body}</div>
+          <div class="max-width-text-wrapper reveal">
+            <div class="text-s">{advantagesIntro.body}</div>
+          </div>
         </div>
       </div>
       <div class="column-right column-right-flex">
@@ -49,6 +51,12 @@ import { advantagesIntro, advantages } from '../content/landing';
     padding-top: 7.5rem;
     padding-bottom: 7.5rem;
     color: var(--white);
+    font-family: var(--font-display);
+  }
+
+  .max-width-text-wrapper {
+    width: 100%;
+    max-width: 28.68625rem;
   }
 
   @media (hover: hover) and (pointer: fine) {
@@ -100,9 +108,13 @@ import { advantagesIntro, advantages } from '../content/landing';
 
   .column-card-advant-top {
     display: flex;
+    flex-direction: column;
     align-items: flex-start;
     gap: 2.5rem;
-    min-height: 8.175rem;
+  }
+
+  .column-card-advant-header {
+    width: 100%;
   }
 
   .circle-grey {
