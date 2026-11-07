@@ -8,7 +8,7 @@ import { blogIntro, blogPosts } from '../content/landing';
       <h2 class="reveal">{blogIntro.title}</h2>
       <div class="blog-content-card">
         <div class="blog-posts-list-wrapper">
-          <div class="blog-posts-list">
+          <div class="blog-posts-list" role="region" tabindex="0" aria-label="Recent articles, scroll horizontally to see more">
             {
               blogPosts.slice(0, 3).map((post) => (
                 <div class="blog-posts-item reveal">
@@ -132,7 +132,48 @@ import { blogIntro, blogPosts } from '../content/landing';
 
   @media (max-width: 767px) {
     .blog-posts-list {
-      grid-template-columns: 1fr;
+      display: flex;
+      grid-template-columns: none;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory;
+      gap: 1rem;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .blog-posts-list::-webkit-scrollbar {
+      display: none;
+    }
+
+    .blog-posts-item {
+      flex: 0 0 min(82%, 22rem);
+      min-width: 0;
+      scroll-snap-align: start;
+    }
+
+    .blog-post-card {
+      gap: 0;
+    }
+
+    .blog-post-image-wrapper .image-full-width {
+      height: auto;
+      aspect-ratio: 1.06;
+    }
+
+    .blog-posts-text-wrapper {
+      padding: 1.5rem;
+    }
+
+    .blog-posts-text-wrapper .heading-s {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+    }
+
+    .blog-flex-horizontal-layout {
+      margin-top: 1rem;
     }
   }
 </style>
