@@ -1,3 +1,26 @@
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);
+
+/* Keep the ProForma baseline without Tailwind preflight resets. */
+@theme inline {
+  --color-background: var(--white);
+  --color-foreground: var(--black);
+  --color-primary: var(--black);
+  --color-primary-foreground: var(--white);
+  --color-secondary: var(--gray-50);
+  --color-secondary-foreground: var(--black);
+  --color-muted: var(--gray-50);
+  --color-muted-foreground: var(--gray-300);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--white);
+  --color-border: var(--gray-100);
+  --color-input: var(--gray-100);
+  --color-ring: var(--accent);
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.625rem;
+}
+
 :root {
   --gray-300: #5c5c5c;
   --gray-200: #bdbdbd;

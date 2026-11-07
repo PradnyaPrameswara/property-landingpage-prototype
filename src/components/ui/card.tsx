@@ -1,11 +1,12 @@
 import type { AnchorHTMLAttributes, ReactNode } from 'react';
+import { cn } from '../../lib/utils';
 
 type CardLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
   children: ReactNode;
 };
 
 export function CardLink({ className = '', children, ...rest }: CardLinkProps) {
-  const cls = `card-link${className ? ` ${className}` : ''}`;
+  const cls = cn('card-link', className);
   return (
     <a className={cls} {...rest}>
       {children}
