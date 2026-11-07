@@ -6,7 +6,7 @@ import { chromium } from 'playwright-core';
 const base = 'http://127.0.0.1:4321';
 const server = spawn(process.platform === 'win32' ? 'npm.cmd' : 'npm', [
   'run', 'preview', '--', '--host', '127.0.0.1', '--port', '4321',
-], { stdio: ['ignore', 'pipe', 'pipe'] });
+], { stdio: ['ignore', 'pipe', 'pipe'], detached: process.platform !== 'win32' });
 let serverOutput = '';
 server.stdout.on('data', (chunk) => { serverOutput += chunk.toString(); });
 server.stderr.on('data', (chunk) => { serverOutput += chunk.toString(); });
@@ -28,11 +28,13 @@ async function ready() {
 let browser;
 try {
   await ready();
+  console.log('Preview ready; launching browser smoke checks');
   browser = await chromium.launch({ headless: true });
   mkdirSync('artifacts/screenshots', { recursive: true });
   const failures = [];
 
   for (const width of [390, 768, 1440]) {
+    console.log(`Checking home at ${width}px`);
     const page = await browser.newPage({
       viewport: { width, height: 900 },
       deviceScaleFactor: 1,
@@ -77,6 +79,7 @@ try {
       timeout: 90000,
     });
     await page.close();
+    console.log(`Completed home screenshot at ${width}px`);
   }
 
   const routes = [
@@ -89,6 +92,7 @@ try {
   const page = await browser.newPage({ viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' });
   page.on('pageerror', (error) => failures.push(error.message));
   for (const route of routes) {
+    console.log(`Checking ${route}`);
     const response = await page.goto(base + route, { waitUntil: 'domcontentloaded' });
     assert.equal(response?.status(), 200, `route ${route} failed`);
     assert.ok(await page.locator('h1').count() >= 1, `route ${route} missing heading`);
@@ -105,5 +109,16 @@ try {
   console.log('Browser smoke passed: 3 home widths, 10 routes, menu, FAQ, services and filters.');
 } finally {
   if (browser) await browser.close();
-  server.kill('SIGTERM');
+  if (server.pid) {
+    try {
+      if (process.platform === 'win32') {
+        const killer = spawn('taskkill', ['/PID', String(server.pid), '/T', '/F'], { stdio: 'ignore' });
+        killer.unref();
+      } else {
+        process.kill(-server.pid, 'SIGTERM');
+      }
+    } catch {
+      server.kill('SIGTERM');
+    }
+  }
 }
