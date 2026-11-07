@@ -74,6 +74,12 @@ try {
       await page.waitForTimeout(4000);
       await page.evaluate(() => document.fonts.ready);
 
+      if (sample.name === 'webflow-reference') {
+        await page.addStyleTag({
+          content: '[style*="opacity:0"],[style*="opacity: 0"] { opacity: 1 !important; }',
+        });
+      }
+
       const details = await page.evaluate(() => {
         function box(selector) {
           const el = document.querySelector(selector);
@@ -228,11 +234,6 @@ try {
           })),
         };
       });
-      if (sample.name === 'webflow-reference') {
-        await page.addStyleTag({
-          content: '[style*="opacity:0"],[style*="opacity: 0"] { opacity: 1 !important; }',
-        });
-      }
       results.push({ width, sample: sample.name, ...details, cssFailures, sections, advantages, advantagesText });
       console.log(sample.name + ' ' + width + 'px: ' + JSON.stringify({
         title: details.h1, titleBounds: details.heroTitle,
