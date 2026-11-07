@@ -5,8 +5,8 @@ import { servicesIntro, services } from '../content/landing';
 <section class="section section-long-bottom-pading" id="services">
   <div class="container">
     <div class="autotabs-wrapper">
-      <h2 class="reveal">{servicesIntro.title}</h2>
       <div class="autotabs-container" data-autotabs>
+        <h2 class="reveal">{servicesIntro.title}</h2>
         <div class="relative">
           <ul class="autotabs" data-tabs>
             {
@@ -108,10 +108,12 @@ import { servicesIntro, services } from '../content/landing';
 </script>
 
 <style>
+  .section#services {
+    background-color: var(--gray-50);
+  }
+
   .autotabs-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 2.5rem;
+    display: block;
   }
 
   .autotabs-container {
@@ -125,50 +127,49 @@ import { servicesIntro, services } from '../content/landing';
   }
 
   .autotabs {
-    display: block;
+    display: flex;
+    flex-direction: column;
     list-style: none;
-    width: 50%;
-    margin: 0 0 0 auto;
+    width: 100%;
+    margin: 0;
     padding: 0;
     min-width: 0;
   }
 
   .autotabs-item {
-    margin: 0;
+    margin: 0 0 0 auto;
     padding: 0;
+    width: 50%;
+    border-top: 1px solid var(--gray-100);
   }
 
   .autotabs-tab {
-    color: #0d0b0b;
+    color: var(--black);
     text-decoration: none;
     display: flex;
+    align-items: center;
     width: 100%;
-    min-height: 44px;
-    padding: 2.81rem 0 2.81rem 2rem;
-    border-top: 1px solid var(--gray-100);
+    height: 8.09375rem;
+    padding: 0 0 0 2rem;
     transition:
       color 0.35s ease-out,
       background-color 0.35s ease-out;
   }
 
-  .autotabs-item:last-child .autotabs-tab {
-    border-bottom: 1px solid var(--gray-100);
-  }
-
   .autotabs-tab.current {
-    color: #fff;
+    color: var(--white);
     background: var(--accent);
   }
 
   .autotabs-tab.current:focus-visible {
-    outline-color: #fff;
+    outline-color: var(--white);
   }
 
   .services-stage {
     position: absolute;
     left: 0;
     top: 0;
-    width: min(35.5rem, 49%);
+    width: min(31.9rem, 49%);
     height: 100%;
   }
 
@@ -200,7 +201,7 @@ import { servicesIntro, services } from '../content/landing';
 
   .services-heropage-wrapper {
     width: min(31.75rem, 100%);
-    aspect-ratio: 508 / 360;
+    height: 22.5rem;
     overflow: hidden;
   }
 
@@ -222,66 +223,37 @@ import { servicesIntro, services } from '../content/landing';
   }
 
   @media (max-width: 991px) {
-    .autotabs-wrapper {
-      gap: 2rem;
+    .section#services {
+      padding-top: 5rem;
     }
 
-    .autotabs-container {
-      gap: 2rem;
+    .section#services .container {
+      padding-inline: 1.25rem;
+    }
+
+    .services-stage {
+      width: 42%;
     }
   }
 
   @media (max-width: 767px) {
-    .relative {
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
+    .autotabs {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
     }
 
-    .autotabs {
+    .autotabs-item {
       width: 100%;
       margin: 0;
-      order: 2;
+    }
+
+    .autotabs-tab {
+      height: 7.54375rem;
+      padding-left: 0.75rem;
     }
 
     .services-stage {
-      position: relative;
-      order: 1;
-      width: 100%;
-      height: auto;
-      display: grid;
-    }
-
-    .service-panel {
-      position: relative;
-      inset: auto;
-      grid-area: 1 / 1;
-    }
-
-    .services-heropage-wrapper {
-      width: 100%;
-    }
-
-    .autotabs-tab {
-      padding: 1.5rem 0 1.5rem 1.5rem;
-    }
-  }
-
-  @media (max-width: 479px) {
-    .autotabs-wrapper {
-      gap: 1.5rem;
-    }
-
-    .autotabs-container {
-      gap: 1.5rem;
-    }
-
-    .service-panel {
-      gap: 1.25rem;
-    }
-
-    .autotabs-tab {
-      padding: 1.25rem 0 1.25rem 1.25rem;
+      display: none;
     }
   }
 

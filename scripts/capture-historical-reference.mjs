@@ -234,7 +234,39 @@ try {
           })),
         };
       });
-      results.push({ width, sample: sample.name, ...details, cssFailures, sections, advantages, advantagesText });
+      const services = await page.evaluate(() => {
+        const section = document.querySelector('section#services');
+        if (!section) return null;
+        const read = (el) => {
+          if (!el) return null;
+          const r = el.getBoundingClientRect(), css = getComputedStyle(el);
+          return {
+            x: Number(r.x.toFixed(2)), y: Number((r.y + scrollY).toFixed(2)),
+            width: Number(r.width.toFixed(2)),
+            height: Number(r.height.toFixed(2)),
+            display: css.display, visibility: css.visibility,
+            backgroundColor: css.backgroundColor,
+            position: css.position, order: css.order, gap: css.gap,
+            padding: [css.paddingTop,css.paddingRight,css.paddingBottom,css.paddingLeft],
+            font: css.fontFamily, size: css.fontSize, lineHeight: css.lineHeight,
+          };
+        };
+        const get = (selector) => read(section.querySelector(selector));
+        return {
+          section: read(section),
+          container: get('.container'),
+          wrapper: get('.autotabs-wrapper'),
+          title: get('h2'),
+          tabsContainer: get('.autotabs-container'),
+          relative: get('.relative'),
+          tabs: get('.autotabs'),
+          firstTab: get('.autotabs-tab'),
+          stage: get('.services-stage, .tabs-content-heading-wrapper-visible'),
+          image: get('.servises-image'),
+          tabsAll: Array.from(section.querySelectorAll('.autotabs-tab')).map(read),
+        };
+      });
+      results.push({ width, sample: sample.name, ...details, cssFailures, sections, advantages, advantagesText, services });
       console.log(sample.name + ' ' + width + 'px: ' + JSON.stringify({
         title: details.h1, titleBounds: details.heroTitle,
         cssLoaded: details.linkedCssReady, cssFailures,
@@ -260,6 +292,50 @@ try {
         ', Δy=' + (b.y - a.y).toFixed(1) + 'px, Δheight=' + (b.height - a.height).toFixed(1) + 'px');
     }
   }
+
+  // Lock in parity gains for sections that have been individually measured and corrected.
+  // Keep unrelated sections advisory until their own visual-fix PRs are complete.
+  const geometryRegressions = [];
+  for (const width of [390, 768, 1440]) {
+    const reference = results.find((item) => item.width === width && item.sample === 'webflow-reference');
+    const rewrite = results.find((item) => item.width === width && item.sample === 'astro-rewrite');
+    if (!reference || !rewrite) {
+      geometryRegressions.push('Missing comparison for ' + width + 'px');
+      continue;
+    }
+    for (const [index, label] of [[2, 'Services'], [3, 'Advantages']]) {
+      const actual = rewrite.sections[index]?.height;
+      const expected = reference.sections[index]?.height;
+      if (!Number.isFinite(actual) || !Number.isFinite(expected) ||
+          Math.abs(actual - expected) > 1) {
+        geometryRegressions.push(label + ' at ' + width + 'px: expected ' + expected + 'px, got ' + actual + 'px');
+      }
+    }
+    // The archival Webflow section is transparent over a gray ancestor, while
+    // Astro paints the same visible #efefef surface directly on the section.
+    if (rewrite.services?.section?.backgroundColor !== 'rgb(239, 239, 239)') {
+      geometryRegressions.push('Services visible gray surface mismatch at ' + width + 'px');
+    }
+    for (const [key, label] of [['firstTab', 'Services first tab'], ['tabs', 'Services list']]) {
+      const actual = rewrite.services?.[key]?.height;
+      const expected = reference.services?.[key]?.height;
+      if (!Number.isFinite(actual) || !Number.isFinite(expected) ||
+          Math.abs(actual - expected) > 1) {
+        geometryRegressions.push(label + ' at ' + width + 'px: expected ' + expected + 'px, got ' + actual + 'px');
+      }
+    }
+    const refCards = reference.advantagesText?.cards ?? [];
+    const astCards = rewrite.advantagesText?.cards ?? [];
+    if (refCards.length !== astCards.length) {
+      geometryRegressions.push('Advantages card count mismatch at ' + width + 'px');
+    }
+    for (let i = 0; i < Math.min(refCards.length, astCards.length); i++) {
+      if (Math.abs(refCards[i].card.height - astCards[i].card.height) > 1) {
+        geometryRegressions.push('Advantages card ' + (i + 1) + ' height mismatch at ' + width + 'px');
+      }
+    }
+  }
+  assert.deepEqual(geometryRegressions, [], 'Corrected Webflow section geometry must remain within 1px');
 
   const missingCss = results.filter(
     (sample) => sample.sample === 'webflow-reference' && sample.linkedCssReady !== true,
