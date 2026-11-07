@@ -8,7 +8,7 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "check": "astro check && tsc --noEmit",
-    "guard": "powershell -NoProfile -Command \"rg -n 'useEffect|useLayoutEffect|@radix-ui|jquery|webflow\\.schunk|data-w-id' src; if ($?) { exit 1 }\""
+    "guard": "node scripts/guard.mjs"
   },
   "dependencies": {
     "astro": "^4.16.0",

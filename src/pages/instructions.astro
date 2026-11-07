@@ -3,16 +3,13 @@ import Base from '../layouts/Base.astro';
 import CTASection from '../components/CTASection.astro';
 import utility from '../content/generated/utility.json';
 
-function clean(html: string): string {
-  return html.replace(/ data-w-id="[^"]*"/g, '').replace(/ style="opacity:0"/g, '');
-}
 ---
 
 <Base header="light" title="Instructions | ProForma" description="Instructions for customizing the ProForma template.">
   <section class="section section-margin section-long-bottom" id="hero">
     <div class="container">
       <h1 class="reveal">Instructions</h1>
-      <div class="content-vertical-left-licenses reveal" set:html={clean(utility.instructionsBlocks)} />
+      <div class="content-vertical-left-licenses reveal" set:html={utility.instructionsBlocks} />
     </div>
   </section>
 
