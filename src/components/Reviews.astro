@@ -11,7 +11,7 @@ import { reviewsIntro, reviewsListA, reviewsListB, reviewStars } from '../conten
           <div class="text-s reveal">{reviewsIntro.body}</div>
         </div>
       </div>
-      <div class="column-right">
+      <div class="column-right" role="region" tabindex="0" aria-label="Client reviews, scroll vertically to read more">
         <div class="reviews-list-wrapper">
           <div class="reviews-list">
             {
@@ -67,23 +67,27 @@ import { reviewsIntro, reviewsListA, reviewsListB, reviewStars } from '../conten
     background-position: 0 0, 50%;
     background-repeat: repeat, no-repeat;
     background-size: auto, cover;
-    min-height: 50rem;
+    height: 50rem;
+    min-height: 0;
     padding-top: 7.5rem;
     padding-bottom: 7.5rem;
     color: var(--white);
   }
 
-  @media (hover: hover) and (pointer: fine) {
-    .section.reviews {
-      background-attachment: scroll, fixed;
-    }
+  .container-relative {
+    height: 100%;
+  }
+
+  .div-block-10 {
+    align-self: center;
   }
 
   .content-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
-    align-items: start;
+    height: 100%;
+    align-items: stretch;
   }
 
   .column-left {
@@ -99,6 +103,16 @@ import { reviewsIntro, reviewsListA, reviewsListB, reviewStars } from '../conten
     gap: 1rem;
     align-items: start;
     justify-content: end;
+    height: 100%;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    overscroll-behavior-y: contain;
+  }
+
+  .column-right::-webkit-scrollbar {
+    display: none;
   }
 
   .reviews-list {
@@ -123,18 +137,40 @@ import { reviewsIntro, reviewsListA, reviewsListB, reviewStars } from '../conten
   }
 
   @media (max-width: 991px) {
+    .section.reviews {
+      height: 48.3rem;
+      padding-top: 5rem;
+      padding-bottom: 5rem;
+    }
+
+    .content-grid {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto minmax(0, 1fr);
+      gap: 2rem;
+    }
+
+    .div-block-10 {
+      align-self: start;
+    }
+
     .column-left {
-      grid-column: 1 / -1;
       max-width: none;
     }
 
     .column-right {
-      grid-column: 1 / -1;
+      grid-column: 1;
       justify-content: start;
+      min-height: 0;
     }
 
     .right-mobile-hidden {
       display: none;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .section.reviews {
+      height: 49.3rem;
     }
   }
 
