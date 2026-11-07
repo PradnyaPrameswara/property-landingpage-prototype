@@ -628,6 +628,10 @@ button:hover .arrow svg {
     font-size: 3.5rem;
   }
 
+  .site-header {
+    height: 6rem;
+  }
+
   .site-header .container {
     padding-inline: 1.25rem;
   }

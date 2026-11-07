@@ -27,7 +27,8 @@ import { hero } from '../content/landing';
 <style>
   .hero-section {
     color: var(--white);
-    padding-top: 6.1rem;
+    padding-top: 10rem;
+    padding-bottom: 7.5rem;
     min-height: 90svh;
     display: flex;
     align-items: stretch;
@@ -35,21 +36,13 @@ import { hero } from '../content/landing';
 
   .bg-about-us {
     position: absolute;
-    top: -7.62%;
-    left: -5%;
-    width: 110%;
-    height: 110%;
+    inset: 0;
     z-index: 0;
     background-image: url('/images/687de0372adef1af8e3e9473_main-transform.webp');
     background-position: 50%;
     background-repeat: no-repeat;
     background-size: cover;
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    .bg-about-us {
-      background-attachment: fixed;
-    }
+    transform: translateY(-2.74%) scale(1.1);
   }
 
   .hero-section .container {
@@ -70,7 +63,7 @@ import { hero } from '../content/landing';
     flex-direction: column;
     justify-content: flex-end;
     gap: 2.5rem;
-    padding-bottom: 2.5rem;
+    padding-bottom: 0;
   }
 
   .hero-left-content .text-m {
@@ -82,12 +75,16 @@ import { hero } from '../content/landing';
   .hero-left-content .button-white-grey-hover {
     font-family: var(--font-display);
     line-height: 1.2;
-    padding-block: 0.9125rem;
+    letter-spacing: normal;
+    border: 0;
+    padding: 0.95rem 1.75rem 1rem;
   }
 
   @media (min-width: 768px) and (max-width: 991px) {
     .hero-section {
       min-height: 100svh;
+      padding-top: 5rem;
+      padding-bottom: 5rem;
     }
 
     .hero-section .container {
@@ -100,18 +97,22 @@ import { hero } from '../content/landing';
 
     .hero-left-content {
       width: min(31.52rem, 100%);
-      padding-bottom: 0;
     }
   }
 
   @media (max-width: 767px) {
+    .hero-section {
+      padding-top: 5rem;
+      padding-bottom: 5rem;
+    }
+
     .hero-wrapper {
       grid-template-columns: 1fr;
     }
 
     .bg-about-us {
-      height: 110svh;
-      top: -7.7svh;
+      height: 100svh;
+      background-size: auto 100%;
     }
   }
 </style>
