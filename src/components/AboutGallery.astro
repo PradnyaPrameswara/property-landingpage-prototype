@@ -200,15 +200,22 @@ const tones = ['red', 'dark-red', 'burgundi-red'];
 
   @media (max-width: 767px) {
     .gallery-item-sticky {
-      position: static;
-      min-height: 0;
+      position: sticky;
+      top: 0;
+      min-height: 100svh;
     }
 
     .gallery-scroll-distance {
-      display: none;
+      display: block;
+      height: 120svh;
+    }
+
+    .card-slide {
+      min-height: 100svh;
     }
 
     .slide-content-flex-left {
+      justify-content: flex-start;
       padding: 6rem 2rem;
       gap: 1.5rem;
     }
