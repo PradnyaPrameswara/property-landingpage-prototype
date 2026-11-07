@@ -124,7 +124,47 @@ try {
         fullPage: false,
         animations: 'disabled',
       });
-      results.push({ width, sample: sample.name, ...details, cssFailures });
+      const sections = await page.evaluate(() => {
+        const candidates = Array.from(document.querySelectorAll('section, .section'));
+        const elements = candidates.filter((el) =>
+          !el.parentElement?.closest('section, .section') &&
+          el.getBoundingClientRect().height > 60
+        );
+        return elements.map((el, index) => {
+          el.setAttribute('data-parity-section', String(index));
+          const rect = el.getBoundingClientRect();
+          const heading = el.querySelector('h1, h2, h3');
+          const headingRect = heading?.getBoundingClientRect();
+          const style = heading ? getComputedStyle(heading) : null;
+          return {
+            index,
+            label: heading?.textContent?.replace(/\s+/g, ' ').trim().slice(0, 120) ?? '',
+            className: el.className,
+            y: Math.round((rect.top + scrollY) * 10) / 10,
+            height: Math.round(rect.height * 10) / 10,
+            width: Math.round(rect.width * 10) / 10,
+            headingY: headingRect ? Math.round((headingRect.top + scrollY) * 10) / 10 : null,
+            headingHeight: headingRect ? Math.round(headingRect.height * 10) / 10 : null,
+            headingFont: style?.fontFamily ?? null,
+            headingSize: style?.fontSize ?? null,
+          };
+        });
+      });
+      if (sections.length < 8) {
+        throw new Error(sample.name + ': expected at least 8 top-level homepage sections, got ' + sections.length);
+      }
+      const maxCaptures = width === 768 ? 0 : width === 390 ? 12 : 14;
+      for (const section of sections.slice(0, maxCaptures)) {
+        const locator = page.locator('[data-parity-section="' + section.index + '"]');
+        await locator.scrollIntoViewIfNeeded();
+        await page.waitForTimeout(180);
+        await locator.screenshot({
+          path: outputDir + '/' + sample.name + '-section-' + String(section.index).padStart(2, '0') + '-' + width + '.png',
+          animations: 'disabled',
+          timeout: 60000,
+        });
+      }
+      results.push({ width, sample: sample.name, ...details, cssFailures, sections });
       console.log(sample.name + ' ' + width + 'px: ' + JSON.stringify({
         title: details.h1, titleBounds: details.heroTitle,
         cssLoaded: details.linkedCssReady, cssFailures,
@@ -135,6 +175,21 @@ try {
   writeFileSync(outputDir + '/metrics.json', JSON.stringify({
     referenceCommit, samples: results,
   }, null, 2));
+
+  for (const width of [390, 768, 1440]) {
+    const original = results.find((x) => x.width === width && x.sample === 'webflow-reference');
+    const rewrite = results.find((x) => x.width === width && x.sample === 'astro-rewrite');
+    if (!original || !rewrite) continue;
+    console.log('SECTION COUNTS ' + width + 'px: Webflow=' + original.sections.length +
+      ', Astro=' + rewrite.sections.length);
+    for (let i = 0; i < Math.min(original.sections.length, rewrite.sections.length); i++) {
+      const a = original.sections[i];
+      const b = rewrite.sections[i];
+      console.log('SECTION ' + width + 'px #' + i + ': ' + a.label.slice(0, 35) +
+        ' vs ' + b.label.slice(0, 35) +
+        ', Δy=' + (b.y - a.y).toFixed(1) + 'px, Δheight=' + (b.height - a.height).toFixed(1) + 'px');
+    }
+  }
 
   const missingCss = results.filter(
     (sample) => sample.sample === 'webflow-reference' && sample.linkedCssReady !== true,
