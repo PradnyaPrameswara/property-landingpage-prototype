@@ -58,27 +58,32 @@ import { advantagesIntro, advantages } from '../content/landing';
   }
 
   .content-grid {
+    position: relative;
     display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    gap: 4rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
     align-items: start;
   }
 
   .column-sticky {
     position: sticky;
     top: 6rem;
+    min-width: 0;
   }
 
   .column-left {
     display: flex;
     flex-direction: column;
-    gap: 2.5rem;
+    gap: 3rem;
+    max-width: 33.13rem;
   }
 
   .column-right-flex {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem;
+    width: min(100%, 26.25rem);
+    justify-self: center;
   }
 
   .column-card-advant-white {
@@ -86,18 +91,18 @@ import { advantagesIntro, advantages } from '../content/landing';
     color: var(--black);
     padding: 2rem;
     width: 100%;
-    max-width: 26.25rem;
-    aspect-ratio: 1 / 1;
+    height: 21rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 1rem;
+    gap: 1.25rem;
   }
 
   .column-card-advant-top {
     display: flex;
-    align-items: center;
-    gap: 1.25rem;
+    align-items: flex-start;
+    gap: 2.5rem;
+    min-height: 8.175rem;
   }
 
   .circle-grey {
@@ -111,13 +116,45 @@ import { advantagesIntro, advantages } from '../content/landing';
     padding-top: 3px;
   }
 
-  @media (max-width: 767px) {
+  @media (max-width: 991px) {
+    .section.advantages {
+      padding-block: 5rem;
+    }
+
+    .section.advantages .container {
+      padding-inline: 1.25rem;
+    }
+
     .content-grid.mobile-flex {
-      grid-template-columns: 1fr;
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
     }
 
     .column-sticky {
       position: static;
+      width: 100%;
+    }
+
+    .column-right-flex {
+      width: 100%;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.25rem;
+    }
+
+    .column-card-advant-white {
+      height: 25rem;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .column-right-flex {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .column-card-advant-white {
+      height: auto;
+      min-height: 0;
     }
   }
 </style>
