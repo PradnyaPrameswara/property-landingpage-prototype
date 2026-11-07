@@ -54,6 +54,16 @@ try {
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
     assert.ok(overflow <= 1, `homepage overflow at ${width}px: ${overflow}px`);
 
+    // The viewport capture is the true browser view, including fixed backgrounds.
+    // Full-page captures may reposition viewport-fixed backgrounds during stitching.
+    await page.screenshot({
+      path: `artifacts/screenshots/viewport-home-${width}.png`,
+      fullPage: false,
+      animations: 'disabled',
+      timeout: 90000,
+    });
+
+
     if (width === 390) {
       await page.locator('[data-burger]').click();
       const menu = page.locator('[data-mobile-menu]');
@@ -72,15 +82,16 @@ try {
       assert.equal(await tab.getAttribute('data-active'), 'true', 'service tab should activate on hover');
     }
 
-    // The viewport capture is the true browser view, including fixed backgrounds.
-    // Full-page captures may reposition viewport-fixed backgrounds during stitching.
-    await page.screenshot({
-      path: `artifacts/screenshots/viewport-home-${width}.png`,
-      fullPage: false,
-      animations: 'disabled',
-      timeout: 90000,
+    // Trigger on-scroll reveals before the stitched overview snapshot.
+    await page.evaluate(async () => {
+      const step = Math.max(250, Math.round(innerHeight * 0.8));
+      for (let y = 0; y < document.documentElement.scrollHeight; y += step) {
+        window.scrollTo(0, y);
+        await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      }
+      window.scrollTo(0, 0);
+      await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
     });
-
     await page.screenshot({
       path: `artifacts/screenshots/home-${width}.png`,
       fullPage: true,
