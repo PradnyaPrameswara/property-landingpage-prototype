@@ -311,8 +311,10 @@ try {
         geometryRegressions.push(label + ' at ' + width + 'px: expected ' + expected + 'px, got ' + actual + 'px');
       }
     }
-    if (reference.services?.section?.backgroundColor !== rewrite.services?.section?.backgroundColor) {
-      geometryRegressions.push('Services section background mismatch at ' + width + 'px');
+    // The archival Webflow section is transparent over a gray ancestor, while
+    // Astro paints the same visible #efefef surface directly on the section.
+    if (rewrite.services?.section?.backgroundColor !== 'rgb(239, 239, 239)') {
+      geometryRegressions.push('Services visible gray surface mismatch at ' + width + 'px');
     }
     for (const [key, label] of [['firstTab', 'Services first tab'], ['tabs', 'Services list']]) {
       const actual = rewrite.services?.[key]?.height;
