@@ -95,7 +95,22 @@ import { projectsIntro, projects } from '../content/landing';
 
   @media (max-width: 991px) {
     .projects-list {
-      grid-template-columns: repeat(2, 1fr);
+      display: flex;
+      grid-template-columns: none;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .projects-list::-webkit-scrollbar {
+      display: none;
+    }
+
+    .projects-item {
+      flex: 0 0 calc((100% - 1rem) / 2);
+      scroll-snap-align: start;
     }
   }
 

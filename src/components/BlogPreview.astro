@@ -125,8 +125,36 @@ import { blogIntro, blogPosts } from '../content/landing';
   }
 
   @media (max-width: 991px) {
+    .blog-posts-list {
+      display: flex;
+      grid-template-columns: none;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory;
+      gap: 1rem;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .blog-posts-list::-webkit-scrollbar {
+      display: none;
+    }
+
+    .blog-posts-item {
+      flex: 0 0 calc((100% - 1rem) / 2);
+      min-width: 0;
+      scroll-snap-align: start;
+    }
+
     .image-full-width {
-      height: 20rem;
+      height: 16rem;
+    }
+
+    .blog-posts-text-wrapper .heading-s {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
     }
   }
 
