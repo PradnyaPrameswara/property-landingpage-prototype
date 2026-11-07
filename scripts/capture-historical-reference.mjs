@@ -164,7 +164,43 @@ try {
           timeout: 60000,
         });
       }
-      results.push({ width, sample: sample.name, ...details, cssFailures, sections });
+      const advantages = await page.evaluate(() => {
+        const section = document.querySelector('section.advantages');
+        if (!section) return null;
+        const selectors = [
+          'section.advantages', 'section.advantages .container',
+          'section.advantages .content-grid',
+          'section.advantages .column-sticky',
+          'section.advantages .column-left',
+          'section.advantages .column-right',
+          'section.advantages .column-card-advant',
+          'section.advantages .column-card-advant-top',
+          'section.advantages .circle-grey',
+        ];
+        return Object.fromEntries(selectors.map((selector) => {
+          const el = document.querySelector(selector);
+          if (!el) return [selector, null];
+          const rect = el.getBoundingClientRect();
+          const style = getComputedStyle(el);
+          return [selector, {
+            width: Number(rect.width.toFixed(2)),
+            height: Number(rect.height.toFixed(2)),
+            x: Number(rect.x.toFixed(2)),
+            top: Number((rect.top + scrollY).toFixed(2)),
+            padding: [style.paddingTop,style.paddingRight,style.paddingBottom,style.paddingLeft],
+            gap: style.gap,
+            display: style.display,
+            position: style.position,
+            gridTemplateColumns: style.gridTemplateColumns,
+            gridTemplateRows: style.gridTemplateRows,
+            alignItems: style.alignItems,
+            justifyContent: style.justifyContent,
+            maxWidth: style.maxWidth,
+            aspectRatio: style.aspectRatio,
+          }];
+        }));
+      });
+      results.push({ width, sample: sample.name, ...details, cssFailures, sections, advantages });
       console.log(sample.name + ' ' + width + 'px: ' + JSON.stringify({
         title: details.h1, titleBounds: details.heroTitle,
         cssLoaded: details.linkedCssReady, cssFailures,
