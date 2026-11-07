@@ -1,8 +1,8 @@
 import type { InputHTMLAttributes } from 'react';
+import { cn } from '../../lib/utils';
 
 type TextFieldProps = InputHTMLAttributes<HTMLInputElement>;
 
-export function TextField({ className = '', ...rest }: TextFieldProps) {
-  const cls = `text-field${className ? ` ${className}` : ''}`;
-  return <input className={cls} {...rest} />;
+export function TextField({ className, ...rest }: TextFieldProps) {
+  return <input data-slot="input" className={cn('text-field', className)} {...rest} />;
 }
