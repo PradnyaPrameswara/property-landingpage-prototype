@@ -33,6 +33,8 @@ jobs:
           if (radix.length) throw new Error('Radix dependencies found: ' + radix.join(', '));
           console.log('No Radix packages in dependency graph.');
           NODE
+      - name: Inspect generated highlight hook
+        run: sed -n '1,220p' src/hooks/use-highlighted-code.ts
       - run: npm run guard
       - run: npm run check
       - run: npm run build
